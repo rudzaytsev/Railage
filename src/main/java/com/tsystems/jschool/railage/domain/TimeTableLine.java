@@ -3,13 +3,16 @@ package com.tsystems.jschool.railage.domain;
 /**
  * Represents time table line for some railway
  * station in domain of information system
- * Time table line contains train and time data.
+ * Time table line contains train, station and time data.
  * @author Rudolph Zaytsev
  */
 public class TimeTableLine extends DomainObject {
 
     /** train */
     private Train train;
+
+    /** railway station */
+    private Station station;
 
     /** information about time when train visits railway station */
     private TimeInfo timeInfo;
@@ -28,5 +31,13 @@ public class TimeTableLine extends DomainObject {
 
     public void setTimeInfo(TimeInfo timeInfo) {
         this.timeInfo = timeInfo;
+    }
+
+    public Station getStation() {
+        return station;
+    }
+
+    public void setStation(Station station) {
+        this.station = station;
     }
 }

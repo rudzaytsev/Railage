@@ -14,6 +14,9 @@ public class TrainRide extends DomainObject {
 
     /** tickets for ride */
     private List<Ticket> tickets;
+    
+    /** train route for ride */
+    private Route route;
 
     public Train getTrain() {
         return train;
@@ -29,5 +32,13 @@ public class TrainRide extends DomainObject {
 
     public void setTickets(List<Ticket> tickets) {
         this.tickets = tickets;
+    }
+
+    public Route getRoute() {
+        return route;
+    }
+
+    public void setRoute(Route route) {
+        this.route = route;
     }
 }
