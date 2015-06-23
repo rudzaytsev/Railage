@@ -11,8 +11,8 @@ public class RoutePart extends DomainObject {
     /** current train station of route part */
     private Station station;
 
-    /** next train station in route */
-    private Station next;
+    /** next train route part in route */
+    private RoutePart next;
 
     /**
      * current station status in route
@@ -36,11 +36,11 @@ public class RoutePart extends DomainObject {
         this.station = station;
     }
 
-    public Station getNext() {
+    public RoutePart getNext() {
         return next;
     }
 
-    public void setNext(Station next) {
+    public void setNext(RoutePart next) {
         this.next = next;
     }
 
