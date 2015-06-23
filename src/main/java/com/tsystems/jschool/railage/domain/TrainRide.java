@@ -1,5 +1,6 @@
 package com.tsystems.jschool.railage.domain;
 
+import java.sql.Date;
 import java.util.List;
 
 /**
@@ -17,6 +18,9 @@ public class TrainRide extends DomainObject {
     
     /** train route for ride */
     private Route route;
+
+    /** date of train ride */
+    private Date date;
 
     public Train getTrain() {
         return train;
@@ -40,5 +44,13 @@ public class TrainRide extends DomainObject {
 
     public void setRoute(Route route) {
         this.route = route;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 }
