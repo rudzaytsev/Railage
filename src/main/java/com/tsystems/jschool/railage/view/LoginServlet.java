@@ -1,13 +1,17 @@
 package com.tsystems.jschool.railage.view;
 
 import com.tsystems.jschool.railage.service.UserService;
+import com.tsystems.jschool.railage.service.helper.Pair;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
+
+
 
 /**
  * Created by rudolph on 25.06.15.
@@ -17,9 +21,14 @@ public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String login = request.getParameter("login");
         String password = request.getParameter("password");
-        boolean logged = UserService.logInUser(login,password);
-        if(logged){
-
+        Pair<Boolean,Integer> pair  = UserService.logInUser(login,password);
+        boolean logged = pair.getFirst();
+        if (logged){
+            int id = pair.getSecond();
+            HttpSession session = request.getSession();
+            session.setAttribute(Utils.LOGGED_SESSION_ATTRIB, logged);
+            session.setAttribute(Utils.USER_LOGIN_SESSION_ATTRIB,login);
+            session.setAttribute(Utils.USER_ID_SESSION_ATTRIB,id);
             response.sendRedirect("trains.jsp");
             return;
         }
@@ -32,6 +41,7 @@ public class LoginServlet extends HttpServlet {
 
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        response.sendRedirect("register.jsp");
+        return;
     }
 }

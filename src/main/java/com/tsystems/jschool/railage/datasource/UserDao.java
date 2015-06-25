@@ -49,21 +49,25 @@ public class UserDao extends JpaDao implements Dao<User,Integer> {
 
 
     public boolean exists(User user){
+
+        User existedUser = this.findUserByParams(
+                                user.getLogin(),user.getPassword());
+        return existedUser != null;
+    }
+
+    public User findUserByParams(String login, String password){
         String queryStr =
-           "SELECT u FROM User u WHERE u.login = ?1 AND u.password = ?2";
+                "SELECT u FROM User u WHERE u.login = ?1 AND u.password = ?2";
         TypedQuery<User> query = entityManager.createQuery(queryStr, User.class);
-        query.setParameter(1, user.getLogin());
-        query.setParameter(2, user.getPassword());
+        query.setParameter(1, login);
+        query.setParameter(2, password);
+        User registered = null;
         try {
-            User registred = query.getSingleResult();
+            registered = query.getSingleResult();
         }
         catch(NoResultException e){
-            return false;
+            return null;
         }
-        finally {
-
-        }
-        return true;
-
+        return registered;
     }
 }
