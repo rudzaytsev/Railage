@@ -7,12 +7,12 @@ import javax.persistence.Persistence;
 /**
  * Created by rudolph on 23.06.15.
  */
-public abstract class JpaDAO implements DAO {
+public abstract class JpaDao {
 
     protected EntityManager entityManager;
 
-    public JpaDAO(){
-       EntityManagerFactory factory = Persistence.createEntityManagerFactory("cc");
+    public JpaDao(){
+       EntityManagerFactory factory = Persistence.createEntityManagerFactory("RailagePU");
        entityManager = factory.createEntityManager();
     }
 

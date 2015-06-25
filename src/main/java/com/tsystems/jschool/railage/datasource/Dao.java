@@ -9,7 +9,7 @@ import java.util.List;
  * Data Access Object interface
  * @author Rudolph Zaytsev
  */
-public interface DAO<T extends DomainObject,K extends Serializable> {
+public interface Dao<T,K extends Serializable> {
 
     /**
      * Saves entity to persistence context.
