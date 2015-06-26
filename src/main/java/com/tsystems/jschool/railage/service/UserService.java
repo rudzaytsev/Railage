@@ -20,9 +20,8 @@ public class UserService {
                                 new Triple(false,null,null);
     }
 
-    public static boolean isValidUserData(User user){
-        return isValidLogin(user.getLogin()) &&
-               isValidPassword(user.getPassword());
+    public static boolean isValidUserData(String login,String password, String role){
+        return isValidLogin(login) && isValidPassword(password) && isValidPassword(role);
     }
 
     public static boolean isValidLogin(String login){
@@ -40,6 +39,29 @@ public class UserService {
             }
         }
         return false;
+    }
+
+    public static boolean addUser(String login, String password, String role){
+        boolean done = true;
+        try {
+            User user = new User(login, password, role);
+            userDao.persist(user);
+
+        }
+        catch(Exception e){
+            done = false;
+        }
+        return done;
+    }
+
+    public static Integer createUser(String login, String password, String role){
+       Integer id = null;
+        boolean added = addUser(login,password,role);
+       if(added){
+           User user = userDao.findUserByParams(login,password);
+           id = user.getId();
+       }
+       return id;
     }
 
 

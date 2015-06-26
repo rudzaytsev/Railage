@@ -7,7 +7,7 @@ import javax.persistence.*;
  * in information system domain
  * @author Rudolph Zaytsev
  */
-@Entity
+@MappedSuperclass
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class DomainObject {
 
