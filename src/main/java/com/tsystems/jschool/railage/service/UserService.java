@@ -4,6 +4,7 @@ import com.tsystems.jschool.railage.datasource.UserDao;
 import com.tsystems.jschool.railage.domain.Role;
 import com.tsystems.jschool.railage.domain.User;
 import com.tsystems.jschool.railage.service.helper.Pair;
+import com.tsystems.jschool.railage.service.helper.Triple;
 
 /**
  * Created by rudolph on 24.06.15.
@@ -13,9 +14,10 @@ public class UserService {
 
     private static UserDao userDao = new UserDao();
 
-    public static Pair<Boolean,Integer> logInUser(String login, String password){
+    public static Triple<Boolean,Integer,String> logInUser(String login, String password){
         User user = userDao.findUserByParams(login, password);
-        return (user != null) ? new Pair(true,user.getId()) : new Pair(false,null);
+        return (user != null) ? new Triple(true,user.getId(),user.getRole()) :
+                                new Triple(false,null,null);
     }
 
     public static boolean isValidUserData(User user){

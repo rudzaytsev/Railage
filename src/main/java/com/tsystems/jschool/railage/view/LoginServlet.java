@@ -1,7 +1,9 @@
 package com.tsystems.jschool.railage.view;
 
+import com.tsystems.jschool.railage.domain.Role;
 import com.tsystems.jschool.railage.service.UserService;
 import com.tsystems.jschool.railage.service.helper.Pair;
+import com.tsystems.jschool.railage.service.helper.Triple;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,17 +20,20 @@ import java.io.IOException;
  */
 @WebServlet(name = "LoginServlet")
 public class LoginServlet extends HttpServlet {
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String login = request.getParameter("login");
         String password = request.getParameter("password");
-        Pair<Boolean,Integer> pair  = UserService.logInUser(login,password);
-        boolean logged = pair.getFirst();
+        Triple<Boolean,Integer,String> triple  = UserService.logInUser(login,password);
+        boolean logged = triple.getFirst();
         if (logged){
-            int id = pair.getSecond();
+            int id = triple.getSecond();
+            boolean isEmployee = Role.EMPLOYEE.toString().equals(triple.getThird());
             HttpSession session = request.getSession();
             session.setAttribute(Utils.LOGGED_SESSION_ATTRIB, logged);
             session.setAttribute(Utils.USER_LOGIN_SESSION_ATTRIB,login);
             session.setAttribute(Utils.USER_ID_SESSION_ATTRIB,id);
+            session.setAttribute(Utils.IS_EMPLOYEE_SESSION_ATTRIB,isEmployee);
             response.sendRedirect("trains.jsp");
             return;
         }
