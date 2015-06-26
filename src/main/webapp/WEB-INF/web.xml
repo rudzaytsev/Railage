@@ -4,13 +4,17 @@
 
 <web-app>
   <display-name>Archetype Created Web Application</display-name>
+  <filter>
+        <filter-name>AccessFilter</filter-name>
+        <filter-class>com.tsystems.jschool.railage.view.filters.AccessFilter</filter-class>
+  </filter>
   <servlet>
       <servlet-name>LoginServlet</servlet-name>
-      <servlet-class>com.tsystems.jschool.railage.view.LoginServlet</servlet-class>
+      <servlet-class>com.tsystems.jschool.railage.view.servlets.LoginServlet</servlet-class>
   </servlet>
   <servlet>
       <servlet-name>RegisterServlet</servlet-name>
-      <servlet-class>com.tsystems.jschool.railage.view.RegisterServlet</servlet-class>
+      <servlet-class>com.tsystems.jschool.railage.view.servlets.RegisterServlet</servlet-class>
   </servlet>
   <servlet-mapping>
       <servlet-name>LoginServlet</servlet-name>
@@ -20,6 +24,10 @@
       <servlet-name>RegisterServlet</servlet-name>
       <url-pattern>/RegisterServlet</url-pattern>
   </servlet-mapping>
+  <filter-mapping>
+      <filter-name>AccessFilter</filter-name>
+      <url-pattern>/trains.jsp</url-pattern>
+  </filter-mapping>
 
   <welcome-file-list>
       <welcome-file>index.jsp</welcome-file>

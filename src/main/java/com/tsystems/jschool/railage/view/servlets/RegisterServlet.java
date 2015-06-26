@@ -1,6 +1,7 @@
-package com.tsystems.jschool.railage.view;
+package com.tsystems.jschool.railage.view.servlets;
 
 import com.tsystems.jschool.railage.service.UserService;
+import com.tsystems.jschool.railage.view.Utils;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
