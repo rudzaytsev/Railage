@@ -23,12 +23,12 @@
         </tr>
         </thead>
         <tbody align="center">
-        <c:forEach var="ride" items="${trains}">
+        <c:forEach var="train" items="${trains}">
             <tr>
-                <td>${ride.id}</td>
-                <td>${ride.number}</td>
-                <td>${ride.seats}</td>
-                <td><a href="rides.jsp?trainId=${ride.id}">Watch</a></td>
+                <td>${train.id}</td>
+                <td>${train.number}</td>
+                <td>${train.seats}</td>
+                <td><a href="/trains/${train.id}">Watch</a></td>
             </tr>
         </c:forEach>
         </tbody>

@@ -19,28 +19,24 @@ public class Utils {
 
     public static final String TRAINS = "trains";
 
+    public static final String TRAIN_RIDES = "trainRides";
+
     public static boolean isEmployee(String role){
         return Role.EMPLOYEE.toString().equals(role);
     }
 
-    public static Integer extractTrainId(String queryStr){
-        StringTokenizer tokenizer = new StringTokenizer(queryStr,"?&=");
-        boolean foundParamName = false;
+    public static Integer extractId(String uri){
+        StringTokenizer tokenizer = new StringTokenizer(uri,"/");
         Integer result = null;
         while (tokenizer.hasMoreTokens()){
             String token = tokenizer.nextToken();
-            if ("trainId".equals(token)){
-                foundParamName = true;
-                continue;
-            }
-            if (foundParamName){
+            if (!tokenizer.hasMoreTokens()){
                 try {
                     result = Integer.parseInt(token);
                 }
                 catch(NumberFormatException e){
-                    // does nothing
+                    return null;
                 }
-                foundParamName = false;
             }
         }
         return result;

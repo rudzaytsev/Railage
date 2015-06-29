@@ -5,11 +5,13 @@ package com.tsystems.jschool.railage.view;
  */
 public class Pages {
 
-    public static final String INDEX = "index.jsp";
+    public static final String INDEX = "/index.jsp";
 
-    public static final String REGISTRATION = "register.jsp";
+    public static final String REGISTRATION = "/register.jsp";
 
-    public static final String TRAINS = "trains.jsp";
+    public static final String TRAINS = "/trains.jsp";
 
-    public static final String ERROR = "error.jsp";
+    public static final String ERROR = "/error.jsp";
+
+    public static final String RIDES = "/rides.jsp";
 }

@@ -1,15 +1,12 @@
 package com.tsystems.jschool.railage.view.servlets;
 
-import com.tsystems.jschool.railage.domain.Role;
 import com.tsystems.jschool.railage.service.TrainService;
 import com.tsystems.jschool.railage.service.UserService;
-import com.tsystems.jschool.railage.service.helper.Pair;
 import com.tsystems.jschool.railage.service.helper.Triple;
 import com.tsystems.jschool.railage.view.Pages;
 import com.tsystems.jschool.railage.view.Utils;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -26,7 +23,7 @@ public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String login = request.getParameter("login");
         String password = request.getParameter("password");
-        Triple<Boolean,Integer,String> triple  = UserService.logInUser(login,password);
+        Triple<Boolean,Integer,String> triple = UserService.logInUser(login,password);
         boolean logged = triple.getFirst();
         if (logged){
             int id = triple.getSecond();

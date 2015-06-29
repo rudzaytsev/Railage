@@ -18,6 +18,7 @@ public class TrainService {
     }
 
     public static List<TrainRide> findAllRidesByTrainId(Integer id){
-        return null;
+        Train train = trainDao.findById(id);
+        return (train != null) ? train.getRides() : null;
     }
 }

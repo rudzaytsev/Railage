@@ -2,7 +2,6 @@ package com.tsystems.jschool.railage.datasource;
 
 import com.tsystems.jschool.railage.domain.Train;
 
-
 import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 import java.util.List;
@@ -19,7 +18,7 @@ public class TrainDao extends JpaDao<Train> {
 
     @Override
     public Train findById(Integer id) {
-        String queryStr = "SELECT t FROM Train t WHERE id=?1";
+        String queryStr = "SELECT t FROM Train t WHERE t.id = ?1";
         TypedQuery<Train> query = entityManager.createQuery(queryStr, Train.class);
         query.setParameter(1,id);
         Train requiredTrain = null;

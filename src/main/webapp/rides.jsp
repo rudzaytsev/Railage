@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
     <title>Train Rides</title>
@@ -22,12 +23,12 @@
     </tr>
     </thead>
     <tbody align="center">
-    <c:forEach var="ride" items="${trains.getRides()}">
+    <c:forEach var="ride" items="${trainRides}">
         <tr>
             <td>${ride.id}</td>
             <td>${ride.train.number}</td>
             <td>ROUTE</td>
-            <td>${ride.rideDate}</td>
+            <td>${ride.date}</td>
         </tr>
     </c:forEach>
     </tbody>

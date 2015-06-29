@@ -21,6 +21,10 @@
       <servlet-name>RegisterServlet</servlet-name>
       <servlet-class>com.tsystems.jschool.railage.view.servlets.RegisterServlet</servlet-class>
   </servlet>
+  <servlet>
+      <servlet-name>TrainsServlet</servlet-name>
+      <servlet-class>com.tsystems.jschool.railage.view.servlets.TrainsServlet</servlet-class>
+  </servlet>
   <servlet-mapping>
       <servlet-name>LoginServlet</servlet-name>
       <url-pattern>/LoginServlet</url-pattern>
@@ -28,6 +32,10 @@
   <servlet-mapping>
       <servlet-name>RegisterServlet</servlet-name>
       <url-pattern>/RegisterServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+      <servlet-name>TrainsServlet</servlet-name>
+      <url-pattern>/trains/*</url-pattern>
   </servlet-mapping>
   <filter-mapping>
       <filter-name>AccessFilter</filter-name>
