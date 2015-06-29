@@ -1,5 +1,6 @@
 package com.tsystems.jschool.railage.domain;
 
+import javax.persistence.*;
 import java.util.List;
 
 /**
@@ -8,12 +9,17 @@ import java.util.List;
  * 2 or more route parts
  * @author Rudolph Zaytsev
  */
+@Entity
+@Table(name = "Routes")
 public class Route extends DomainObject {
 
     /** train that corresponds to route */
+    @ManyToOne
+    @JoinColumn(name = "trainId")
     private Train train;
 
     /** list of parts of the route */
+    @OneToMany(mappedBy = "route")
     private List<RoutePart> routeParts;
 
     public Train getTrain() {

@@ -1,5 +1,8 @@
 package com.tsystems.jschool.railage.domain;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.util.Date;
 
 /**
@@ -7,6 +10,8 @@ import java.util.Date;
  * of information system
  * @author Rudolph Zaytsev
  */
+@Entity
+@Table(name = "Passengers")
 public class Passenger extends DomainObject {
 
     /** Passenger's name */
@@ -16,6 +21,7 @@ public class Passenger extends DomainObject {
     private String lastName;
 
     /** Passenger's date of birth */
+    @Column(name = "birth_date")
     private Date birthDate;
 
     public String getName() {

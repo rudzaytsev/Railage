@@ -18,4 +18,6 @@ public class Utils {
     public static boolean isEmployee(String role){
         return Role.EMPLOYEE.toString().equals(role);
     }
+
+    public static final String TRAINS = "trains";
 }

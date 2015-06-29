@@ -1,5 +1,6 @@
 package com.tsystems.jschool.railage.domain;
 
+import javax.persistence.*;
 import java.sql.Date;
 import java.util.List;
 
@@ -8,15 +9,22 @@ import java.util.List;
  * Every train ride has train and tickets for ride.
  * @author Rudolph Zaytsev
  */
+@Entity
+@Table(name = "TrainRides")
 public class TrainRide extends DomainObject {
 
     /** train for ride */
+    @ManyToOne
+    @JoinColumn(name = "trainId")
     private Train train;
 
     /** tickets for ride */
+    @OneToMany(mappedBy = "trainRide")
     private List<Ticket> tickets;
     
     /** train route for ride */
+    @ManyToOne
+    @JoinColumn(name = "routeId")
     private Route route;
 
     /** date of train ride */

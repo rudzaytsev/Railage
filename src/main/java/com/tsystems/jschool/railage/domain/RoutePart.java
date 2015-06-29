@@ -1,17 +1,27 @@
 package com.tsystems.jschool.railage.domain;
 
+import javax.persistence.*;
+
 /**
  * Represents part of train route
  */
+@Entity
+@Table(name = "RouteParts")
 public class RoutePart extends DomainObject {
 
     /** route of route part */
+    @ManyToOne
+    @JoinColumn(name = "routeId")
     private Route route;
 
     /** current train station of route part */
+    @ManyToOne
+    @JoinColumn(name = "stationId")
     private Station station;
 
     /** next train route part in route */
+    @OneToOne
+    @JoinColumn(name = "nextRoutePartId")
     private RoutePart next;
 
     /**

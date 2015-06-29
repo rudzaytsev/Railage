@@ -11,26 +11,7 @@ import java.util.List;
 /**
  * Created by rudolph on 24.06.15.
  */
-public class UserDao extends JpaDao implements Dao<User,Integer> {
-
-
-
-    @Override
-    public final void persist(final User entity) {
-        EntityTransaction transaction = entityManager.getTransaction();
-        try {
-            transaction.begin();
-            entityManager.persist(entity);
-            transaction.commit();
-        }
-        finally {
-
-            if (transaction.isActive()) {
-                transaction.rollback();
-            }
-        }
-
-    }
+public class UserDao extends JpaDao<User> {
 
     @Override
     public final void update(final User entity) {

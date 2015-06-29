@@ -1,6 +1,8 @@
 package com.tsystems.jschool.railage.view.servlets;
 
+import com.tsystems.jschool.railage.service.TrainService;
 import com.tsystems.jschool.railage.service.UserService;
+import com.tsystems.jschool.railage.view.Pages;
 import com.tsystems.jschool.railage.view.Utils;
 
 import javax.servlet.ServletException;
@@ -29,11 +31,12 @@ public class RegisterServlet extends HttpServlet {
             session.setAttribute(Utils.USER_LOGIN_SESSION_ATTRIB,login);
             session.setAttribute(Utils.LOGGED_SESSION_ATTRIB,true);
             session.setAttribute(Utils.IS_EMPLOYEE_SESSION_ATTRIB,Utils.isEmployee(role));
-            response.sendRedirect("trains.jsp");
+            session.setAttribute(Utils.TRAINS, TrainService.findAllTrains());
+            response.sendRedirect(Pages.TRAINS);
             return;
         }
         else {
-            response.sendRedirect("register.jsp");
+            response.sendRedirect(Pages.REGISTRATION);
             return;
         }
 

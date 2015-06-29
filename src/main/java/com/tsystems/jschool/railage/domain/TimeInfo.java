@@ -1,5 +1,7 @@
 package com.tsystems.jschool.railage.domain;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.sql.Date;
 import java.sql.Time;
 import java.sql.Timestamp;
@@ -9,6 +11,8 @@ import java.sql.Timestamp;
  * visits of railway station
  * @author Rudolph Zaytsev
  */
+@Entity
+@Table(name = "TimeInfos")
 public class TimeInfo extends DomainObject {
 
     /**

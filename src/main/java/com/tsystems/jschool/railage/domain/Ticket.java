@@ -1,5 +1,7 @@
 package com.tsystems.jschool.railage.domain;
 
+import javax.persistence.*;
+
 /**
  * Represents ticket to train ride in
  * information system domain.
@@ -7,18 +9,26 @@ package com.tsystems.jschool.railage.domain;
  * from boarding railway station.
  * @author Rudolph Zaytsev
  */
+@Entity
+@Table(name = "Tickets")
 public class Ticket extends DomainObject {
 
     /** passenger, who bought ticket */
+    @ManyToOne
+    @JoinColumn(name = "passengerId")
     private Passenger passenger;
 
     /** train ride, which corresponds to ticket */
+    @ManyToOne
+    @JoinColumn(name = "trainRideId")
     private TrainRide trainRide;
 
     /**
      * boarding railway station for buying ticket
      * and starting travel
      */
+    @OneToOne
+    @JoinColumn(name = "boardingStationId")
     private Station boardingStation;
 
     public Passenger getPassenger() {
