@@ -37,4 +37,23 @@ public class Route extends DomainObject {
     public void setRouteParts(List<RoutePart> routeParts) {
         this.routeParts = routeParts;
     }
+
+    public RoutePart getStartRoutePart(){
+        return getRoutePartWithStatus(RoutePartStatuses.START);
+    }
+
+    public RoutePart getEndRoutePart(){
+        return getRoutePartWithStatus(RoutePartStatuses.END);
+    }
+
+    private RoutePart getRoutePartWithStatus(RoutePartStatuses status){
+        String requiredStatus = status.value();
+        for (RoutePart routePart : routeParts){
+            String currentStatus = routePart.getStatus();
+            if (requiredStatus.equals(currentStatus)){
+                return routePart;
+            }
+        }
+        return null;
+    }
 }

@@ -9,6 +9,7 @@ import javax.persistence.*;
 @Table(name = "RouteParts")
 public class RoutePart extends DomainObject {
 
+
     /** route of route part */
     @ManyToOne
     @JoinColumn(name = "routeId")
@@ -26,7 +27,7 @@ public class RoutePart extends DomainObject {
 
     /**
      * current station status in route
-     * for example: START, FINISH or STAND
+     * for example: START, END or STAND
      */
     private String status;
 
