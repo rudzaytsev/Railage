@@ -16,19 +16,19 @@
     <table>
         <thead align="center">
         <tr>
-            <td>Id</td>
+            <td> Id </td>
             <td> Train Number </td>
             <td> Number of seats </td>
             <td> Train Rides </td>
         </tr>
         </thead>
         <tbody align="center">
-        <c:forEach var="train" items="${trains}">
+        <c:forEach var="ride" items="${trains}">
             <tr>
-                <td>${train.id}</td>
-                <td>${train.number}</td>
-                <td>${train.seats}</td>
-                <td>RIDES</td>
+                <td>${ride.id}</td>
+                <td>${ride.number}</td>
+                <td>${ride.seats}</td>
+                <td><a href="rides.jsp?trainId=${ride.id}">Watch</a></td>
             </tr>
         </c:forEach>
         </tbody>
