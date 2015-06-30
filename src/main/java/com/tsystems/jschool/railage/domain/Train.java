@@ -1,6 +1,9 @@
 package com.tsystems.jschool.railage.domain;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import java.util.List;
 
 /**
@@ -15,7 +18,7 @@ import java.util.List;
 public class Train extends DomainObject {
 
     /** max number of seats in the train */
-    @Column(name = "max_seats")
+    @Column(name = "maxSeats")
     private Integer seats;
 
     /** list of train rides, done by train */

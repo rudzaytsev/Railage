@@ -1,6 +1,9 @@
 package com.tsystems.jschool.railage.domain;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 /**
  * Represents part of train route
@@ -20,16 +23,14 @@ public class RoutePart extends DomainObject {
     @JoinColumn(name = "stationId")
     private Station station;
 
-    /** next train route part in route */
-    @OneToOne
-    @JoinColumn(name = "nextRoutePartId")
-    private RoutePart next;
 
     /**
      * current station status in route
      * for example: START, END or STAND
      */
     private String status;
+
+    private Integer position;
 
     public RoutePart(){
         //does nothing
@@ -56,19 +57,19 @@ public class RoutePart extends DomainObject {
         this.station = station;
     }
 
-    public RoutePart getNext() {
-        return next;
-    }
-
-    public void setNext(RoutePart next) {
-        this.next = next;
-    }
-
     public String getStatus() {
         return status;
     }
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public Integer getPosition() {
+        return position;
+    }
+
+    public void setPosition(Integer position) {
+        this.position = position;
     }
 }

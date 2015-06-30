@@ -18,10 +18,10 @@ public class Passenger extends DomainObject {
     private String name;
 
     /** Passenger's lastname */
+    @Column(name = "lastname")
     private String lastName;
 
     /** Passenger's date of birth */
-    @Column(name = "birth_date")
     private Date birthDate;
 
     public String getName() {

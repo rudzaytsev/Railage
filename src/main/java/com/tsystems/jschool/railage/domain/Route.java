@@ -22,6 +22,9 @@ public class Route extends DomainObject {
     @OneToMany(mappedBy = "route")
     private List<RoutePart> routeParts;
 
+    @OneToMany(mappedBy = "route")
+    private List<TimeTableLine> timeTableLines;
+
     public Train getTrain() {
         return train;
     }
@@ -55,5 +58,13 @@ public class Route extends DomainObject {
             }
         }
         return null;
+    }
+
+    public List<TimeTableLine> getTimeTableLines() {
+        return timeTableLines;
+    }
+
+    public void setTimeTableLines(List<TimeTableLine> timeTableLines) {
+        this.timeTableLines = timeTableLines;
     }
 }

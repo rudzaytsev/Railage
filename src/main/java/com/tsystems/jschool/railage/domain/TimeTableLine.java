@@ -5,7 +5,7 @@ import javax.persistence.*;
 /**
  * Represents time table line for some railway
  * station in domain of information system
- * Time table line contains train, station and time data.
+ * Time table line contains train, station, route and time data.
  * @author Rudolph Zaytsev
  */
 @Entity
@@ -26,6 +26,11 @@ public class TimeTableLine extends DomainObject {
     @OneToOne
     @JoinColumn(name = "timeInfoId")
     private TimeInfo timeInfo;
+
+    /* route of train */
+    @ManyToOne
+    @JoinColumn(name = "routeId")
+    private Route route;
 
     public Train getTrain() {
         return train;
@@ -49,5 +54,13 @@ public class TimeTableLine extends DomainObject {
 
     public void setStation(Station station) {
         this.station = station;
+    }
+
+    public Route getRoute() {
+        return route;
+    }
+
+    public void setRoute(Route route) {
+        this.route = route;
     }
 }
