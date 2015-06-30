@@ -27,7 +27,10 @@
         <tr>
             <td>${ride.id}</td>
             <td>${ride.train.number}</td>
-            <td>ROUTE</td>
+            <td>
+                ${ride.route.getStartStation().name}
+                - ${ride.route.getEndStation().name}
+            </td>
             <td>${ride.date}</td>
         </tr>
     </c:forEach>

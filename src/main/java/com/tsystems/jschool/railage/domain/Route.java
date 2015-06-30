@@ -60,6 +60,22 @@ public class Route extends DomainObject {
         return null;
     }
 
+    public Station getStartStation(){
+        RoutePart startRoutePart = getStartRoutePart();
+        if (startRoutePart != null){
+            return startRoutePart.getStation();
+        }
+        return null;
+    }
+
+    public Station getEndStation(){
+        RoutePart endRoutePart = getEndRoutePart();
+        if (endRoutePart != null){
+            return endRoutePart.getStation();
+        }
+        return null;
+    }
+
     public List<TimeTableLine> getTimeTableLines() {
         return timeTableLines;
     }

@@ -1,10 +1,10 @@
 package com.tsystems.jschool.railage.domain;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.sql.Date;
 import java.sql.Time;
-import java.sql.Timestamp;
 
 /**
  * Represents time information about train
@@ -21,6 +21,7 @@ public class TimeInfo extends DomainObject {
      * for example: every day or on weekends.
      * If this flag is true, fixedDateTime member is false
      */
+    @Column(name = "periodic")
     private boolean periodicInfo;
 
     /** period of train station visiting */
@@ -32,8 +33,8 @@ public class TimeInfo extends DomainObject {
     /** train departure time */
     private Time departureTime;
 
-    /** fixed date and time of train visit */
-    private Timestamp fixedDateTime;
+    /** fixed date of train visit */
+    private Date fixedDate;
 
     public boolean isPeriodicInfo() {
         return periodicInfo;
@@ -67,11 +68,11 @@ public class TimeInfo extends DomainObject {
         this.departureTime = departureTime;
     }
 
-    public Timestamp getFixedDateTime() {
-        return fixedDateTime;
+    public Date getFixedDate() {
+        return fixedDate;
     }
 
-    public void setFixedDateTime(Timestamp fixedDateTime) {
-        this.fixedDateTime = fixedDateTime;
+    public void setFixedDate(Date fixedDate) {
+        this.fixedDate = fixedDate;
     }
 }

@@ -28,6 +28,7 @@ public class TrainRide extends DomainObject {
     private Route route;
 
     /** date of train ride */
+    @Column(name = "rideDate")
     private Date date;
 
     public Train getTrain() {
