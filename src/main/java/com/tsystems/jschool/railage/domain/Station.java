@@ -20,6 +20,15 @@ public class Station extends DomainObject {
     @OneToMany(mappedBy = "station")
     private List<TimeTableLine> timeTableLines;
 
+    public Station(){
+        //does nothing
+    }
+
+
+    public Station(String name) {
+        this.name = name;
+    }
+
     public String getName() {
         return name;
     }
