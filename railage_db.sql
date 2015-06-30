@@ -285,20 +285,20 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `railage`;
-INSERT INTO `railage`.`TimeInfos` (`id`, `period`, `periodic`, `arrivalTime`, `departureTime`, `fixedDate`) VALUES (1, 'EVERYDAY', TRUE, 'NULL', '10:00:00', 'NULL');
-INSERT INTO `railage`.`TimeInfos` (`id`, `period`, `periodic`, `arrivalTime`, `departureTime`, `fixedDate`) VALUES (2, 'EVERYDAY', TRUE, 'NULL', '11:00:00', 'NULL');
-INSERT INTO `railage`.`TimeInfos` (`id`, `period`, `periodic`, `arrivalTime`, `departureTime`, `fixedDate`) VALUES (3, 'EVERYDAY', TRUE, 'NULL', '12:00:00', 'NULL');
-INSERT INTO `railage`.`TimeInfos` (`id`, `period`, `periodic`, `arrivalTime`, `departureTime`, `fixedDate`) VALUES (4, 'EVERYDAY', TRUE, 'NULL', '13:00:00', 'NULL');
-INSERT INTO `railage`.`TimeInfos` (`id`, `period`, `periodic`, `arrivalTime`, `departureTime`, `fixedDate`) VALUES (5, 'EVERYDAY', TRUE, 'NULL', '14:00:00', 'NULL');
-INSERT INTO `railage`.`TimeInfos` (`id`, `period`, `periodic`, `arrivalTime`, `departureTime`, `fixedDate`) VALUES (6, 'EVERYDAY', TRUE, 'NULL', '15:00:00', 'NULL');
-INSERT INTO `railage`.`TimeInfos` (`id`, `period`, `periodic`, `arrivalTime`, `departureTime`, `fixedDate`) VALUES (7, 'EVERYDAY', TRUE, 'NULL', '16:00:00', 'NULL');
-INSERT INTO `railage`.`TimeInfos` (`id`, `period`, `periodic`, `arrivalTime`, `departureTime`, `fixedDate`) VALUES (8, 'EVERYDAY', TRUE, 'NULL', '17:00:00', 'NULL');
-INSERT INTO `railage`.`TimeInfos` (`id`, `period`, `periodic`, `arrivalTime`, `departureTime`, `fixedDate`) VALUES (9, 'EVERYDAY', TRUE, 'NULL', '18:00:00', 'NULL');
-INSERT INTO `railage`.`TimeInfos` (`id`, `period`, `periodic`, `arrivalTime`, `departureTime`, `fixedDate`) VALUES (10, 'EVERYDAY', TRUE, 'NULL', '19:00:00', 'NULL');
-INSERT INTO `railage`.`TimeInfos` (`id`, `period`, `periodic`, `arrivalTime`, `departureTime`, `fixedDate`) VALUES (11, 'EVERYDAY', TRUE, 'NULL', '20:00:00', 'NULL');
-INSERT INTO `railage`.`TimeInfos` (`id`, `period`, `periodic`, `arrivalTime`, `departureTime`, `fixedDate`) VALUES (12, 'EVERYDAY', TRUE, 'NULL', '21:00:00', 'NULL');
-INSERT INTO `railage`.`TimeInfos` (`id`, `period`, `periodic`, `arrivalTime`, `departureTime`, `fixedDate`) VALUES (13, 'EVERYDAY', TRUE, 'NULL', '22:00:00', 'NULL');
-INSERT INTO `railage`.`TimeInfos` (`id`, `period`, `periodic`, `arrivalTime`, `departureTime`, `fixedDate`) VALUES (14, 'EVERYDAY', TRUE, 'NULL', '23:00:00', 'NULL');
+INSERT INTO `railage`.`TimeInfos` (`id`, `period`, `periodic`, `arrivalTime`, `departureTime`, `fixedDate`) VALUES (1, 'EVERYDAY', TRUE, NULL, '10:00:00', NULL);
+INSERT INTO `railage`.`TimeInfos` (`id`, `period`, `periodic`, `arrivalTime`, `departureTime`, `fixedDate`) VALUES (2, 'EVERYDAY', TRUE, NULL, '11:00:00', NULL);
+INSERT INTO `railage`.`TimeInfos` (`id`, `period`, `periodic`, `arrivalTime`, `departureTime`, `fixedDate`) VALUES (3, 'EVERYDAY', TRUE, NULL, '12:00:00', NULL);
+INSERT INTO `railage`.`TimeInfos` (`id`, `period`, `periodic`, `arrivalTime`, `departureTime`, `fixedDate`) VALUES (4, 'EVERYDAY', TRUE, NULL, '13:00:00', NULL);
+INSERT INTO `railage`.`TimeInfos` (`id`, `period`, `periodic`, `arrivalTime`, `departureTime`, `fixedDate`) VALUES (5, 'EVERYDAY', TRUE, NULL, '14:00:00', NULL);
+INSERT INTO `railage`.`TimeInfos` (`id`, `period`, `periodic`, `arrivalTime`, `departureTime`, `fixedDate`) VALUES (6, 'EVERYDAY', TRUE, NULL, '15:00:00', NULL);
+INSERT INTO `railage`.`TimeInfos` (`id`, `period`, `periodic`, `arrivalTime`, `departureTime`, `fixedDate`) VALUES (7, 'EVERYDAY', TRUE, NULL, '16:00:00', NULL);
+INSERT INTO `railage`.`TimeInfos` (`id`, `period`, `periodic`, `arrivalTime`, `departureTime`, `fixedDate`) VALUES (8, 'EVERYDAY', TRUE, NULL, '17:00:00', NULL);
+INSERT INTO `railage`.`TimeInfos` (`id`, `period`, `periodic`, `arrivalTime`, `departureTime`, `fixedDate`) VALUES (9, 'EVERYDAY', TRUE, NULL, '18:00:00', NULL);
+INSERT INTO `railage`.`TimeInfos` (`id`, `period`, `periodic`, `arrivalTime`, `departureTime`, `fixedDate`) VALUES (10, 'EVERYDAY', TRUE, NULL, '19:00:00', NULL);
+INSERT INTO `railage`.`TimeInfos` (`id`, `period`, `periodic`, `arrivalTime`, `departureTime`, `fixedDate`) VALUES (11, 'EVERYDAY', TRUE, NULL, '20:00:00', NULL);
+INSERT INTO `railage`.`TimeInfos` (`id`, `period`, `periodic`, `arrivalTime`, `departureTime`, `fixedDate`) VALUES (12, 'EVERYDAY', TRUE, NULL, '21:00:00', NULL);
+INSERT INTO `railage`.`TimeInfos` (`id`, `period`, `periodic`, `arrivalTime`, `departureTime`, `fixedDate`) VALUES (13, 'EVERYDAY', TRUE, NULL, '22:00:00', NULL);
+INSERT INTO `railage`.`TimeInfos` (`id`, `period`, `periodic`, `arrivalTime`, `departureTime`, `fixedDate`) VALUES (14, 'EVERYDAY', TRUE, NULL, '23:00:00', NULL);
 
 COMMIT;
 
