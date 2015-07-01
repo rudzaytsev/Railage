@@ -25,6 +25,8 @@ public class Utils {
 
     public static final String PASSENGERS = "passengers";
 
+    public static final String STATIONS = "stations";
+
     public static boolean isEmployee(String role){
         return Role.EMPLOYEE.toString().equals(role);
     }

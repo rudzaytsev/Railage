@@ -16,4 +16,6 @@ public class Pages {
     public static final String RIDES = "/rides.jsp";
 
     public static final String PASSENGERS = "/passengers.jsp";
+
+    public static final String STATIONS = "/stations.jsp";
 }
