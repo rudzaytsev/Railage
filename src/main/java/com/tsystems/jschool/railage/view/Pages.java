@@ -18,4 +18,6 @@ public class Pages {
     public static final String PASSENGERS = "/passengers.jsp";
 
     public static final String STATIONS = "/stations.jsp";
+
+    public static final String TIMETABLE = "/timetable.jsp";
 }

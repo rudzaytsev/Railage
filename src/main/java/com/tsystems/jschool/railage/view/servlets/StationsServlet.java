@@ -1,7 +1,9 @@
 package com.tsystems.jschool.railage.view.servlets;
 
 import com.tsystems.jschool.railage.domain.Station;
+import com.tsystems.jschool.railage.domain.TimeTableLine;
 import com.tsystems.jschool.railage.service.StationService;
+import com.tsystems.jschool.railage.service.TimeTableService;
 import com.tsystems.jschool.railage.view.Pages;
 import com.tsystems.jschool.railage.view.Utils;
 
@@ -23,11 +25,25 @@ public class StationsServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        HttpSession session = request.getSession();
-        List<Station> stations = StationService.findAllStations();
-        session.setAttribute(Utils.STATIONS, stations);
-        response.sendRedirect(Pages.STATIONS);
-        return;
+        String uri = request.getRequestURI();
+
+        Integer stationId = Utils.extractId(uri);
+        if(stationId != null){
+
+            HttpSession session = request.getSession();
+            List<TimeTableLine> timeTableLines = TimeTableService.findByStationId(stationId);
+            session.setAttribute(Utils.TIMETABLE, timeTableLines);
+            response.sendRedirect(Pages.TIMETABLE);
+            return;
+        }
+        else {
+
+            HttpSession session = request.getSession();
+            List<Station> stations = StationService.findAllStations();
+            session.setAttribute(Utils.STATIONS, stations);
+            response.sendRedirect(Pages.STATIONS);
+            return;
+        }
 
     }
 }
