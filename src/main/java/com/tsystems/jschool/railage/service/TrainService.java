@@ -21,4 +21,8 @@ public class TrainService {
         Train train = trainDao.findById(id);
         return (train != null) ? train.getRides() : null;
     }
+
+    public static Train findTrainById(Integer id){
+        return trainDao.findById(id);
+    }
 }

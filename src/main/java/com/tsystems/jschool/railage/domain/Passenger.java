@@ -3,6 +3,7 @@ package com.tsystems.jschool.railage.domain;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -46,5 +47,10 @@ public class Passenger extends DomainObject {
 
     public void setBirthDate(Date birthDate) {
         this.birthDate = birthDate;
+    }
+
+    public String getFormattedBirthDate(){
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd");
+        return dateFormat.format(birthDate);
     }
 }

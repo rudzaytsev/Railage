@@ -19,7 +19,11 @@ public class Utils {
 
     public static final String TRAINS = "trains";
 
+    public static final String CURRENT_TRAIN = "currentTrain";
+
     public static final String TRAIN_RIDES = "trainRides";
+
+    public static final String PASSENGERS = "passengers";
 
     public static boolean isEmployee(String role){
         return Role.EMPLOYEE.toString().equals(role);
@@ -37,6 +41,37 @@ public class Utils {
                 catch(NumberFormatException e){
                     return null;
                 }
+            }
+        }
+        return result;
+    }
+
+    public static String extractParamFromQueryStr(String queryStr,String paramName){
+
+        StringTokenizer tokenizer = new StringTokenizer(queryStr,"?&=");
+        boolean foundRequiredParamName = false;
+        while (tokenizer.hasMoreTokens()) {
+            String token = tokenizer.nextToken();
+            if (paramName.equals(token)){
+                foundRequiredParamName = true;
+                continue;
+            }
+            if (foundRequiredParamName){
+                return token;
+            }
+        }
+        return null;
+    }
+
+    public static Integer extractNumberParam(String queryStr,String paramName){
+        String paramValue = extractParamFromQueryStr(queryStr,paramName);
+        Integer result = null;
+        if(paramValue != null){
+            try {
+                result = Integer.parseInt(paramValue);
+            }
+            catch(NumberFormatException e){
+                return null;
             }
         }
         return result;

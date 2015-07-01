@@ -12,7 +12,8 @@
     <title>Train Rides</title>
 </head>
 <body>
-<h1>Trains Page</h1>
+<h1>Train Rides Page</h1>
+<a href="/rides/all/?trainId=${currentTrain.id}">View Passengers of All Rides </a>
 <table>
     <thead align="center">
     <tr>
@@ -20,6 +21,7 @@
         <td> Train Number </td>
         <td> Route </td>
         <td> RideDate </td>
+        <td> Passengers</td>
     </tr>
     </thead>
     <tbody align="center">
@@ -32,6 +34,7 @@
                 - ${ride.route.getEndStation().name}
             </td>
             <td>${ride.date}</td>
+            <td><a href="/rides/${ride.id}">View</a></td>
         </tr>
     </c:forEach>
     </tbody>
