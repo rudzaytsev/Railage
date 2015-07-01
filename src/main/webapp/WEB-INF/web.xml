@@ -33,6 +33,10 @@
     <servlet-name>StationsServlet</servlet-name>
     <servlet-class>com.tsystems.jschool.railage.view.servlets.StationsServlet</servlet-class>
   </servlet>
+  <servlet>
+      <servlet-name>RoutesServlet</servlet-name>
+      <servlet-class>com.tsystems.jschool.railage.view.servlets.RoutesServlet</servlet-class>
+  </servlet>  
   <servlet-mapping>
       <servlet-name>LoginServlet</servlet-name>
       <url-pattern>/LoginServlet</url-pattern>
@@ -52,6 +56,10 @@
   <servlet-mapping>
       <servlet-name>StationsServlet</servlet-name>
       <url-pattern>/stations/*</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+      <servlet-name>RoutesServlet</servlet-name>
+      <url-pattern>/routes/*</url-pattern>
   </servlet-mapping>  
   <filter-mapping>
       <filter-name>AccessFilter</filter-name>

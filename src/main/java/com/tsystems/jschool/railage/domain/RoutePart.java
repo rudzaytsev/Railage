@@ -72,4 +72,6 @@ public class RoutePart extends DomainObject {
     public void setPosition(Integer position) {
         this.position = position;
     }
+
+
 }

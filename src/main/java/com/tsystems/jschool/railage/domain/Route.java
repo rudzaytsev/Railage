@@ -76,6 +76,7 @@ public class Route extends DomainObject {
         return null;
     }
 
+
     public List<TimeTableLine> getTimeTableLines() {
         return timeTableLines;
     }

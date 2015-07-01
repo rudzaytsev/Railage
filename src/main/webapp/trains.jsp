@@ -15,6 +15,7 @@
     <h1>Trains Page</h1>
     <div>
         <a href="/stations/all">Stations</a>
+        <a href="/routes/all">Routes</a>
     </div>
     <table>
         <thead align="center">

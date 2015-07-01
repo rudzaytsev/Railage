@@ -29,6 +29,8 @@ public class Utils {
 
     public static final String TIMETABLE = "timetable";
 
+    public static final String ROUTES = "routes";
+
     public static boolean isEmployee(String role){
         return Role.EMPLOYEE.toString().equals(role);
     }
