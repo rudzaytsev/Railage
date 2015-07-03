@@ -10,26 +10,66 @@
 <html>
 <head>
     <title>Stations</title>
+    <link rel="stylesheet" href="/resources/css/bootstrap.css">
+    <link rel="stylesheet" href="/resources/css/dashboard.css">
 </head>
 <body>
-    <h1>Stations</h1>
-    <table>
-        <thead align="center">
-        <tr>
-            <td> Id </td>
-            <td> Station Name </td>
-            <td> Timetable </td>
-        </tr>
-        </thead>
-        <tbody align="center">
-        <c:forEach var="station" items="${stations}">
-            <tr>
-                <td>${station.id}</td>
-                <td>${station.name}</td>
-                <td><a href="/stations/${station.id}">Watch</a></td>
-            </tr>
-        </c:forEach>
-        </tbody>
-    </table>
+
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Railage</a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#">Trains</a></li>
+                    <li><a href="/routes/all">Routes</a></li>
+                    <li><a href="#">Help</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-3 col-md-2 sidebar">
+                <ul class="nav nav-sidebar">
+                    <li><a href="#">Add Station</a></li>
+                </ul>
+            </div>
+            <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+                <h1 class="page-header">Stations</h1>
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <td> Id </td>
+                            <td> Station Name </td>
+                            <td> Timetable </td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <c:forEach var="station" items="${stations}">
+                            <tr>
+                                <td>${station.id}</td>
+                                <td>${station.name}</td>
+                                <td><a href="/stations/${station.id}" class="btn btn-info">Watch</a></td>
+                            </tr>
+                        </c:forEach>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
 </body>
 </html>
