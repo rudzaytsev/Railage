@@ -9,32 +9,28 @@
 <html>
 <head>
     <title>Register</title>
+    <link rel="stylesheet" href="/resources/css/bootstrap.css">
+    <link rel="stylesheet" href="/resources/css/register.css">
 </head>
 <body>
-    <h1>Register Page</h1>
-    <table>
-        <form id="registerform" action="/RegisterServlet" method="post">
-        <tr>
-            <td>Login:</td>
-            <td> <input type="text" name="login" /> </td>
-        </tr>
-        <tr>
-            <td>Password:</td>
-            <td> <input type="password" name="password" /> </td>
-        </tr>
-        <tr>
-            <td>Roles:</td>
-            <td>
-                <select name="role">
-                    <option selected value="CLIENT">Client</option>
-                    <option value="EMPLOYEE">Employee</option>
-                </select>
-            </td>
-        </tr>
-        <tr>
-            <td  cols="2"> <input type="submit" value="Register" > </td>
-        </tr>
+    <div class="container">
+        <div align="center">
+            <h1 class="form-signin-heading">Register New User</h1>
+        </div>
+        <form id="registerform" class="form-signin" action="/RegisterServlet" method="post">
+            <label for="inputLogin">Login:</label>
+            <input id="inputLogin" class="form-control" type="text" name="login" />
+
+            <label for="inputPassword" >Password:</label>
+            <input id="inputPassword" type="password"  class="form-control" name="password" />
+
+            <label for="inputRoles" >Roles:</label>
+            <select id="inputRoles" class="form-control" name="role">
+                <option selected value="CLIENT">Client</option>
+                <option value="EMPLOYEE">Employee</option>
+            </select>
+            <input type="submit" class="btn btn-lg btn-primary btn-block" value="Register">
         </form>
-    </table>
+    </div>
 </body>
 </html>

@@ -15,7 +15,7 @@
             <div id="loginformdiv">
             <form id="loginform" class="form-signin" action="LoginServlet" method="POST">
                 <h2 class="form-signin-heading">Please log in</h2>
-                <label for="inputLogin" class="sr-only">Email address</label>
+                <label for="inputLogin" class="sr-only">Login</label>
                 <input type="text" id="inputLogin" class="form-control" name="login" placeholder="Login" required autofocus  />
                 <label for="inputPassword" class="sr-only">Password</label>
                 <input type="password" id="inputPassword" class="form-control" name="password" placeholder="Password" required autofocus  />
