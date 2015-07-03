@@ -63,7 +63,7 @@
   </servlet-mapping>  
   <filter-mapping>
       <filter-name>AccessFilter</filter-name>
-      <url-pattern>/trains.jsp</url-pattern>
+      <url-pattern>/trains.html</url-pattern>
   </filter-mapping>
 
   <welcome-file-list>
