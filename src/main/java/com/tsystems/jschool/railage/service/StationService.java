@@ -15,4 +15,13 @@ public class StationService {
     public static List<Station> findAllStations(){
         return stationDao.findAll();
     }
+
+    public static boolean addStation(String stationName){
+       List<Station> stations = stationDao.findStationsByName(stationName);
+       if (stations.isEmpty()){
+           stationDao.persist(new Station(stationName));
+           return true;
+       }
+       return false;
+    }
 }

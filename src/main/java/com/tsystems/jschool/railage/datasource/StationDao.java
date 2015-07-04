@@ -41,4 +41,13 @@ public class StationDao extends JpaDao<Station> {
                                                 queryStr, Station.class);
         return query.getResultList();
     }
+
+
+    public List<Station> findStationsByName(String stationName){
+        String queryStr = "SELECT s FROM Station s WHERE s.name = ?1";
+        TypedQuery<Station> query = entityManager.createQuery(
+                queryStr, Station.class);
+        query.setParameter(1,stationName);
+        return query.getResultList();
+    }
 }

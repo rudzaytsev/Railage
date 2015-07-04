@@ -21,6 +21,10 @@ import java.util.List;
 public class StationsServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        String stationName = request.getParameter("stationName");
+        StationService.addStation(stationName);
+        this.processStations(request, response);
+        return;
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -37,13 +41,22 @@ public class StationsServlet extends HttpServlet {
             return;
         }
         else {
-
+            this.processStations(request, response);
+            /*
             HttpSession session = request.getSession();
             List<Station> stations = StationService.findAllStations();
             session.setAttribute(Utils.STATIONS, stations);
             response.sendRedirect(Pages.STATIONS);
+            */
             return;
         }
 
+    }
+
+    private void processStations(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        HttpSession session = request.getSession();
+        List<Station> stations = StationService.findAllStations();
+        session.setAttribute(Utils.STATIONS, stations);
+        response.sendRedirect(Pages.STATIONS);
     }
 }

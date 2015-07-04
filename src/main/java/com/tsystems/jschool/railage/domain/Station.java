@@ -1,5 +1,6 @@
 package com.tsystems.jschool.railage.domain;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -17,7 +18,7 @@ public class Station extends DomainObject {
     private String name;
 
     /** timetable of trains, which ride across the station. */
-    @OneToMany(mappedBy = "station")
+    @OneToMany(mappedBy = "station",cascade={CascadeType.PERSIST})
     private List<TimeTableLine> timeTableLines;
 
     public Station(){

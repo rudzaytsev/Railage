@@ -12,6 +12,8 @@
     <title>Stations</title>
     <link rel="stylesheet" href="/resources/css/bootstrap.css">
     <link rel="stylesheet" href="/resources/css/dashboard.css">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js" type="text/javascript"></script>
+    <script src="/resources/js/bootstrap.js" type="text/javascript"></script>
 </head>
 <body>
 
@@ -41,7 +43,7 @@
         <div class="row">
             <div class="col-sm-3 col-md-2 sidebar">
                 <ul class="nav nav-sidebar">
-                    <li><a href="#">Add Station</a></li>
+                    <li><a id="addstation" href="#">Add Station</a></li>
                 </ul>
             </div>
             <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
@@ -70,6 +72,38 @@
 
         </div>
     </div>
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="add_station_modal_div" tabindex="-1" role="dialog" aria-labelledby="add_station_modal_label">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="add_station_modal_label">Add Station</h4>
+                </div>
+                <form id="add_station_form" action="/StationsServlet" method="post">
+                <div class="modal-body">
+                     <label for="input_station_name">Station Name:</label>
+                     <input id="input_station_name" name="stationName" type="text" class="form-control"/>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Add</button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(document).on('click',"#addstation", function(){
+            $('#add_station_modal_div').modal('show')
+            return false;
+        });
+    </script>
+
+
 
 </body>
 </html>
