@@ -37,4 +37,13 @@ public class TrainDao extends JpaDao<Train> {
         TypedQuery<Train> query = entityManager.createQuery(queryStr, Train.class);
         return query.getResultList();
     }
+
+
+    public List<Train> findTrainsByTrainNumber(String trainNumber){
+        String queryStr = "SELECT t FROM Train t WHERE t.number = ?1";
+        TypedQuery<Train> query = entityManager.createQuery(queryStr, Train.class);
+        query.setParameter(1,trainNumber);
+        return query.getResultList();
+
+    }
 }

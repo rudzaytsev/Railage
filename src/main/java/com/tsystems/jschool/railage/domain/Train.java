@@ -1,9 +1,6 @@
 package com.tsystems.jschool.railage.domain;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.List;
 
 /**
@@ -22,15 +19,24 @@ public class Train extends DomainObject {
     private Integer seats;
 
     /** list of train rides, done by train */
-    @OneToMany(mappedBy = "train")
+    @OneToMany(mappedBy = "train",cascade={CascadeType.PERSIST})
     private List<TrainRide> rides;
 
     /** list of train routes */
-    @OneToMany(mappedBy = "train")
+    @OneToMany(mappedBy = "train",cascade={CascadeType.PERSIST})
     private List<Route> routes;
 
     /** train number as String */
     private String number;
+
+    public Train(){
+        //does nothing
+    }
+
+    public Train(Integer seats, String number) {
+        this.seats = seats;
+        this.number = number;
+    }
 
     public String getNumber() {
         return number;

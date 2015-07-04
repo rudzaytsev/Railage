@@ -13,7 +13,11 @@
         <filter-name>AccessFilter</filter-name>
         <filter-class>com.tsystems.jschool.railage.view.filters.AccessFilter</filter-class>
   </filter>
-  <servlet>
+    <filter>
+        <filter-name>CleaningSessionAttributesFilter</filter-name>
+        <filter-class>com.tsystems.jschool.railage.view.filters.CleaningSessionAttributesFilter</filter-class>
+    </filter>
+    <servlet>
       <servlet-name>LoginServlet</servlet-name>
       <servlet-class>com.tsystems.jschool.railage.view.servlets.LoginServlet</servlet-class>
   </servlet>
@@ -50,6 +54,10 @@
       <url-pattern>/StationsServlet</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
+        <servlet-name>TrainsServlet</servlet-name>
+        <url-pattern>/TrainsServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
       <servlet-name>TrainsServlet</servlet-name>
       <url-pattern>/trains/*</url-pattern>
   </servlet-mapping>
@@ -68,6 +76,14 @@
   <filter-mapping>
       <filter-name>AccessFilter</filter-name>
       <url-pattern>/trains.html</url-pattern>
+  </filter-mapping>
+  <filter-mapping>
+    <filter-name>CleaningSessionAttributesFilter</filter-name>
+    <url-pattern>/*Servlet</url-pattern>
+    <url-pattern>/trains/*</url-pattern>
+    <url-pattern>/rides/*</url-pattern>
+    <url-pattern>/routes/*</url-pattern>
+    <url-pattern>/stations/*</url-pattern>
   </filter-mapping>
 
   <welcome-file-list>

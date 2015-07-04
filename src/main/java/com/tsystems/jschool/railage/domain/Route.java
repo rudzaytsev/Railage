@@ -14,15 +14,15 @@ import java.util.List;
 public class Route extends DomainObject {
 
     /** train that corresponds to route */
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST})
     @JoinColumn(name = "trainId")
     private Train train;
 
     /** list of parts of the route */
-    @OneToMany(mappedBy = "route")
+    @OneToMany(mappedBy = "route",cascade = {CascadeType.PERSIST})
     private List<RoutePart> routeParts;
 
-    @OneToMany(mappedBy = "route")
+    @OneToMany(mappedBy = "route",cascade = {CascadeType.PERSIST})
     private List<TimeTableLine> timeTableLines;
 
     public Train getTrain() {

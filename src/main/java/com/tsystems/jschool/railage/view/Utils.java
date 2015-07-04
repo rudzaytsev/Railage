@@ -31,6 +31,15 @@ public class Utils {
 
     public static final String ROUTES = "routes";
 
+    public static final String IS_VALIDATION_ERR = "isValidationError";
+
+    public static final String VALIDATION_ERROR_MSG = "errorMsg";
+
+    public static final String SUCCESS = "success";
+
+    public static final String INFO_MSG = "infoMsg";
+
+
     public static boolean isEmployee(String role){
         return Role.EMPLOYEE.toString().equals(role);
     }
@@ -82,4 +91,5 @@ public class Utils {
         }
         return result;
     }
+
 }
