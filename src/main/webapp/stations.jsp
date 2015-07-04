@@ -47,6 +47,18 @@
                 </ul>
             </div>
             <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+                <c:if test="${isValidationError}">
+                    <div class="alert alert-danger alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <strong>Error!</strong> ${errorMsg}
+                    </div>
+                </c:if>
+                <c:if test="${success}">
+                    <div class="alert alert-success alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <strong>Well Done!</strong> ${infoMsg}
+                    </div>
+                </c:if>
                 <h1 class="page-header">Stations</h1>
                 <div class="table-responsive">
                     <table class="table table-striped">
@@ -82,7 +94,7 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title" id="add_station_modal_label">Add Station</h4>
                 </div>
-                <form id="add_station_form" action="/StationsServlet" method="post">
+                <form id="add_station_form" action="/add/station" method="post">
                 <div class="modal-body">
                      <label for="input_station_name">Station Name:</label>
                      <input id="input_station_name" name="stationName" type="text" class="form-control"/>

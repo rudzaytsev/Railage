@@ -94,7 +94,7 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title" id="add_train_modal_label">Add Train</h4>
                 </div>
-                <form id="add_train_form" action="/TrainsServlet" method="post">
+                <form id="add_train_form" action="/add/train" method="post">
                     <div class="modal-body">
                         <label for="input_train_name">Train Number:</label>
                         <input id="input_train_name" name="trainNumber" type="text" class="form-control"/>

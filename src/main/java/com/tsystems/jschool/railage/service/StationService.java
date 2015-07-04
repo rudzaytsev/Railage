@@ -2,6 +2,7 @@ package com.tsystems.jschool.railage.service;
 
 import com.tsystems.jschool.railage.datasource.StationDao;
 import com.tsystems.jschool.railage.domain.Station;
+import com.tsystems.jschool.railage.service.exceptions.DomainObjectAlreadyExistsException;
 
 import java.util.List;
 
@@ -16,12 +17,16 @@ public class StationService {
         return stationDao.findAll();
     }
 
-    public static boolean addStation(String stationName){
+    public static void addStation(String stationName)
+                        throws DomainObjectAlreadyExistsException {
+
        List<Station> stations = stationDao.findStationsByName(stationName);
-       if (stations.isEmpty()){
-           stationDao.persist(new Station(stationName));
-           return true;
+       if (!stations.isEmpty()){
+             throw new DomainObjectAlreadyExistsException(
+                     "Station with such parameters already exists");
        }
-       return false;
+       else {
+           stationDao.persist(new Station(stationName));
+       }
     }
 }

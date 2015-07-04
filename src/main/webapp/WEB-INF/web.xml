@@ -51,11 +51,11 @@
   </servlet-mapping>
   <servlet-mapping>
       <servlet-name>StationsServlet</servlet-name>
-      <url-pattern>/StationsServlet</url-pattern>
+      <url-pattern>/add/station</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
         <servlet-name>TrainsServlet</servlet-name>
-        <url-pattern>/TrainsServlet</url-pattern>
+        <url-pattern>/add/train</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
       <servlet-name>TrainsServlet</servlet-name>
@@ -79,7 +79,7 @@
   </filter-mapping>
   <filter-mapping>
     <filter-name>CleaningSessionAttributesFilter</filter-name>
-    <url-pattern>/*Servlet</url-pattern>
+    <url-pattern>/add/*</url-pattern>
     <url-pattern>/trains/*</url-pattern>
     <url-pattern>/rides/*</url-pattern>
     <url-pattern>/routes/*</url-pattern>
