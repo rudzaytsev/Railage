@@ -29,7 +29,7 @@
             </div>
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#">Trains</a></li>
+                    <li><a href="/trains/all">Trains</a></li>
                     <li><a href="/stations/all">Stations</a></li>
                     <li><a href="/routes/all">Routes</a></li>
                     <li><a href="#">Help</a></li>

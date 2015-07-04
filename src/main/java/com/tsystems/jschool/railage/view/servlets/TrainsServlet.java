@@ -6,7 +6,6 @@ import com.tsystems.jschool.railage.view.Pages;
 import com.tsystems.jschool.railage.view.Utils;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,7 +16,6 @@ import java.util.List;
 /**
  * Created by rudolph on 28.06.15.
  */
-@WebServlet(name = "TrainsServlet")
 public class TrainsServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -29,17 +27,27 @@ public class TrainsServlet extends HttpServlet {
 
         Integer trainId = Utils.extractId(uri);
         if(trainId == null){
-
-            response.sendRedirect(Pages.ERROR);
+            processTrains(request,response);
             return;
         }
         else {
-            HttpSession session = request.getSession();
-            List<TrainRide> rides = TrainService.findAllRidesByTrainId(trainId);
-            session.setAttribute(Utils.TRAIN_RIDES, rides);
-            session.setAttribute(Utils.CURRENT_TRAIN, TrainService.findTrainById(trainId));
-            response.sendRedirect(Pages.RIDES);
+            processTrainRides(trainId,request,response);
             return;
         }
+    }
+
+    public void processTrains(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        HttpSession session = request.getSession();
+        session.setAttribute(Utils.TRAINS, TrainService.findAllTrains());
+        response.sendRedirect(Pages.TRAINS);
+    }
+
+    public void processTrainRides(Integer trainId,HttpServletRequest request, HttpServletResponse response)
+                throws IOException {
+        HttpSession session = request.getSession();
+        List<TrainRide> rides = TrainService.findAllRidesByTrainId(trainId);
+        session.setAttribute(Utils.TRAIN_RIDES, rides);
+        session.setAttribute(Utils.CURRENT_TRAIN, TrainService.findTrainById(trainId));
+        response.sendRedirect(Pages.RIDES);
     }
 }

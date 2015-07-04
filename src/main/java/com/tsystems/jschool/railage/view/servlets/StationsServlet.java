@@ -42,12 +42,6 @@ public class StationsServlet extends HttpServlet {
         }
         else {
             this.processStations(request, response);
-            /*
-            HttpSession session = request.getSession();
-            List<Station> stations = StationService.findAllStations();
-            session.setAttribute(Utils.STATIONS, stations);
-            response.sendRedirect(Pages.STATIONS);
-            */
             return;
         }
 
