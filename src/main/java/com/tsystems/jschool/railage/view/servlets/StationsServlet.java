@@ -5,6 +5,7 @@ import com.tsystems.jschool.railage.domain.TimeTableLine;
 import com.tsystems.jschool.railage.service.StationService;
 import com.tsystems.jschool.railage.service.TimeTableService;
 import com.tsystems.jschool.railage.service.exceptions.DomainObjectAlreadyExistsException;
+import com.tsystems.jschool.railage.service.exceptions.IncorrectParameterException;
 import com.tsystems.jschool.railage.view.Pages;
 import com.tsystems.jschool.railage.view.Utils;
 
@@ -51,7 +52,10 @@ public class StationsServlet extends HttpServlet {
 
         try {
             StationService.addStation(stationName);
-        } catch (DomainObjectAlreadyExistsException e) {
+
+        } catch (IncorrectParameterException |
+                 DomainObjectAlreadyExistsException e) {
+
             String errorMsg = "Can not add Station. " + e.getMessage();
             request.getSession().setAttribute(Utils.IS_VALIDATION_ERR,true);
             request.getSession().setAttribute(Utils.VALIDATION_ERROR_MSG,errorMsg);

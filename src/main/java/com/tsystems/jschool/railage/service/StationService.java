@@ -3,6 +3,7 @@ package com.tsystems.jschool.railage.service;
 import com.tsystems.jschool.railage.datasource.StationDao;
 import com.tsystems.jschool.railage.domain.Station;
 import com.tsystems.jschool.railage.service.exceptions.DomainObjectAlreadyExistsException;
+import com.tsystems.jschool.railage.service.exceptions.IncorrectParameterException;
 
 import java.util.List;
 
@@ -18,7 +19,12 @@ public class StationService {
     }
 
     public static void addStation(String stationName)
-                        throws DomainObjectAlreadyExistsException {
+            throws DomainObjectAlreadyExistsException, IncorrectParameterException {
+
+        if (!stationName.matches("^[0-9a-zA-Z]+")){
+            throw new IncorrectParameterException(
+                    "Station name should contains only latin characters and digits");
+        }
 
        List<Station> stations = stationDao.findStationsByName(stationName);
        if (!stations.isEmpty()){
