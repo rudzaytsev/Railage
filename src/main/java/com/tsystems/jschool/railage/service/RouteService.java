@@ -25,6 +25,8 @@ public class RouteService {
         List<Station> stations = createStations(params);
         List<TimeTableLine> timeTableLines = createTimeTableLine(route,stations,params);
         List<RoutePart> routeParts = createRouteParts(route,stations);
+
+
         //List<RoutePart> routeParts = createRouteParts(params);
         /*
         for (RoutePart routePart : routeParts ){
@@ -38,11 +40,11 @@ public class RouteService {
             line.setTrain(mergedTrain);
         }
         route.setRouteParts(routeParts);
-
+        route.setTimeTableLines(timeTableLines);
 
         route.setTrain(mergedTrain);
         routeDao.merge(route);
-        TimeTableService.merge(timeTableLines);
+        //TimeTableService.merge(timeTableLines);
 
 
     }
