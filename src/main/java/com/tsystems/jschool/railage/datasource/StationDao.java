@@ -12,8 +12,8 @@ import java.util.List;
 public class StationDao extends JpaDao<Station> {
 
     @Override
-    public void update(Station entity) {
-
+    public Station merge(Station entity) {
+        return null;
     }
 
     @Override

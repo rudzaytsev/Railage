@@ -2,6 +2,7 @@ package com.tsystems.jschool.railage.datasource;
 
 import com.tsystems.jschool.railage.domain.Train;
 
+import javax.persistence.EntityTransaction;
 import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 import java.util.List;
@@ -12,8 +13,20 @@ import java.util.List;
 public class TrainDao extends JpaDao<Train> {
 
     @Override
-    public void update(Train entity) {
-
+    public Train merge(Train entity) {
+        EntityTransaction transaction = entityManager.getTransaction();
+        Train result = null;
+        try {
+            transaction.begin();
+            result = entityManager.merge(entity);
+            transaction.commit();
+        }
+        finally {
+            if(transaction.isActive()){
+                transaction.rollback();
+            }
+        }
+        return result;
     }
 
     @Override

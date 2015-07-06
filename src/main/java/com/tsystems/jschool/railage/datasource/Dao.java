@@ -1,7 +1,5 @@
 package com.tsystems.jschool.railage.datasource;
 
-import com.tsystems.jschool.railage.domain.DomainObject;
-
 import java.io.Serializable;
 import java.util.List;
 
@@ -19,9 +17,10 @@ public interface Dao<T,K extends Serializable> {
 
     /**
      * Updates entity in persistence context
-     * @param entity to update in persistence context
+     * @param entity to merge in persistence context
+     * @return entity that merged to persistence context
      */
-    void update(T entity);
+    T merge(T entity);
 
     /**
      * Finds entity with specified id value from persistence context

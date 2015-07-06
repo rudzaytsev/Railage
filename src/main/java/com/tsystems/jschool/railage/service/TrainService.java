@@ -49,4 +49,9 @@ public class TrainService {
         trainDao.persist(new Train(seats,trainNumber));
 
     }
+
+
+    public static Train merge(Train train){
+        return trainDao.merge(train);
+    }
 }

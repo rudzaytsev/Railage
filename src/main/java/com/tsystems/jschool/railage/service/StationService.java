@@ -18,6 +18,10 @@ public class StationService {
         return stationDao.findAll();
     }
 
+    public static Station findStationById(Integer id){
+        return stationDao.findById(id);
+    }
+
     public static void addStation(String stationName)
             throws DomainObjectAlreadyExistsException, IncorrectParameterException {
 

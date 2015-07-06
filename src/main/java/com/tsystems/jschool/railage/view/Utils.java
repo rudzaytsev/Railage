@@ -31,6 +31,8 @@ public class Utils {
 
     public static final String ROUTES = "routes";
 
+    public static final String PERIODS = "periods";
+
     public static final String IS_VALIDATION_ERR = "isValidationError";
 
     public static final String VALIDATION_ERROR_MSG = "errorMsg";

@@ -2,6 +2,7 @@ package com.tsystems.jschool.railage.datasource;
 
 import com.tsystems.jschool.railage.domain.TimeTableLine;
 
+import javax.persistence.EntityTransaction;
 import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 import java.util.List;
@@ -13,9 +14,22 @@ public class TimeTableDao extends JpaDao<TimeTableLine> {
 
 
     @Override
-    public void update(TimeTableLine entity) {
-
+    public TimeTableLine merge(TimeTableLine entity) {
+        EntityTransaction transaction = entityManager.getTransaction();
+        TimeTableLine result = null;
+        try {
+            transaction.begin();
+            result = entityManager.merge(entity);
+            transaction.commit();
+        }
+        finally {
+            if(transaction.isActive()){
+                transaction.rollback();
+            }
+        }
+        return result;
     }
+
 
     @Override
     public TimeTableLine findById(Integer id) {

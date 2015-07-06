@@ -41,6 +41,12 @@ public class RoutePart extends DomainObject {
         this.status = status;
     }
 
+    public RoutePart(Station station, String status, Integer position) {
+        this.station = station;
+        this.status = status;
+        this.position = position;
+    }
+
     public Route getRoute() {
         return route;
     }

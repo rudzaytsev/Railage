@@ -19,11 +19,11 @@ public class Train extends DomainObject {
     private Integer seats;
 
     /** list of train rides, done by train */
-    @OneToMany(mappedBy = "train",cascade={CascadeType.PERSIST})
+    @OneToMany(mappedBy = "train",cascade={CascadeType.PERSIST,CascadeType.MERGE})
     private List<TrainRide> rides;
 
     /** list of train routes */
-    @OneToMany(mappedBy = "train",cascade={CascadeType.PERSIST})
+    @OneToMany(mappedBy = "train",cascade={CascadeType.PERSIST,CascadeType.MERGE})
     private List<Route> routes;
 
     /** train number as String */
@@ -68,5 +68,9 @@ public class Train extends DomainObject {
 
     public void setRoutes(List<Route> routes) {
         this.routes = routes;
+    }
+
+    public void addRoute(Route route){
+        routes.add(route);
     }
 }

@@ -13,22 +13,22 @@ import javax.persistence.*;
 public class TimeTableLine extends DomainObject {
 
     /** train */
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.MERGE} )
     @JoinColumn(name = "trainId")
     private Train train;
 
     /** railway station */
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.MERGE} )
     @JoinColumn(name = "stationId")
     private Station station;
 
     /** information about time when train visits railway station */
-    @OneToOne
+    @OneToOne(cascade = {CascadeType.PERSIST,CascadeType.MERGE} )
     @JoinColumn(name = "timeInfoId")
     private TimeInfo timeInfo;
 
     /* route of train */
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.MERGE} )
     @JoinColumn(name = "routeId")
     private Route route;
 

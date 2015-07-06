@@ -22,4 +22,6 @@ public class Pages {
     public static final String TIMETABLE = "/timetable.jsp";
 
     public static final String ROUTES = "/routes.jsp";
+
+    public static final String ROUTE_BULDER = "/route_builder.jsp";
 }

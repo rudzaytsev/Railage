@@ -18,7 +18,7 @@ public class Station extends DomainObject {
     private String name;
 
     /** timetable of trains, which ride across the station. */
-    @OneToMany(mappedBy = "station",cascade={CascadeType.PERSIST})
+    @OneToMany(mappedBy = "station",cascade={CascadeType.PERSIST,CascadeType.MERGE})
     private List<TimeTableLine> timeTableLines;
 
     public Station(){
@@ -44,5 +44,9 @@ public class Station extends DomainObject {
 
     public void setTimeTableLines(List<TimeTableLine> timeTableLines) {
         this.timeTableLines = timeTableLines;
+    }
+
+    public void addTimeTableLine(TimeTableLine timeTableLine){
+        this.timeTableLines.add(timeTableLine);
     }
 }

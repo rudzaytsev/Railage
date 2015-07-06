@@ -1,9 +1,7 @@
 package com.tsystems.jschool.railage.datasource;
 
-import com.tsystems.jschool.railage.domain.DomainObject;
 import com.tsystems.jschool.railage.domain.User;
 
-import javax.persistence.EntityTransaction;
 import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 import java.util.List;
@@ -14,8 +12,8 @@ import java.util.List;
 public class UserDao extends JpaDao<User> {
 
     @Override
-    public final void update(final User entity) {
-
+    public final User merge(final User entity) {
+        return null;
     }
 
     @Override

@@ -13,8 +13,8 @@ public class PassengerDao extends JpaDao<Passenger> {
 
 
     @Override
-    public void update(Passenger entity) {
-
+    public Passenger merge(Passenger entity) {
+        return null;
     }
 
     @Override

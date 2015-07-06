@@ -1,5 +1,8 @@
 package com.tsystems.jschool.railage.domain;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by rudolph on 30.06.15.
  */
@@ -21,5 +24,14 @@ public enum Period {
 
     public String value(){
         return period;
+    }
+
+    public static List<String> getPeriodsAsList(){
+        ArrayList<String> result = new ArrayList<String>();
+        result.add(Period.EVERY_DAY.period);
+        result.add(Period.WEEKDAYS.period);
+        result.add(Period.WEEKENDS.period);
+        result.add(Period.THIS_WEEK.period);
+        return result;
     }
 }
