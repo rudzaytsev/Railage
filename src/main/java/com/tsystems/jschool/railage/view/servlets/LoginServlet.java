@@ -25,6 +25,7 @@ public class LoginServlet extends HttpServlet {
         String password = request.getParameter("password");
         Triple<Boolean,Integer,String> triple = UserService.logInUser(login,password);
         boolean logged = triple.getFirst();
+        TrainService trainService = new TrainService();
         if (logged){
             int id = triple.getSecond();
             boolean isEmployee = Utils.isEmployee(triple.getThird());
@@ -33,7 +34,7 @@ public class LoginServlet extends HttpServlet {
             session.setAttribute(Utils.USER_LOGIN_SESSION_ATTRIB,login);
             session.setAttribute(Utils.USER_ID_SESSION_ATTRIB,id);
             session.setAttribute(Utils.IS_EMPLOYEE_SESSION_ATTRIB,isEmployee);
-            session.setAttribute(Utils.TRAINS, TrainService.findAllTrains());
+            session.setAttribute(Utils.TRAINS, trainService.findAllTrains());
             response.sendRedirect(Pages.TRAINS);
             return;
         }

@@ -24,7 +24,8 @@ public class RoutesServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         HttpSession session = request.getSession();
-        List<Route> routes = RouteService.findAllRoutes();
+        RouteService routeService = new RouteService();
+        List<Route> routes = routeService.findAllRoutes();
         session.setAttribute(Utils.ROUTES, routes);
         response.sendRedirect(Pages.ROUTES);
         return;

@@ -12,17 +12,33 @@ import java.util.List;
  */
 public class StationService {
 
-    private static StationDao stationDao = new StationDao();
+    private StationDao stationDao = new StationDao();
 
-    public static List<Station> findAllStations(){
-        return stationDao.findAll();
+    public List<Station> findAllStations(){
+        List<Station> stations;
+        stationDao.open();
+        try {
+            stations = stationDao.findAll();
+        }
+        finally {
+            stationDao.close();
+        }
+        return stations;
     }
 
-    public static Station findStationById(Integer id){
-        return stationDao.findById(id);
+    public Station findStationById(Integer id){
+        Station station;
+        stationDao.open();
+        try {
+            station = stationDao.findById(id);
+        }
+        finally {
+            stationDao.close();
+        }
+        return station;
     }
 
-    public static void addStation(String stationName)
+    public void addStation(String stationName)
             throws DomainObjectAlreadyExistsException, IncorrectParameterException {
 
         if (!stationName.matches("^[0-9a-zA-Z]+")){
@@ -36,7 +52,13 @@ public class StationService {
                      "Station with such parameters already exists");
        }
        else {
-           stationDao.persist(new Station(stationName));
+           stationDao.open();
+           try {
+               stationDao.persist(new Station(stationName));
+           }
+           finally {
+               stationDao.close();
+           }
        }
     }
 }

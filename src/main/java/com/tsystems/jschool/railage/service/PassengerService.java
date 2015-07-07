@@ -10,13 +10,29 @@ import java.util.List;
  */
 public class PassengerService {
 
-    private static PassengerDao passengerDao = new PassengerDao();
+    private PassengerDao passengerDao = new PassengerDao();
 
-    public static List<Passenger> findPassengersByRideId(Integer id){
-       return passengerDao.findByRideId(id);
+    public List<Passenger> findPassengersByRideId(Integer id){
+        List<Passenger> passengers;
+        passengerDao.open();
+        try {
+            passengers = passengerDao.findByRideId(id);
+        }
+        finally {
+            passengerDao.close();
+        }
+       return passengers;
     }
 
-    public static List<Passenger> findPassengersByTrainId(Integer id){
-        return passengerDao.findByTrainId(id);
+    public List<Passenger> findPassengersByTrainId(Integer id){
+        List<Passenger> passengers;
+        passengerDao.open();
+        try {
+            passengers = passengerDao.findByTrainId(id);
+        }
+        finally {
+            passengerDao.close();
+        }
+        return passengers;
     }
 }

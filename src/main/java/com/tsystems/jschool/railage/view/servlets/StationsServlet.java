@@ -35,7 +35,8 @@ public class StationsServlet extends HttpServlet {
         if(stationId != null){
 
             HttpSession session = request.getSession();
-            List<TimeTableLine> timeTableLines = TimeTableService.findByStationId(stationId);
+            TimeTableService timeTableService = new TimeTableService();
+            List<TimeTableLine> timeTableLines = timeTableService.findByStationId(stationId);
             session.setAttribute(Utils.TIMETABLE, timeTableLines);
             response.sendRedirect(Pages.TIMETABLE);
             return;
@@ -49,9 +50,9 @@ public class StationsServlet extends HttpServlet {
 
     private void addStation(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String stationName = request.getParameter("stationName");
-
+        StationService stationService = new StationService();
         try {
-            StationService.addStation(stationName);
+            stationService.addStation(stationName);
 
         } catch (IncorrectParameterException |
                  DomainObjectAlreadyExistsException e) {
@@ -69,7 +70,8 @@ public class StationsServlet extends HttpServlet {
 
     private void processStations(HttpServletRequest request, HttpServletResponse response) throws IOException {
         HttpSession session = request.getSession();
-        List<Station> stations = StationService.findAllStations();
+        StationService stationService = new StationService();
+        List<Station> stations = stationService.findAllStations();
         session.setAttribute(Utils.STATIONS, stations);
         response.sendRedirect(Pages.STATIONS);
     }

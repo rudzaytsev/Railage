@@ -45,7 +45,8 @@ public class TrainsServlet extends HttpServlet {
         String trainNumber = request.getParameter("trainNumber");
         try {
             Integer seats = Integer.parseInt(request.getParameter("seatsNumber"));
-            TrainService.addTrain(trainNumber,seats);
+            TrainService trainService = new TrainService();
+            trainService.addTrain(trainNumber,seats);
         }
         catch(NumberFormatException e){
             request.getSession().setAttribute(Utils.IS_VALIDATION_ERR, true);
@@ -73,17 +74,20 @@ public class TrainsServlet extends HttpServlet {
 
 
     private void processTrains(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        TrainService trainService = new TrainService();
         HttpSession session = request.getSession();
-        session.setAttribute(Utils.TRAINS, TrainService.findAllTrains());
+        session.setAttribute(Utils.TRAINS,trainService.findAllTrains());
         response.sendRedirect(Pages.TRAINS);
     }
 
     private void processTrainRides(Integer trainId,HttpServletRequest request, HttpServletResponse response)
                 throws IOException {
+
+        TrainService trainService = new TrainService();
         HttpSession session = request.getSession();
-        List<TrainRide> rides = TrainService.findAllRidesByTrainId(trainId);
+        List<TrainRide> rides = trainService.findAllRidesByTrainId(trainId);
         session.setAttribute(Utils.TRAIN_RIDES, rides);
-        session.setAttribute(Utils.CURRENT_TRAIN, TrainService.findTrainById(trainId));
+        session.setAttribute(Utils.CURRENT_TRAIN, trainService.findTrainById(trainId));
         response.sendRedirect(Pages.RIDES);
     }
 }

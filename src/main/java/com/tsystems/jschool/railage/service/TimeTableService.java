@@ -11,17 +11,33 @@ import java.util.List;
  */
 public class TimeTableService {
 
-    private static TimeTableDao timeTableDao = new TimeTableDao();
+    private TimeTableDao timeTableDao = new TimeTableDao();
 
-    public static List<TimeTableLine> findByStationId(Integer stationId){
-        return timeTableDao.findByStationId(stationId);
+    public List<TimeTableLine> findByStationId(Integer stationId){
+
+        List<TimeTableLine> timeTableLines;
+        timeTableDao.open();
+        try {
+            timeTableLines = timeTableDao.findByStationId(stationId)
+        }
+        finally {
+            timeTableDao.close();
+        }
+        return timeTableLines;
     }
 
-    public static List<TimeTableLine> merge(List<TimeTableLine> timeTableLines){
+    public List<TimeTableLine> merge(List<TimeTableLine> timeTableLines){
+
+        timeTableDao.open();
         List<TimeTableLine> result = new ArrayList<>();
-        for( TimeTableLine line : timeTableLines ) {
-            TimeTableLine resPart = timeTableDao.merge(line);
-            result.add(resPart);
+        try {
+            for (TimeTableLine line : timeTableLines) {
+                TimeTableLine resPart = timeTableDao.merge(line);
+                result.add(resPart);
+            }
+        }
+        finally {
+            timeTableDao.close();
         }
         return result;
     }

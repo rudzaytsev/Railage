@@ -19,8 +19,8 @@ import java.util.List;
 public class AjaxServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        StationService stationService = new StationService();
 
-        System.out.println("********************* RECEIVED AJAX");
         // 1. get received JSON data from request
         BufferedReader br = new BufferedReader(new InputStreamReader(request.getInputStream()));
         String json = "";
@@ -30,7 +30,7 @@ public class AjaxServlet extends HttpServlet {
         // 2. initiate jackson mapper
         ObjectMapper mapper = new ObjectMapper();
         // 3. Convert received JSON to Article
-        List<StationHelper> stationHelpers = StationHelper.map(StationService.findAllStations());
+        List<StationHelper> stationHelpers = StationHelper.map(stationService.findAllStations());
 
         response.setContentType("application/json");
 

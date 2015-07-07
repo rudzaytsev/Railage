@@ -4,19 +4,17 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
-import java.io.Serializable;
-import java.util.List;
 
 /**
  * Created by rudolph on 23.06.15.
  */
 public abstract class JpaDao<T> implements Dao<T, Integer>  {
 
+    EntityManagerFactory factory;
     protected EntityManager entityManager;
 
     public JpaDao(){
-       EntityManagerFactory factory = Persistence.createEntityManagerFactory("RailagePU");
-       entityManager = factory.createEntityManager();
+       // does nothing
     }
 
     @Override
@@ -35,4 +33,20 @@ public abstract class JpaDao<T> implements Dao<T, Integer>  {
         }
     }
 
+    public final void open(){
+
+        if (entityManager == null) {
+            factory = Persistence.createEntityManagerFactory("RailagePU");
+            entityManager = factory.createEntityManager();
+        }
+    }
+
+    public final void close(){
+        entityManager.close();
+        factory.close();
+    }
+
+    public EntityManager getEntityManager() {
+        return entityManager;
+    }
 }

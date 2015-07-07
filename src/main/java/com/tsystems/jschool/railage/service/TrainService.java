@@ -14,44 +14,82 @@ import java.util.List;
  */
 public class TrainService {
 
-    private static TrainDao trainDao = new TrainDao();
+    private TrainDao trainDao = new TrainDao();
 
-    public static List<Train> findAllTrains(){
-        return trainDao.findAll();
+    public List<Train> findAllTrains(){
+
+        List<Train> trains = null;
+        trainDao.open();
+        try {
+            trains = trainDao.findAll();
+        }
+        finally {
+            trainDao.close();
+        }
+        return trains;
     }
 
-    public static List<TrainRide> findAllRidesByTrainId(Integer id){
-        Train train = trainDao.findById(id);
+    public List<TrainRide> findAllRidesByTrainId(Integer id){
+        trainDao.open();
+        Train train;
+        try {
+            train = trainDao.findById(id);
+        }
+        finally {
+            trainDao.close();
+        }
         return (train != null) ? train.getRides() : null;
     }
 
-    public static Train findTrainById(Integer id){
-        return trainDao.findById(id);
+    public Train findTrainById(Integer id){
+        trainDao.open();
+        Train train;
+        try {
+           train = trainDao.findById(id);
+        }
+        finally {
+            trainDao.close();
+        }
+        return train;
     }
 
-    public static void addTrain(String trainNumber,Integer seats)
+    public void addTrain(String trainNumber,Integer seats)
             throws NotPositiveNumberOfSeatsException, DomainObjectAlreadyExistsException,
             IncorrectParameterException {
 
-        if (seats <= 0){
-            throw new NotPositiveNumberOfSeatsException(
-                    "Number of seats should be positive");
+        trainDao.open();
+        try {
+            if (seats <= 0) {
+                throw new NotPositiveNumberOfSeatsException(
+                        "Number of seats should be positive");
+            }
+            if (!trainNumber.matches("^[0-9a-zA-Z]+")) {
+                throw new IncorrectParameterException(
+                        "Train number should contains only latin characters and digits");
+            }
+            List<Train> trains = trainDao.findTrainsByTrainNumber(trainNumber);
+            if (!trains.isEmpty()) {
+                throw new DomainObjectAlreadyExistsException(
+                        "Train with such parameters already exists");
+            }
+            trainDao.persist(new Train(seats, trainNumber));
         }
-        if (!trainNumber.matches("^[0-9a-zA-Z]+")){
-            throw new IncorrectParameterException(
-                    "Train number should contains only latin characters and digits");
+        finally {
+            trainDao.close();
         }
-        List<Train> trains = trainDao.findTrainsByTrainNumber(trainNumber);
-        if (!trains.isEmpty()){
-            throw new DomainObjectAlreadyExistsException(
-                      "Train with such parameters already exists");
-        }
-        trainDao.persist(new Train(seats,trainNumber));
-
     }
 
 
-    public static Train merge(Train train){
-        return trainDao.merge(train);
+    public Train merge(Train train){
+
+        Train mergedTrain;
+        trainDao.open();
+        try {
+            mergedTrain = trainDao.merge(train);
+        }
+        finally {
+            trainDao.close();
+        }
+        return mergedTrain;
     }
 }

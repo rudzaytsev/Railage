@@ -40,9 +40,11 @@ public class RouteBuilderServlet extends HttpServlet {
     private void addRoute(HttpServletRequest request, HttpServletResponse response) throws IOException {
         RouteFormParams params = new RouteFormParams();
         params.fill(request);
+        RouteService routeService = new RouteService();
         try {
             params.validate();
-            RouteService.addRoute(params);
+
+            routeService.addRoute(params);
 
         } catch (IncorrectStationsDepartureTimesOrderException |
                  IncorrectTimeFormatException |
@@ -52,7 +54,7 @@ public class RouteBuilderServlet extends HttpServlet {
            request.getSession().setAttribute(Utils.IS_VALIDATION_ERR,true);
            request.getSession().setAttribute(Utils.VALIDATION_ERROR_MSG,errorMsg);
         }
-        request.getSession().setAttribute(Utils.ROUTES, RouteService.findAllRoutes());
+        request.getSession().setAttribute(Utils.ROUTES, routeService.findAllRoutes());
         response.sendRedirect(Pages.ROUTES);
 
     }
