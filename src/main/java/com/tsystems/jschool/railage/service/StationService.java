@@ -41,24 +41,24 @@ public class StationService {
     public void addStation(String stationName)
             throws DomainObjectAlreadyExistsException, IncorrectParameterException {
 
-        if (!stationName.matches("^[0-9a-zA-Z]+")){
+       if (!stationName.matches("^[0-9a-zA-Z]+")){
             throw new IncorrectParameterException(
                     "Station name should contains only latin characters and digits");
-        }
-
-       List<Station> stations = stationDao.findStationsByName(stationName);
-       if (!stations.isEmpty()){
-             throw new DomainObjectAlreadyExistsException(
-                     "Station with such parameters already exists");
        }
-       else {
-           stationDao.open();
-           try {
-               stationDao.persist(new Station(stationName));
+
+       stationDao.open();
+       try {
+           List<Station> stations = stationDao.findStationsByName(stationName);
+           if (!stations.isEmpty()) {
+               throw new DomainObjectAlreadyExistsException(
+                       "Station with such parameters already exists");
            }
-           finally {
-               stationDao.close();
+           else {
+              stationDao.persist(new Station(stationName));
            }
+       }
+       finally {
+           stationDao.close();
        }
     }
 }

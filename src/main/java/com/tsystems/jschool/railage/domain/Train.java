@@ -19,7 +19,7 @@ public class Train extends DomainObject {
     private Integer seats;
 
     /** list of train rides, done by train */
-    @OneToMany(mappedBy = "train",cascade={CascadeType.PERSIST,CascadeType.MERGE})
+    @OneToMany(mappedBy = "train",fetch = FetchType.EAGER,cascade={CascadeType.PERSIST,CascadeType.MERGE})
     private List<TrainRide> rides;
 
     /** list of train routes */
@@ -72,5 +72,28 @@ public class Train extends DomainObject {
 
     public void addRoute(Route route){
         routes.add(route);
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Train)) return false;
+        if (!super.equals(o)) return false;
+
+        Train train = (Train) o;
+
+        if (!number.equals(train.number)) return false;
+        if (!seats.equals(train.seats)) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + seats.hashCode();
+        result = 31 * result + number.hashCode();
+        return result;
     }
 }

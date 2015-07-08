@@ -29,9 +29,12 @@ public class RouteBuilderServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        TrainService trainService = new TrainService();
+        StationService stationService = new StationService();
+
         HttpSession session = request.getSession();
-        session.setAttribute(Utils.STATIONS, StationService.findAllStations());
-        session.setAttribute(Utils.TRAINS, TrainService.findAllTrains());
+        session.setAttribute(Utils.STATIONS, stationService.findAllStations());
+        session.setAttribute(Utils.TRAINS, trainService.findAllTrains());
         session.setAttribute(Utils.PERIODS, Period.getPeriodsAsList());
         response.sendRedirect(Pages.ROUTE_BULDER);
         return;

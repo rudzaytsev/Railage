@@ -13,6 +13,8 @@ public abstract class JpaDao<T> implements Dao<T, Integer>  {
     EntityManagerFactory factory;
     protected EntityManager entityManager;
 
+    private static final String PersistanceUnitName = "RailagePU";
+
     public JpaDao(){
        // does nothing
     }
@@ -35,15 +37,21 @@ public abstract class JpaDao<T> implements Dao<T, Integer>  {
 
     public final void open(){
 
-        if (entityManager == null) {
-            factory = Persistence.createEntityManagerFactory("RailagePU");
+        boolean needOpening = (entityManager == null) || !entityManager.isOpen();
+        if (needOpening) {
+            factory = Persistence.createEntityManagerFactory(PersistanceUnitName);
             entityManager = factory.createEntityManager();
         }
     }
 
     public final void close(){
-        entityManager.close();
-        factory.close();
+        if(entityManager.isOpen()){
+            entityManager.close();
+        }
+        if(factory.isOpen()){
+            factory.close();
+        }
+
     }
 
     public EntityManager getEntityManager() {

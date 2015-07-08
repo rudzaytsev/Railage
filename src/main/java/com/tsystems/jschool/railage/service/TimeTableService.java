@@ -18,7 +18,7 @@ public class TimeTableService {
         List<TimeTableLine> timeTableLines;
         timeTableDao.open();
         try {
-            timeTableLines = timeTableDao.findByStationId(stationId)
+            timeTableLines = timeTableDao.findByStationId(stationId);
         }
         finally {
             timeTableDao.close();

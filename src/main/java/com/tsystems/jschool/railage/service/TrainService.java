@@ -32,13 +32,17 @@ public class TrainService {
     public List<TrainRide> findAllRidesByTrainId(Integer id){
         trainDao.open();
         Train train;
+        List<TrainRide> rides = null;
         try {
             train = trainDao.findById(id);
+            if(train != null) {
+                rides = train.getRides();
+            }
         }
         finally {
             trainDao.close();
         }
-        return (train != null) ? train.getRides() : null;
+        return rides;
     }
 
     public Train findTrainById(Integer id){

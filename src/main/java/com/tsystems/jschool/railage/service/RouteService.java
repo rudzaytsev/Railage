@@ -37,10 +37,12 @@ public class RouteService {
             List<Station> stations = createStations(params);
             List<TimeTableLine> timeTableLines = createTimeTableLine(route, stations, params);
             List<RoutePart> routeParts = createRouteParts(route, stations);
+            TrainService trainService = new TrainService();
 
             Integer trainId = params.getTrainId();
-            Train train = TrainService.findTrainById(trainId);
-            Train mergedTrain = TrainService.merge(train);
+            /*
+            Train train = trainService.findTrainById(trainId);
+            Train mergedTrain = trainService.merge(train);
             for (TimeTableLine line : timeTableLines) {
                 line.setTrain(mergedTrain);
             }
@@ -48,6 +50,19 @@ public class RouteService {
             route.setTimeTableLines(timeTableLines);
 
             route.setTrain(mergedTrain);
+            */
+
+            // new code
+            Train train = trainService.findTrainById(trainId);
+            for (TimeTableLine line : timeTableLines) {
+                line.setTrain(train);
+            }
+            route.setRouteParts(routeParts);
+            route.setTimeTableLines(timeTableLines);
+
+            route.setTrain(train);
+            //end new code
+
             routeDao.merge(route);
         }
         finally {
@@ -78,10 +93,11 @@ public class RouteService {
     }
 
     private static List<Station> createStations(RouteFormParams params){
+        StationService stationService = new StationService();
         List<Station> stations = new ArrayList<>();
         for (Integer stationId : params.getStationsIds()){
 
-            Station station = StationService.findStationById(stationId);
+            Station station = stationService.findStationById(stationId);
             stations.add(station);
         }
         return stations;

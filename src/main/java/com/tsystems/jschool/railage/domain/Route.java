@@ -19,7 +19,7 @@ public class Route extends DomainObject {
     private Train train;
 
     /** list of parts of the route */
-    @OneToMany(mappedBy = "route",cascade = {CascadeType.PERSIST,CascadeType.MERGE})
+    @OneToMany(mappedBy = "route",fetch = FetchType.EAGER,cascade = {CascadeType.PERSIST,CascadeType.MERGE})
     private List<RoutePart> routeParts;
 
     @OneToMany(mappedBy = "route",cascade = {CascadeType.PERSIST,CascadeType.MERGE})

@@ -14,7 +14,14 @@ public class UserService {
     private UserDao userDao = new UserDao();
 
     public Triple<Boolean,Integer,String> logInUser(String login, String password){
-        User user = userDao.findUserByParams(login, password);
+        User user;
+        userDao.open();
+        try {
+            user = userDao.findUserByParams(login, password);
+        }
+        finally {
+            userDao.close();
+        }
         return (user != null) ? new Triple(true,user.getId(),user.getRole()) :
                                 new Triple(false,null,null);
     }
@@ -47,7 +54,6 @@ public class UserService {
         try {
             User user = new User(login, password, role);
             userDao.persist(user);
-
         }
         catch(Exception e){
             done = false;
