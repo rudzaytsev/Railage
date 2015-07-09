@@ -22,7 +22,7 @@ public class Route extends DomainObject {
     @OneToMany(mappedBy = "route",fetch = FetchType.EAGER,cascade = {CascadeType.PERSIST,CascadeType.MERGE})
     private List<RoutePart> routeParts;
 
-    @OneToMany(mappedBy = "route",cascade = {CascadeType.PERSIST,CascadeType.MERGE})
+    @OneToMany(mappedBy = "route",fetch = FetchType.EAGER,cascade = {CascadeType.PERSIST,CascadeType.MERGE})
     private List<TimeTableLine> timeTableLines;
 
     public Train getTrain() {
@@ -74,6 +74,22 @@ public class Route extends DomainObject {
             return endRoutePart.getStation();
         }
         return null;
+    }
+
+    public String getRouteName(){
+        StringBuilder builder = new StringBuilder();
+        String delim = "--";
+        builder.append(this.getId());
+        builder.append(delim);
+        builder.append(this.getStartStation().getName());
+        builder.append(delim);
+        builder.append(this.getEndStation().getName());
+        return builder.toString();
+
+    }
+
+    public String getPeriod(){
+        return timeTableLines.get(0).getTimeInfo().getPeriod();
     }
 
 

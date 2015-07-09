@@ -14,22 +14,32 @@ import java.util.List;
 public class TrainRide extends DomainObject {
 
     /** train for ride */
-    @ManyToOne
+    @ManyToOne(cascade={CascadeType.PERSIST,CascadeType.MERGE})
     @JoinColumn(name = "trainId")
     private Train train;
 
     /** tickets for ride */
-    @OneToMany(mappedBy = "trainRide")
+    @OneToMany(mappedBy = "trainRide",cascade={CascadeType.PERSIST,CascadeType.MERGE})
     private List<Ticket> tickets;
     
     /** train route for ride */
-    @ManyToOne
+    @ManyToOne(cascade={CascadeType.PERSIST,CascadeType.MERGE})
     @JoinColumn(name = "routeId")
     private Route route;
 
     /** date of train ride */
     @Column(name = "rideDate")
     private Date date;
+
+    public TrainRide(){
+        //does nothing
+    }
+
+    public TrainRide(Route route, Date date, Train train) {
+        this.route = route;
+        this.date = date;
+        this.train = train;
+    }
 
     public Train getTrain() {
         return train;

@@ -17,6 +17,7 @@ public class RouteTest {
     public void setUp() throws Exception {
 
         route = new Route();
+        route.setId(777);
         routeParts = new RoutePart[4];
 
         routeParts[0] = new RoutePart(
@@ -68,5 +69,16 @@ public class RouteTest {
         RoutePart endRoutePart = route.getEndRoutePart();
         assertNull(endRoutePart);
 
+    }
+
+    @Test
+    public void testGetRouteName() throws Exception {
+        String result = route.getRouteName();
+        assertEquals("777--A--D",result);
+
+        route.setId(888);
+
+        result = route.getRouteName();
+        assertEquals("888--A--D",result);
     }
 }

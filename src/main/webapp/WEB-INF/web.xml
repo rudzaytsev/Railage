@@ -78,6 +78,10 @@
       <url-pattern>/rides/*</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
+       <servlet-name>TrainRideServlet</servlet-name>
+       <url-pattern>/add/ride</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
       <servlet-name>StationsServlet</servlet-name>
       <url-pattern>/stations/*</url-pattern>
   </servlet-mapping>
@@ -91,7 +95,7 @@
   </servlet-mapping>
   <servlet-mapping>
       <servlet-name>AjaxServlet</servlet-name>
-      <url-pattern>/ajax/stations</url-pattern>
+      <url-pattern>/ajax/*</url-pattern>
   </servlet-mapping>
   <filter-mapping>
       <filter-name>AccessFilter</filter-name>

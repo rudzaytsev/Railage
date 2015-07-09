@@ -15,6 +15,20 @@ public class RouteService {
 
     private RouteDao routeDao = new RouteDao();
 
+
+    public Route findRouteById(Integer id){
+
+        routeDao.open();
+        Route route = null;
+        try {
+           route = routeDao.findById(id);
+        }
+        finally {
+            routeDao.close();
+        }
+        return route;
+    }
+
     public List<Route> findAllRoutes(){
 
         routeDao.open();
@@ -40,29 +54,14 @@ public class RouteService {
             TrainService trainService = new TrainService();
 
             Integer trainId = params.getTrainId();
-            /*
-            Train train = trainService.findTrainById(trainId);
-            Train mergedTrain = trainService.merge(train);
-            for (TimeTableLine line : timeTableLines) {
-                line.setTrain(mergedTrain);
-            }
-            route.setRouteParts(routeParts);
-            route.setTimeTableLines(timeTableLines);
 
-            route.setTrain(mergedTrain);
-            */
-
-            // new code
             Train train = trainService.findTrainById(trainId);
             for (TimeTableLine line : timeTableLines) {
                 line.setTrain(train);
             }
             route.setRouteParts(routeParts);
             route.setTimeTableLines(timeTableLines);
-
             route.setTrain(train);
-            //end new code
-
             routeDao.merge(route);
         }
         finally {

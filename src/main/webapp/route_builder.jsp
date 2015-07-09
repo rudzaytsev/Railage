@@ -162,13 +162,13 @@
     </div>
 
     <script>
-        function sendAjax(){
+        function sendAjax(currentStationNumber){
 
             $.ajax({
                 url: "/ajax/stations",
                 type: 'POST',
                 dataType: 'json',
-                data: "{ 'request' : 'stations_request' }",
+                data: "{ \"request\" : \"stations\" }",
                 contentType: 'application/json',
                 mimeType: 'application/json',
 
@@ -183,10 +183,8 @@
                     }
 
                     var offsetVal = 3;
-                    for ( var i = offsetVal; i < len + offsetVal; i++) {
-                        if($('#stationId' + i).length) {
-                            $('#stationId' + i).html(insideHtml);
-                        }
+                    if($('#stationId' + currentStationNumber).length) {
+                        $('#stationId' + currentStationNumber).html(insideHtml);
                     }
                 },
                 error:function(data,status,er) {
@@ -224,7 +222,7 @@
 
                     $(container).append(divStr);
 
-                    sendAjax();
+                    sendAjax(iCnt);
                 }
                 else {
                     $(container).append('<label>Reached the limit</label>');

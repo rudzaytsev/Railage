@@ -1,12 +1,20 @@
 package com.tsystems.jschool.railage.service;
 
 import com.tsystems.jschool.railage.datasource.TrainDao;
+import com.tsystems.jschool.railage.datasource.TrainRideDao;
+import com.tsystems.jschool.railage.domain.Period;
+import com.tsystems.jschool.railage.domain.Route;
 import com.tsystems.jschool.railage.domain.Train;
 import com.tsystems.jschool.railage.domain.TrainRide;
 import com.tsystems.jschool.railage.service.exceptions.DomainObjectAlreadyExistsException;
 import com.tsystems.jschool.railage.service.exceptions.IncorrectParameterException;
 import com.tsystems.jschool.railage.service.exceptions.NotPositiveNumberOfSeatsException;
+import com.tsystems.jschool.railage.service.exceptions.TimeTableConflictException;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 /**
@@ -15,6 +23,8 @@ import java.util.List;
 public class TrainService {
 
     private TrainDao trainDao = new TrainDao();
+
+    private TrainRideDao trainRideDao = new TrainRideDao();
 
     public List<Train> findAllTrains(){
 
@@ -83,6 +93,60 @@ public class TrainService {
         }
     }
 
+    public void addTrainRide(Integer routeId, String dateStr) throws ParseException, TimeTableConflictException {
+
+        RouteService routeService = new RouteService();
+        Route route = routeService.findRouteById(routeId);
+        Train train = route.getTrain();
+        java.sql.Date date = this.validateDate(dateStr,route.getPeriod());
+
+        trainRideDao.open();
+        try {
+
+            TrainRide ride = new TrainRide(route,date,train);
+            trainRideDao.merge(ride);
+
+        }
+        finally {
+            trainRideDao.close();
+        }
+    }
+
+    private java.sql.Date validateDate(String dateStr, String period) throws ParseException, TimeTableConflictException {
+
+        // using for validation
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        dateFormat.setLenient(false);
+
+        Calendar calendar = new GregorianCalendar();
+        calendar.setTime(dateFormat.parse(dateStr));
+        int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
+
+        if (period.equals(Period.WEEKDAYS.value())){
+            boolean isWeekDay = (dayOfWeek != Calendar.SATURDAY)
+                                    && (dayOfWeek != Calendar.SUNDAY);
+            if (!isWeekDay){
+               throw new TimeTableConflictException(
+                    "Ride conflicts with timetable. " +
+                    "Ride date should be weekday if train route period is WEEKDAYS."
+               );
+            }
+        }
+        else if (period.equals(Period.WEEKENDS.value())){
+            boolean isWeekEnd = (dayOfWeek == Calendar.SATURDAY)
+                    || (dayOfWeek == Calendar.SUNDAY);
+
+            if (!isWeekEnd){
+                throw new TimeTableConflictException(
+                        "Ride conflicts with timetable." +
+                        "Ride date should be weekend if train route period is WEEKENDS.");
+            }
+        }
+
+        java.sql.Date dateSql = java.sql.Date.valueOf(dateStr);
+        return dateSql;
+    }
+
 
     public Train merge(Train train){
 
@@ -95,5 +159,17 @@ public class TrainService {
             trainDao.close();
         }
         return mergedTrain;
+    }
+
+    public List<TrainRide> findAllTrainRides(){
+        List<TrainRide> result;
+        trainRideDao.open();
+        try {
+            result = trainRideDao.findAll();
+        }
+        finally {
+            trainRideDao.close();
+        }
+        return result;
     }
 }

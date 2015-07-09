@@ -1,8 +1,13 @@
 package com.tsystems.jschool.railage.view.servlets;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.tsystems.jschool.railage.service.RouteService;
 import com.tsystems.jschool.railage.service.StationService;
+import com.tsystems.jschool.railage.view.servlets.helpers.RouteHelper;
 import com.tsystems.jschool.railage.view.servlets.helpers.StationHelper;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -19,7 +24,7 @@ import java.util.List;
 public class AjaxServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        StationService stationService = new StationService();
+
 
         // 1. get received JSON data from request
         BufferedReader br = new BufferedReader(new InputStreamReader(request.getInputStream()));
@@ -27,16 +32,44 @@ public class AjaxServlet extends HttpServlet {
         if(br != null){
             json = br.readLine();
         }
-        // 2. initiate jackson mapper
+
+        JSONParser jsonParser = new JSONParser();
+        try {
+            JSONObject jsonObj = (JSONObject) jsonParser.parse(json);
+            String requestName = (String) jsonObj.get("request");
+            if (AjaxRequestType.ROUTE.value().equals(requestName)) {
+                Integer routeId = Integer.parseInt(jsonObj.get("routeId").toString());
+
+                this.sendRouteHelper(response, routeId);
+            } else {
+                this.sendStationHelpers(response);
+            }
+        }
+         catch (ParseException e) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST);
+        }
+        catch(NumberFormatException e){
+            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+        }
+
+    }
+
+    private void sendRouteHelper(HttpServletResponse response, Integer routeId) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
-        // 3. Convert received JSON to Article
-        List<StationHelper> stationHelpers = StationHelper.map(stationService.findAllStations());
-
+        RouteService routeService = new RouteService();
+        RouteHelper routeHelper = RouteHelper.map(routeService.findRouteById(routeId));
         response.setContentType("application/json");
+        mapper.writeValue(response.getOutputStream(), routeHelper);
 
-        // Send List<Article> as JSON to client
+    }
+
+    private void sendStationHelpers(HttpServletResponse response) throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        StationService stationService = new StationService();
+        List<StationHelper> stationHelpers = StationHelper.map(
+                                                stationService.findAllStations());
+        response.setContentType("application/json");
         mapper.writeValue(response.getOutputStream(), stationHelpers);
-
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -9,7 +9,7 @@ import java.util.List;
 public enum Period {
 
     EVERY_DAY("EVERYDAY"),WEEKDAYS("WEEKDAYS"),
-    WEEKENDS("WEEKENDS"), THIS_WEEK("THISWEEK");
+    WEEKENDS("WEEKENDS");
 
     private String period;
 
@@ -31,7 +31,6 @@ public enum Period {
         result.add(Period.EVERY_DAY.period);
         result.add(Period.WEEKDAYS.period);
         result.add(Period.WEEKENDS.period);
-        result.add(Period.THIS_WEEK.period);
         return result;
     }
 }
