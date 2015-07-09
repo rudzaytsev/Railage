@@ -87,6 +87,7 @@ public class TrainsServlet extends HttpServlet {
         HttpSession session = request.getSession();
         List<TrainRide> rides = trainService.findAllRidesByTrainId(trainId);
         session.setAttribute(Utils.TRAIN_RIDES, rides);
+        session.setAttribute(Utils.HAS_CURRENT_TRAIN,true);
         session.setAttribute(Utils.CURRENT_TRAIN, trainService.findTrainById(trainId));
         response.sendRedirect(Pages.RIDES);
     }

@@ -34,14 +34,19 @@ public class TrainRideServlet extends HttpServlet {
         String uri = request.getRequestURI();
         Integer trainRideId = Utils.extractId(uri);
         PassengerService passengerService = new PassengerService();
-        if (trainRideId == null){
+        TrainService trainService = new TrainService();
+        if (trainRideId == null) {
             String queryStr = request.getQueryString();
-            if(queryStr != null) {
+            if (queryStr != null) {
 
                 Integer trainId = Utils.extractNumberParam(queryStr, "trainId");
                 if (trainId != null) {
                     HttpSession session = request.getSession();
                     List<Passenger> passengers = passengerService.findPassengersByTrainId(trainId);
+
+                    session.setAttribute(Utils.CURRENT_TRAIN,trainService.findTrainById(trainId));
+                    session.setAttribute(Utils.HAS_CURRENT_TRAIN,true);
+                    session.setAttribute(Utils.HAS_CURRENT_RIDE,false);
                     session.setAttribute(Utils.PASSENGERS, passengers);
                     response.sendRedirect(Pages.PASSENGERS);
                     return;
@@ -53,7 +58,11 @@ public class TrainRideServlet extends HttpServlet {
         }
         else {
             HttpSession session = request.getSession();
+
             List<Passenger> passengers = passengerService.findPassengersByRideId(trainRideId);
+            session.setAttribute(Utils.HAS_CURRENT_TRAIN,false);
+            session.setAttribute(Utils.HAS_CURRENT_RIDE,true);
+            session.setAttribute(Utils.CURRENT_TRAIN_RIDE,trainService.findTrainRideById(trainRideId));
             session.setAttribute(Utils.PASSENGERS, passengers);
             response.sendRedirect(Pages.PASSENGERS);
             return;
@@ -91,6 +100,7 @@ public class TrainRideServlet extends HttpServlet {
         List<TrainRide> rides = trainService.findAllTrainRides();
         request.getSession().setAttribute(Utils.TRAIN_RIDES,rides);
         request.getSession().setAttribute(Utils.ROUTES, routeService.findAllRoutes());
+        request.getSession().setAttribute(Utils.HAS_CURRENT_TRAIN,false);
         response.sendRedirect(Pages.RIDES);
     }
 

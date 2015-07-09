@@ -19,6 +19,12 @@ public class Utils {
 
     public static final String TRAINS = "trains";
 
+    public static final String HAS_CURRENT_TRAIN = "hasCurrentTrain";
+
+    public static final String HAS_CURRENT_RIDE = "hasCurrentRide";
+
+    public static final String CURRENT_TRAIN_RIDE = "currentTrainRide";
+
     public static final String CURRENT_TRAIN = "currentTrain";
 
     public static final String TRAIN_RIDES = "trainRides";

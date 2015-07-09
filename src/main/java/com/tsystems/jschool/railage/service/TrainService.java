@@ -172,4 +172,17 @@ public class TrainService {
         }
         return result;
     }
+
+
+    public TrainRide findTrainRideById(Integer id){
+        TrainRide ride;
+        trainRideDao.open();
+        try {
+            ride = trainRideDao.findById(id);
+        }
+        finally {
+            trainRideDao.close();
+        }
+        return ride;
+    }
 }

@@ -48,7 +48,17 @@
                 </ul>
             </div>
             <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-                <h1 class="page-header">Passengers</h1>
+                <c:choose>
+                    <c:when test="${hasCurrentRide}">
+                        <h1 class="page-header">Passengers registered for train ride # ${currentTrainRide.id} </h1>
+                    </c:when>
+                    <c:when test="${hasCurrentTrain}">
+                        <h1 class="page-header">Passengers registered for train # ${currentTrain.number} </h1>
+                    </c:when>
+                    <c:otherwise>
+                        <h1 class="page-header">Passengers</h1>
+                    </c:otherwise>
+                </c:choose>
                 <div class="table-responsive">
                     <table class="table table-striped">
                         <thead>

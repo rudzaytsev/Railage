@@ -44,7 +44,9 @@
         <div class="col-sm-3 col-md-2 sidebar">
             <ul class="nav nav-sidebar">
                 <li><a id="addride" href="#">Add Ride</a></li>
-                <li><a href="/rides/all/?trainId=${currentTrain.id}">Passengers of All Train Rides </a>
+                <c:if test="${hasCurrentTrain}">
+                    <li><a href="/rides/all/?trainId=${currentTrain.id}">All Passengers for train</a>
+                </c:if>
             </ul>
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
@@ -60,7 +62,16 @@
                     <strong>Well Done!</strong> ${infoMsg}
                 </div>
             </c:if>
-            <h1 class="page-header">Train Rides</h1>
+
+            <c:choose>
+                <c:when test="${hasCurrentTrain}">
+                    <h1 class="page-header">Train Rides for train ${currentTrain.number}</h1>
+                </c:when>
+                <c:otherwise>
+                    <h1 class="page-header">Train Rides for All trains</h1>
+                </c:otherwise>
+            </c:choose>
+
             <div class="table-responsive">
                 <table class="table table-striped">
                     <thead>
