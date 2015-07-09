@@ -31,6 +31,7 @@
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="/trains/all">Trains</a></li>
+                    <li><a href="/rides/all">Rides</a></li>
                     <li><a href="/routes/all">Routes</a></li>
                     <li><a href="#">Help</a></li>
                 </ul>

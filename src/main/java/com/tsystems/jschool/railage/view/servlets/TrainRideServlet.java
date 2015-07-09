@@ -35,15 +35,19 @@ public class TrainRideServlet extends HttpServlet {
         PassengerService passengerService = new PassengerService();
         if (trainRideId == null){
             String queryStr = request.getQueryString();
-            Integer trainId = Utils.extractNumberParam(queryStr,"trainId");
-            if (trainId != null){
-               HttpSession session = request.getSession();
-               List<Passenger> passengers = passengerService.findPassengersByTrainId(trainId);
-               session.setAttribute(Utils.PASSENGERS, passengers);
-               response.sendRedirect(Pages.PASSENGERS);
-               return;
+            if(queryStr != null) {
+
+                Integer trainId = Utils.extractNumberParam(queryStr, "trainId");
+                if (trainId != null) {
+                    HttpSession session = request.getSession();
+                    List<Passenger> passengers = passengerService.findPassengersByTrainId(trainId);
+                    session.setAttribute(Utils.PASSENGERS, passengers);
+                    response.sendRedirect(Pages.PASSENGERS);
+                    return;
+                }
             }
-            response.sendRedirect(Pages.ERROR);
+            //response.sendRedirect(Pages.ERROR);
+            this.processAllTrainRides(request,response);
             return;
         }
         else {
