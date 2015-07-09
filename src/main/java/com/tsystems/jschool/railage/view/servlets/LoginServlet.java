@@ -1,6 +1,5 @@
 package com.tsystems.jschool.railage.view.servlets;
 
-import com.tsystems.jschool.railage.service.RouteService;
 import com.tsystems.jschool.railage.service.TrainService;
 import com.tsystems.jschool.railage.service.UserService;
 import com.tsystems.jschool.railage.service.helper.Triple;
@@ -28,7 +27,6 @@ public class LoginServlet extends HttpServlet {
         Triple<Boolean,Integer,String> triple = userService.logInUser(login,password);
         boolean logged = triple.getFirst();
         TrainService trainService = new TrainService();
-        RouteService routeService = new RouteService();
 
         if (logged){
             int id = triple.getSecond();
@@ -39,7 +37,6 @@ public class LoginServlet extends HttpServlet {
             session.setAttribute(Utils.USER_ID_SESSION_ATTRIB,id);
             session.setAttribute(Utils.IS_EMPLOYEE_SESSION_ATTRIB,isEmployee);
             session.setAttribute(Utils.TRAINS, trainService.findAllTrains());
-            session.setAttribute(Utils.ROUTES, routeService.findAllRoutes());
             response.sendRedirect(Pages.TRAINS);
             return;
         }

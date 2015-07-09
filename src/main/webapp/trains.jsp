@@ -44,7 +44,7 @@
             <div class="col-sm-3 col-md-2 sidebar">
                 <ul class="nav nav-sidebar">
                     <li><a id="addtrain" href="#">Add Train</a></li>
-                    <li><a id="addride" href="#">Add Ride</a></li>
+
                 </ul>
             </div>
             <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
@@ -121,92 +121,7 @@
     </script>
 
 
-    <!-- Modal Rides -->
-    <div class="modal fade" id="add_ride_modal_div" tabindex="-1" role="dialog" aria-labelledby="add_ride_modal_label">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="add_ride_modal_label">Add Ride</h4>
-                </div>
-                <form id="add_ride_form" action="/add/ride" method="post">
-                    <div class="modal-body">
-                        <label>Route:</label>
-                        <select id="selected_route" name="routeId" class="form-control">
-                            <c:forEach var="route" items="${routes}" varStatus="status">
-                                <c:choose>
-                                    <c:when test="${status.count eq 0}">
-                                        <option selected value="${route.id}">${route.getRouteName()}</option>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <option value="${route.id}">${route.getRouteName()}</option>
-                                    </c:otherwise>
-                                </c:choose>
-                            </c:forEach>
-                        </select>
-                        <div class="modal-body help-block" id="route_info">
-                        </div>
-                        <label for="ride_date">Ride Date:</label>
-                        <input id="ride_date" name="ride_date" type="date" class="form-control"/>
-                        <span id="helpBlock" class="help-block"> Input date in format YYYY-MM-DD, where Y - year, M - Mounth, D - day  </span>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn btn-primary">Add</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
 
-    <script>
-        $(document).on('click',"#addride", function(){
-            $('#add_ride_modal_div').modal('show')
-            return false;
-        });
-    </script>
-
-    <script>
-        $(document).ready(function() {
-            $('#selected_route').change(
-                function () {
-
-                    $.ajax({
-                        url: "/ajax/route",
-                        type: 'POST',
-                        dataType: 'json',
-                        data: "{ \"request\" :  \"route\"," +
-                        "\"routeId\": \"" + $('#selected_route').val() + "\" }",
-                        contentType: 'application/json',
-                        mimeType: 'application/json',
-
-                        success: function (data) {
-
-                            var insideHtml = '';
-                            var len = data.length;
-                            console.log(data);
-
-                            insideHtml = ''.concat(
-                                    '<div class="modal-body">',
-                                    '<h5> Route Data </h5>',
-                                    '<p> train Number : ', data.trainNumber,
-                                    ', number of seats : ', data.seats,
-                                    '<p> number of stations : ', data.stationsNumber,
-                                    ', time period : ', data.period,
-                                    '</div>');
-
-                            if ($('#route_info').length) {
-                                $('#route_info').html(insideHtml);
-                            }
-
-                        },
-                        error: function (data, status, er) {
-                            alert("error: " + data + " status: " + status + " er:" + er);
-                        }
-                    });
-                });
-        });
-    </script>
 
 </body>
 </html>
