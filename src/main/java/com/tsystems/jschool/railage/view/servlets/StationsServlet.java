@@ -35,9 +35,11 @@ public class StationsServlet extends HttpServlet {
         if(stationId != null){
 
             HttpSession session = request.getSession();
+            StationService stationService = new StationService();
             TimeTableService timeTableService = new TimeTableService();
             List<TimeTableLine> timeTableLines = timeTableService.findByStationId(stationId);
             session.setAttribute(Utils.TIMETABLE, timeTableLines);
+            session.setAttribute(Utils.CURRENT_STATION,stationService.findStationById(stationId));
             response.sendRedirect(Pages.TIMETABLE);
             return;
         }

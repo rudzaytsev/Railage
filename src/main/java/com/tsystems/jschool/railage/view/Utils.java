@@ -25,6 +25,8 @@ public class Utils {
 
     public static final String PASSENGERS = "passengers";
 
+    public static final String CURRENT_STATION = "currentStation";
+
     public static final String STATIONS = "stations";
 
     public static final String TIMETABLE = "timetable";
