@@ -1,6 +1,8 @@
 package com.tsystems.jschool.railage.view.servlets;
 
+import com.tsystems.jschool.railage.domain.Station;
 import com.tsystems.jschool.railage.domain.TrainRide;
+import com.tsystems.jschool.railage.service.StationService;
 import com.tsystems.jschool.railage.service.TrainService;
 import com.tsystems.jschool.railage.service.exceptions.DomainObjectAlreadyExistsException;
 import com.tsystems.jschool.railage.service.exceptions.IncorrectParameterException;
@@ -84,9 +86,13 @@ public class TrainsServlet extends HttpServlet {
                 throws IOException {
 
         TrainService trainService = new TrainService();
+        StationService stationService = new StationService();
+
         HttpSession session = request.getSession();
         List<TrainRide> rides = trainService.findAllRidesByTrainId(trainId);
+        List<Station> stations = stationService.findAllStations();
         session.setAttribute(Utils.TRAIN_RIDES, rides);
+        session.setAttribute(Utils.STATIONS,stations);
         session.setAttribute(Utils.HAS_CURRENT_TRAIN,true);
         session.setAttribute(Utils.CURRENT_TRAIN, trainService.findTrainById(trainId));
         response.sendRedirect(Pages.RIDES);

@@ -80,6 +80,7 @@
   <servlet-mapping>
        <servlet-name>TrainRideServlet</servlet-name>
        <url-pattern>/add/ride</url-pattern>
+       <url-pattern>/find/rides</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
       <servlet-name>StationsServlet</servlet-name>

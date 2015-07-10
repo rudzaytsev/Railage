@@ -1,9 +1,11 @@
 package com.tsystems.jschool.railage.view.servlets;
 
 import com.tsystems.jschool.railage.domain.Passenger;
+import com.tsystems.jschool.railage.domain.Station;
 import com.tsystems.jschool.railage.domain.TrainRide;
 import com.tsystems.jschool.railage.service.PassengerService;
 import com.tsystems.jschool.railage.service.RouteService;
+import com.tsystems.jschool.railage.service.StationService;
 import com.tsystems.jschool.railage.service.TrainService;
 import com.tsystems.jschool.railage.service.exceptions.TimeTableConflictException;
 import com.tsystems.jschool.railage.view.Pages;
@@ -93,12 +95,20 @@ public class TrainRideServlet extends HttpServlet {
         return;
     }
 
+    private void findTrainRides(HttpServletRequest request, HttpServletResponse response){
+
+    }
+
     private void processAllTrainRides(HttpServletRequest request, HttpServletResponse response) throws IOException {
         TrainService trainService = new TrainService();
         RouteService routeService = new RouteService();
+        StationService stationService = new StationService();
 
         List<TrainRide> rides = trainService.findAllTrainRides();
+        List<Station> stations = stationService.findAllStations();
+
         request.getSession().setAttribute(Utils.TRAIN_RIDES,rides);
+        request.getSession().setAttribute(Utils.STATIONS,stations);
         request.getSession().setAttribute(Utils.ROUTES, routeService.findAllRoutes());
         request.getSession().setAttribute(Utils.HAS_CURRENT_TRAIN,false);
         response.sendRedirect(Pages.RIDES);

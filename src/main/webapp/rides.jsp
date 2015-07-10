@@ -44,6 +44,7 @@
         <div class="col-sm-3 col-md-2 sidebar">
             <ul class="nav nav-sidebar">
                 <li><a id="addride" href="#">Add Ride</a></li>
+                <li><a id="findrides" href="#">Find Rides</a></li>
                 <c:if test="${hasCurrentTrain}">
                     <li><a href="/rides/all/?trainId=${currentTrain.id}">All Passengers for train</a>
                 </c:if>
@@ -78,9 +79,11 @@
                     <tr>
                         <td> Id </td>
                         <td> Train Number </td>
-                        <td> Start Station </td>
-                        <td> End Station </td>
+                        <td> Route </td>
+                        <td> Time Station A </td>
+                        <td> Time Station B </td>
                         <td> RideDate </td>
+                        <td> Ticket </td>
                         <td> Passengers</td>
                     </tr>
                     </thead>
@@ -89,9 +92,11 @@
                         <tr>
                             <td>${ride.id}</td>
                             <td>${ride.train.number}</td>
-                            <td>${ride.route.getStartStation().name}</td>
-                            <td>${ride.route.getEndStation().name}</td>
+                            <td>${ride.route.getStartStation().name} - ${ride.route.getEndStation().name}</td>
+                            <td> 15-00 </td>
+                            <td> 16-00 </td>
                             <td>${ride.date}</td>
+                            <td><a href="/rides/${ride.id}" class="btn btn-success">Buy</a> </td>
                             <td><a href="/rides/${ride.id}" class="btn btn-info">View</a></td>
                         </tr>
                     </c:forEach>
@@ -103,8 +108,89 @@
     </div>
 </div>
 
-    <!-- Modal Rides -->
-    <div class="modal fade" id="add_ride_modal_div" tabindex="-1" role="dialog" aria-labelledby="add_ride_modal_label">
+    <!-- Modal Find Rides -->
+    <div class="modal fade" id="find_rides_modal_div" tabindex="-1" role="dialog" aria-labelledby="find_rides_modal_label">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="find_rides_modal_label">Find Rides</h4>
+                </div>
+                <form id="find_rides_form" action="/find/rides" method="post">
+                    <div class="modal-body">
+
+                        <div class="form-group">
+                            <h4>Stations</h4>
+                        </div>
+                        <hr class="form-group">
+                        <div class="form-group form-inline">
+                            <div class="form-group col-sm-6">
+                                <label for="exampleInputName2">From Station</label>
+                                <select class="form-control" id="fromStationId" name="fromStationId">
+                                    <c:forEach var="station" items="${stations}" varStatus="status">
+                                        <c:choose>
+                                            <c:when test="${status.count eq 0}">
+                                                <option selected value="${station.id}">${station.name}</option>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <option value="${station.id}">${station.name}</option>
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </c:forEach>
+                                </select>
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <label for="exampleInputEmail2">To Station</label>
+                                <select class="form-control" id="toStationId" name="toStationId">
+                                    <c:forEach var="station" items="${stations}" varStatus="status">
+                                        <c:choose>
+                                            <c:when test="${status.count eq 0}">
+                                                <option selected value="${station.id}">${station.name}</option>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <option value="${station.id}">${station.name}</option>
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </c:forEach>
+                                </select>
+                            </div>
+                        </div>
+                        <br class="form-group">
+                        <div class="form-group">
+                            <h4>Time</h4>
+                        </div>
+                        <hr class="form-group">
+                        <div class="form-group form-inline">
+                            <div class="form-group col-sm-6">
+                                <label for="exampleInputName2">Lower bound</label>
+                                <input type="text" pattern="[0-9]{1,2}:[0-9]{1,2}" class="form-control" id="exampleInputName2" placeholder="10:00">
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <label for="exampleInputEmail2">Upper bound</label>
+                                <input type="text" pattern="[0-9]{1,2}:[0-9]{1,2}" class="form-control" id="exampleInputEmail2" placeholder="12:00">
+                            </div>
+                        </div>
+                        <br class="form-group">
+                    </div>
+                    <br>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Find</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(document).on('click',"#findrides", function(){
+            $('#find_rides_modal_div').modal('show')
+            return false;
+        });
+    </script>
+
+    <!-- Modal Add Ride -->
+    <div class="modal fade " id="add_ride_modal_div" tabindex="-1" role="dialog" aria-labelledby="add_ride_modal_label">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
