@@ -109,6 +109,8 @@
     <url-pattern>/rides/*</url-pattern>
     <url-pattern>/routes/*</url-pattern>
     <url-pattern>/stations/*</url-pattern>
+    <url-pattern>/index.jsp</url-pattern>
+    <url-pattern>/register.jsp</url-pattern>
   </filter-mapping>
 
   <welcome-file-list>

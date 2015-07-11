@@ -72,4 +72,14 @@ public class TrainRide extends DomainObject {
     public void setDate(Date date) {
         this.date = date;
     }
+
+    @Override
+    public String toString() {
+        return "TrainRide{" +
+                "train=" + train +
+                ", tickets=" + tickets +
+                ", route=" + route +
+                ", date=" + date +
+                '}';
+    }
 }

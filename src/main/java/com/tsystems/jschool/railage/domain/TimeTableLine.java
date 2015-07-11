@@ -63,4 +63,6 @@ public class TimeTableLine extends DomainObject {
     public void setRoute(Route route) {
         this.route = route;
     }
+
+
 }

@@ -7,9 +7,12 @@ import com.tsystems.jschool.railage.service.PassengerService;
 import com.tsystems.jschool.railage.service.RouteService;
 import com.tsystems.jschool.railage.service.StationService;
 import com.tsystems.jschool.railage.service.TrainService;
+import com.tsystems.jschool.railage.service.exceptions.IncorrectTimeFormatException;
+import com.tsystems.jschool.railage.service.exceptions.IncorrectTimeIntervalException;
 import com.tsystems.jschool.railage.service.exceptions.TimeTableConflictException;
 import com.tsystems.jschool.railage.view.Pages;
 import com.tsystems.jschool.railage.view.Utils;
+import com.tsystems.jschool.railage.view.servlets.helpers.FindRideFormParams;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -19,6 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -28,7 +32,14 @@ import java.util.List;
 public class TrainRideServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        this.addTrainRide(request,response);
+        String cmd = request.getParameter("cmd");
+        if(Utils.CMD_FIND_RIDES.equals(cmd)){
+            this.findTrainRides(request,response);
+        }
+        else {
+            this.addTrainRide(request,response);
+        }
+
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -54,7 +65,7 @@ public class TrainRideServlet extends HttpServlet {
                     return;
                 }
             }
-            //response.sendRedirect(Pages.ERROR);
+
             this.processAllTrainRides(request,response);
             return;
         }
@@ -95,8 +106,47 @@ public class TrainRideServlet extends HttpServlet {
         return;
     }
 
-    private void findTrainRides(HttpServletRequest request, HttpServletResponse response){
+    private void findTrainRides(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        try {
+            FindRideFormParams params = new FindRideFormParams();
+            params.fill(request);
+            //TODO: service layer logic
+            TrainService trainService = new TrainService();
+            List<TrainRide> rides = trainService.findRidesBy(
+                    params.getSourceStationId(),params.getDestStationId(),
+                    params.getInterval());
 
+            StationService stationService = new StationService();
+            List<Station> stations = stationService.findAllStations();
+
+            RouteService routeService = new RouteService();
+
+            request.getSession().setAttribute(Utils.TRAIN_RIDES,rides);
+            request.getSession().setAttribute(Utils.STATIONS,stations);
+            request.getSession().setAttribute(Utils.ROUTES, routeService.findAllRoutes());
+            request.getSession().setAttribute(Utils.HAS_CURRENT_TRAIN,false);
+
+            request.getSession().setAttribute(Utils.SUCCESS, true);
+            request.getSession().setAttribute(Utils.INFO_MSG, "Train Rides found");
+            response.sendRedirect(Pages.RIDES);
+            return;
+
+
+        } catch (IncorrectTimeFormatException | IncorrectTimeIntervalException e) {
+            String errorMsg = "Error! " + e.getMessage();
+            request.getSession().setAttribute(Utils.IS_VALIDATION_ERR, true);
+            request.getSession().setAttribute(Utils.VALIDATION_ERROR_MSG, errorMsg);
+            this.showEmptyRideList(request,response);
+            return;
+        }
+    }
+
+    private void showEmptyRideList(HttpServletRequest request, HttpServletResponse response)  throws IOException {
+
+        RouteService routeService = new RouteService();
+        request.getSession().setAttribute(Utils.ROUTES, routeService.findAllRoutes());
+        request.getSession().setAttribute(Utils.TRAIN_RIDES, new ArrayList<TrainRide>());
+        response.sendRedirect(Pages.RIDES);
     }
 
     private void processAllTrainRides(HttpServletRequest request, HttpServletResponse response) throws IOException {

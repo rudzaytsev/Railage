@@ -117,6 +117,7 @@
                     <h4 class="modal-title" id="find_rides_modal_label">Find Rides</h4>
                 </div>
                 <form id="find_rides_form" action="/find/rides" method="post">
+                    <input type="hidden" name="cmd" value="findrides">
                     <div class="modal-body">
 
                         <div class="form-group">
@@ -125,7 +126,7 @@
                         <hr class="form-group">
                         <div class="form-group form-inline">
                             <div class="form-group col-sm-6">
-                                <label for="exampleInputName2">From Station</label>
+                                <label for="fromStationId">From Station</label>
                                 <select class="form-control" id="fromStationId" name="fromStationId">
                                     <c:forEach var="station" items="${stations}" varStatus="status">
                                         <c:choose>
@@ -140,7 +141,7 @@
                                 </select>
                             </div>
                             <div class="form-group col-sm-6">
-                                <label for="exampleInputEmail2">To Station</label>
+                                <label for="toStationId">To Station</label>
                                 <select class="form-control" id="toStationId" name="toStationId">
                                     <c:forEach var="station" items="${stations}" varStatus="status">
                                         <c:choose>
@@ -162,13 +163,16 @@
                         <hr class="form-group">
                         <div class="form-group form-inline">
                             <div class="form-group col-sm-6">
-                                <label for="exampleInputName2">Lower bound</label>
-                                <input type="text" pattern="[0-9]{1,2}:[0-9]{1,2}" class="form-control" id="exampleInputName2" placeholder="10:00">
+                                <label for="lowerBoundTime">Lower bound</label>
+                                <input type="text" pattern="[0-9]{1,2}:[0-9]{1,2}" class="form-control"
+                                       id="lowerBoundTime" name="lowerBoundTime" placeholder="10:00">
                             </div>
                             <div class="form-group col-sm-6">
-                                <label for="exampleInputEmail2">Upper bound</label>
-                                <input type="text" pattern="[0-9]{1,2}:[0-9]{1,2}" class="form-control" id="exampleInputEmail2" placeholder="12:00">
+                                <label for="upperBoundTime">Upper bound</label>
+                                <input type="text" pattern="[0-9]{1,2}:[0-9]{1,2}" class="form-control"
+                                       id="upperBoundTime" name="upperBoundTime" placeholder="12:00">
                             </div>
+
                         </div>
                         <br class="form-group">
                     </div>

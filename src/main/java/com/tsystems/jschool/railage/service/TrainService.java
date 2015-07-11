@@ -10,6 +10,7 @@ import com.tsystems.jschool.railage.service.exceptions.DomainObjectAlreadyExists
 import com.tsystems.jschool.railage.service.exceptions.IncorrectParameterException;
 import com.tsystems.jschool.railage.service.exceptions.NotPositiveNumberOfSeatsException;
 import com.tsystems.jschool.railage.service.exceptions.TimeTableConflictException;
+import com.tsystems.jschool.railage.view.servlets.helpers.TimeInterval;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -184,5 +185,20 @@ public class TrainService {
             trainRideDao.close();
         }
         return ride;
+    }
+
+    public List<TrainRide> findRidesBy(Integer sourceStationId, Integer destStaionId,
+                                       TimeInterval interval) {
+
+        trainRideDao.open();
+        List<TrainRide> result;
+        try {
+            result = trainRideDao.findRidesBy(
+                            sourceStationId,destStaionId,interval);
+        }
+        finally {
+            trainRideDao.close();
+        }
+        return result;
     }
 }

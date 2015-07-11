@@ -49,6 +49,8 @@ public class Utils {
 
     public static final String INFO_MSG = "infoMsg";
 
+    public static final String CMD_FIND_RIDES = "findrides";
+
 
     public static boolean isEmployee(String role){
         return Role.EMPLOYEE.toString().equals(role);

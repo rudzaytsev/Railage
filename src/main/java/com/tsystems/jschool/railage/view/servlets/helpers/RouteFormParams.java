@@ -27,13 +27,13 @@ public class RouteFormParams {
 
     public static final int MINUTES_LOWER_BOUND = 0;
 
-    List<Integer> stationsIds = new ArrayList<>();
+    private List<Integer> stationsIds = new ArrayList<>();
 
-    List<String> times = new ArrayList<>();
+    private List<String> times = new ArrayList<>();
 
-    Integer trainId;
+    private Integer trainId;
 
-    String period;
+    private String period;
 
     public List<Integer> getStationsIds() {
         return stationsIds;

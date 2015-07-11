@@ -47,4 +47,11 @@ public class Station extends DomainObject {
     public void addTimeTableLine(TimeTableLine timeTableLine){
         this.timeTableLines.add(timeTableLine);
     }
+
+    @Override
+    public String toString() {
+        return "Station{" +
+                "name='" + name + '\'' +
+                '}';
+    }
 }

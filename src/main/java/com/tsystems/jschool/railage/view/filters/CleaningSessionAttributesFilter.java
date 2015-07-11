@@ -16,7 +16,6 @@ public class CleaningSessionAttributesFilter implements Filter {
 
     public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws ServletException, IOException {
         HttpSession session = ((HttpServletRequest) req).getSession();
-        Boolean logged = (Boolean) session.getAttribute(Utils.LOGGED_SESSION_ATTRIB);
         session.removeAttribute(Utils.IS_VALIDATION_ERR);
         session.removeAttribute(Utils.VALIDATION_ERROR_MSG);
         session.removeAttribute(Utils.SUCCESS);
