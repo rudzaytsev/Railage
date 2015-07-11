@@ -135,9 +135,14 @@ public class TrainRideServlet extends HttpServlet {
             request.getSession().setAttribute(Utils.STATIONS,stations);
             request.getSession().setAttribute(Utils.ROUTES, routeService.findAllRoutes());
             request.getSession().setAttribute(Utils.HAS_CURRENT_TRAIN,false);
-
             request.getSession().setAttribute(Utils.SUCCESS, true);
-            request.getSession().setAttribute(Utils.INFO_MSG, "Train Rides found");
+
+            if(!rides.isEmpty()){
+                request.getSession().setAttribute(Utils.INFO_MSG, "Train Rides found");
+            }
+            else {
+                request.getSession().setAttribute(Utils.INFO_MSG, "No one Train Ride matches required criterias");
+            }
             response.sendRedirect(Pages.RIDES);
             return;
 
