@@ -110,7 +110,7 @@ public class TrainRideServlet extends HttpServlet {
         try {
             FindRideFormParams params = new FindRideFormParams();
             params.fill(request);
-            //TODO: service layer logic
+
             TrainService trainService = new TrainService();
             List<TrainRide> rides = trainService.findRidesBy(
                     params.getSourceStationId(),params.getDestStationId(),
@@ -119,8 +119,18 @@ public class TrainRideServlet extends HttpServlet {
             StationService stationService = new StationService();
             List<Station> stations = stationService.findAllStations();
 
+            Station sourceStation = stationService.findStationById(
+                                                params.getSourceStationId());
+
+            Station destStation = stationService.findStationById(
+                                                params.getDestStationId());
+
+
             RouteService routeService = new RouteService();
 
+            request.getSession().setAttribute(Utils.IS_SEARCH_RESULT,true);
+            request.getSession().setAttribute(Utils.SOURCE_STATION,sourceStation);
+            request.getSession().setAttribute(Utils.DEST_STATION,destStation);
             request.getSession().setAttribute(Utils.TRAIN_RIDES,rides);
             request.getSession().setAttribute(Utils.STATIONS,stations);
             request.getSession().setAttribute(Utils.ROUTES, routeService.findAllRoutes());
@@ -144,6 +154,7 @@ public class TrainRideServlet extends HttpServlet {
     private void showEmptyRideList(HttpServletRequest request, HttpServletResponse response)  throws IOException {
 
         RouteService routeService = new RouteService();
+        request.getSession().setAttribute(Utils.IS_SEARCH_RESULT,false);
         request.getSession().setAttribute(Utils.ROUTES, routeService.findAllRoutes());
         request.getSession().setAttribute(Utils.TRAIN_RIDES, new ArrayList<TrainRide>());
         response.sendRedirect(Pages.RIDES);
@@ -157,6 +168,7 @@ public class TrainRideServlet extends HttpServlet {
         List<TrainRide> rides = trainService.findAllTrainRides();
         List<Station> stations = stationService.findAllStations();
 
+        request.getSession().setAttribute(Utils.IS_SEARCH_RESULT,false);
         request.getSession().setAttribute(Utils.TRAIN_RIDES,rides);
         request.getSession().setAttribute(Utils.STATIONS,stations);
         request.getSession().setAttribute(Utils.ROUTES, routeService.findAllRoutes());

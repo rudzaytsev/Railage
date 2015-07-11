@@ -49,6 +49,19 @@ public class Route extends DomainObject {
         return getRoutePartWithStatus(RoutePartStatuses.END);
     }
 
+
+    public TimeInfo getTimeInfoByStationId(Integer stationId){
+
+        for( TimeTableLine timeTable : timeTableLines ){
+           Station station = timeTable.getStation();
+           if(stationId.equals(station.getId())) {
+               return timeTable.getTimeInfo();
+           }
+        }
+        return null;
+    }
+
+
     private RoutePart getRoutePartWithStatus(RoutePartStatuses status){
         String requiredStatus = status.value();
         for (RoutePart routePart : routeParts){
@@ -85,7 +98,6 @@ public class Route extends DomainObject {
         builder.append(delim);
         builder.append(this.getEndStation().getName());
         return builder.toString();
-
     }
 
     public String getPeriod(){

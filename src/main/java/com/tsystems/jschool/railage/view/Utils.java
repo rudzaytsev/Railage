@@ -29,6 +29,12 @@ public class Utils {
 
     public static final String TRAIN_RIDES = "trainRides";
 
+    public static final String IS_SEARCH_RESULT = "isSearchResult";
+
+    public static final String SOURCE_STATION = "sourceStation";
+
+    public static final String DEST_STATION = "destStation";
+
     public static final String PASSENGERS = "passengers";
 
     public static final String CURRENT_STATION = "currentStation";

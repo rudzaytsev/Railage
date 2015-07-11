@@ -80,8 +80,10 @@
                         <td> Id </td>
                         <td> Train Number </td>
                         <td> Route </td>
-                        <td> Time Station A </td>
-                        <td> Time Station B </td>
+                        <c:if test="${isSearchResult}">
+                            <td>"${sourceStation.name}" time</td>
+                            <td>"${destStation.name}" time</td>
+                        </c:if>
                         <td> RideDate </td>
                         <td> Ticket </td>
                         <td> Passengers</td>
@@ -93,8 +95,10 @@
                             <td>${ride.id}</td>
                             <td>${ride.train.number}</td>
                             <td>${ride.route.getStartStation().name} - ${ride.route.getEndStation().name}</td>
-                            <td> 15-00 </td>
-                            <td> 16-00 </td>
+                            <c:if test="${isSearchResult}">
+                                <td> ${ride.route.getTimeInfoByStationId(sessionScope.get("sourceStation").id).departureTime} </td>
+                                <td> ${ride.route.getTimeInfoByStationId(sessionScope.get("destStation").id).departureTime} </td>
+                            </c:if>
                             <td>${ride.date}</td>
                             <td><a href="/rides/${ride.id}" class="btn btn-success">Buy</a> </td>
                             <td><a href="/rides/${ride.id}" class="btn btn-info">View</a></td>
