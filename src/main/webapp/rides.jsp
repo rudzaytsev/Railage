@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="/resources/css/dashboard.css">
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js" type="text/javascript"></script>
     <script src="/resources/js/bootstrap.js" type="text/javascript"></script>
+    <script src="/resources/js/show.js" type="text/javascript"></script>
 </head>
 <body>
 
@@ -100,7 +101,7 @@
                                 <td> ${ride.route.getTimeInfoByStationId(sessionScope.get("destStation").id).departureTime} </td>
                             </c:if>
                             <td>${ride.date}</td>
-                            <td><a href="/rides/${ride.id}" class="btn btn-success">Buy</a> </td>
+                            <td><button id="buy_button_${ride.id}" onclick="showBuyTicketForm(this)" class="btn btn-success">Buy</button></td>
                             <td><a href="/rides/${ride.id}" class="btn btn-info">View</a></td>
                         </tr>
                     </c:forEach>
@@ -111,6 +112,68 @@
 
     </div>
 </div>
+
+    <!-- Modal Buy Ticket -->
+    <div class="modal fade" id="buy_ticket_modal_div" tabindex="-1" role="dialog" aria-labelledby="buy_ticket_modal_label">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="buy_ticket_modal_label">Buy Ticket</h4>
+                </div>
+                <form id="buy_ticket_form" action="/buy/ticket" method="post">
+                    <input type="hidden" name="cmd" value="buy/ticket/">
+                    <input type="hidden" id="ride_id_for_ticket" name="ride_id_for_ticket" value="X">
+                    <div class="modal-body">
+
+                        <div class="form-group">
+                            <div class="form-group">
+                                <label for="passengerName">Passenger Name</label>
+                                <input type="text" pattern="[a-zA-Z]+" class="form-control"
+                                       id="passengerName" name="passengerName" placeholder="Ivan">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-group">
+                                <label for="passengerLastName">Passenger Lastname</label>
+                                <input type="text" pattern="[a-zA-Z]+" class="form-control"
+                                       id="passengerLastName" name="passengerLastName" placeholder="Ivanov">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-group">
+                                <label for="passengerBirthDate">Passenger Birth Date</label>
+                                <input type="date" class="form-control"
+                                       id="passengerBirthDate" name="passengerBirthDate" placeholder="YYYY-MM-DD">
+                                <span id="helpBlock" class="help-block"> Input date in format YYYY-MM-DD, where Y - year, M - Mounth, D - day  </span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="boardingStationId">Boarding Station</label>
+                            <select class="form-control" id="boardingStationId" name="boardingStationId">
+                                <c:forEach var="boardingStation" items="${stations}" varStatus="status">
+                                    <c:choose>
+                                        <c:when test="${status.count eq 0}">
+                                            <option selected value="${boardingStation.id}">${$boardingStation.name}</option>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <option value="${boardingStation.id}">${boardingStation.name}</option>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </c:forEach>
+                            </select>
+                        </div>
+
+                    </div>
+                    <br>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Buy</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
     <!-- Modal Find Rides -->
     <div class="modal fade" id="find_rides_modal_div" tabindex="-1" role="dialog" aria-labelledby="find_rides_modal_label">
@@ -281,6 +344,8 @@
                         }
                     });
                 });
+
+
         });
     </script>
 
