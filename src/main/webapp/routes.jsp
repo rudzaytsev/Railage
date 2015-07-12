@@ -12,6 +12,9 @@
     <title>Routes</title>
     <link rel="stylesheet" href="/resources/css/bootstrap.css">
     <link rel="stylesheet" href="/resources/css/dashboard.css">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js" type="text/javascript"></script>
+    <script src="/resources/js/bootstrap.js" type="text/javascript"></script>
+    <script src="/resources/js/show.js" type="text/javascript"></script>
 </head>
 <body>
 
@@ -78,7 +81,9 @@
                                 <td>${route.getStartStation().name}</td>
                                 <td>${route.getEndStation().name}</td>
                                 <td>${route.train.number}</td>
-                                <td><a href="/routeparts/${route.id}" class="btn btn-info">Watch</a></td>
+                                <td><button id="btn_route_watch_${route.id}" class="btn btn-info"
+                                            onclick="showRouteStationListModalWindow(this)">Watch</button>
+                                </td>
                             </tr>
                         </c:forEach>
                         </tbody>
@@ -88,6 +93,33 @@
 
         </div>
     </div>
+
+    <!-- Modal Station List -->
+    <div class="modal fade" id="route_stations_list_modal_div" tabindex="-1" role="dialog" aria-labelledby="route_stations_list_modal_label">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="route_stations_list_modal_label">Route Station List</h4>
+                </div>
+
+                <div class="modal-body" id="route_stations_list_content">
+
+                </div>
+                <br>
+                <div class="modal-footer">
+                    <button id="OK" type="submit" class="btn btn-primary">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(document).on('click',"#OK", function(){
+            $('#route_stations_list_modal_div').modal('hide')
+            return false;
+        });
+    </script>
 
 </body>
 </html>

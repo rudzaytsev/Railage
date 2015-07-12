@@ -5,7 +5,6 @@
 
 function showBuyTicketForm(element){
 
-
     hiddenInput = document.getElementById('ride_id_for_ticket');
 
     idStartIndex = 11;
@@ -40,7 +39,6 @@ function showBuyTicketForm(element){
                         + data[i].stationName + '</option>';
                 }
             }
-           // html += '</option>';
 
             $('#boardingStationId').html(html);
 
@@ -54,4 +52,43 @@ function showBuyTicketForm(element){
     $('#buy_ticket_modal_div').modal('show');
 
     return false;
+}
+
+function showRouteStationListModalWindow(element){
+
+    idStartIndex = 16;
+    routeId = element.id.slice(idStartIndex);
+
+    $.ajax({
+        url: "/ajax/stationsbyroute",
+        type: 'POST',
+        dataType: 'json',
+        data: "{ \"request\" :  \"stationsByRoute\"," +
+        "\"routeId\": \"" + routeId + "\" }",
+        contentType: 'application/json',
+        mimeType: 'application/json',
+
+        success: function (data) {
+
+            var insideHtml = '';
+            var len = data.length;
+            console.log(data);
+
+            var html = '';
+            var len = data.length;
+            for ( var i = 0; i < len; i++) {
+                html += '<p> #' + (i+1) + ' ' + data[i].stationName + ' ';
+            }
+
+            $('#route_stations_list_content').html(html);
+
+        },
+        error: function (data, status, er) {
+            alert("error: " + data + " status: " + status + " er:" + er);
+        }
+    });
+
+    $('#route_stations_list_modal_div').modal('show');
+
+
 }

@@ -26,11 +26,10 @@ import java.util.List;
  * Created by rudolph on 06.07.15.
  */
 public class AjaxServlet extends HttpServlet {
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-
-
-        // 1. get received JSON data from request
+        // get received JSON data from request
         BufferedReader br = new BufferedReader(new InputStreamReader(request.getInputStream()));
         String json = "";
         if(br != null){
@@ -48,7 +47,11 @@ public class AjaxServlet extends HttpServlet {
             }
             else if (AjaxRequestType.STATIONS_BY_RIDE.value().equals(requestName)) {
                 Integer rideId = Integer.parseInt(jsonObj.get("rideId").toString());
-                this.sendStationHelpersByRide(response,rideId);
+                this.sendStationHelpersByRide(response, rideId);
+            }
+            else if (AjaxRequestType.STATIONS_BY_ROUTE.value().equals(requestName)) {
+                Integer routeId = Integer.parseInt(jsonObj.get("routeId").toString());
+                this.sendStationHelpersByRoute(response,routeId);
             }
             else {
                 this.sendStationHelpers(response);
@@ -61,6 +64,18 @@ public class AjaxServlet extends HttpServlet {
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }
 
+    }
+
+    private void sendStationHelpersByRoute(HttpServletResponse response, Integer routeId) throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
+
+        RouteService routeService = new RouteService();
+        Route route = routeService.findRouteById(routeId);
+
+        List<RoutePart> routeParts = route.getRouteParts();
+        List<StationHelper> helpers = StationHelper.mapRouteParts(routeParts);
+        response.setContentType("application/json");
+        mapper.writeValue(response.getOutputStream(), helpers);
     }
 
     private void sendStationHelpersByRide(HttpServletResponse response, Integer rideId) throws IOException {
