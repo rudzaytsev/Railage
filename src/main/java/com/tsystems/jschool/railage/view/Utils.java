@@ -2,6 +2,9 @@ package com.tsystems.jschool.railage.view;
 
 import com.tsystems.jschool.railage.domain.Role;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.StringTokenizer;
 
 /**
@@ -109,5 +112,14 @@ public class Utils {
         }
         return result;
     }
+
+    public static Date convert(String dateStr) throws ParseException {
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        dateFormat.setLenient(false);
+        return  dateFormat.parse(dateStr);
+    }
+
+
 
 }

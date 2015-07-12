@@ -2,6 +2,7 @@ package com.tsystems.jschool.railage.datasource;
 
 import com.tsystems.jschool.railage.domain.Passenger;
 
+import javax.persistence.EntityTransaction;
 import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 import java.util.List;
@@ -14,7 +15,20 @@ public class PassengerDao extends JpaDao<Passenger> {
 
     @Override
     public Passenger merge(Passenger entity) {
-        return null;
+
+        EntityTransaction transaction = entityManager.getTransaction();
+        Passenger result = null;
+        try {
+            transaction.begin();
+            result = entityManager.merge(entity);
+            transaction.commit();
+        }
+        finally {
+            if(transaction.isActive()){
+                transaction.rollback();
+            }
+        }
+        return result;
     }
 
     @Override
@@ -58,6 +72,26 @@ public class PassengerDao extends JpaDao<Passenger> {
         TypedQuery<Passenger> query = entityManager.createQuery(
                                                 queryStr, Passenger.class);
         query.setParameter(1,id);
+        return query.getResultList();
+    }
+
+    public List<Passenger> findBy(Integer rideId,Passenger passenger){
+
+        StringBuilder builder = new StringBuilder();
+        builder.append("SELECT DISTINCT t.passenger FROM Ticket t ")
+               .append("WHERE t.passenger.name = ?1 ")
+               .append("AND t.passenger.lastName = ?2 ")
+               .append("AND t.passenger.birthDate = ?3 ")
+               .append("AND t.trainRide.id = ?4 ");
+
+        String queryStr = builder.toString();
+        TypedQuery<Passenger> query = entityManager.createQuery(
+                queryStr, Passenger.class);
+        query.setParameter(1,passenger.getName());
+        query.setParameter(2,passenger.getLastName());
+        query.setParameter(3,passenger.getBirthDate());
+        query.setParameter(4,rideId);
+
         return query.getResultList();
     }
 }

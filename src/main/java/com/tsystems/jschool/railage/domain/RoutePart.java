@@ -1,9 +1,6 @@
 package com.tsystems.jschool.railage.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * Represents part of train route
@@ -14,12 +11,12 @@ public class RoutePart extends DomainObject {
 
 
     /** route of route part */
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "routeId")
     private Route route;
 
     /** current train station of route part */
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "stationId")
     private Station station;
 

@@ -10,7 +10,7 @@ import javax.persistence.Persistence;
  */
 public abstract class JpaDao<T> implements Dao<T, Integer>  {
 
-    EntityManagerFactory factory;
+    protected EntityManagerFactory factory;
     protected EntityManager entityManager;
 
     private static final String PersistanceUnitName = "RailagePU";

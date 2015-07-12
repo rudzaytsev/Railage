@@ -25,6 +25,16 @@ public class Passenger extends DomainObject {
     /** Passenger's date of birth */
     private Date birthDate;
 
+    public Passenger(){
+        //does nothing
+    }
+
+    public Passenger(String name, String lastName, Date birthDate) {
+        this.name = name;
+        this.lastName = lastName;
+        this.birthDate = birthDate;
+    }
+
     public String getName() {
         return name;
     }

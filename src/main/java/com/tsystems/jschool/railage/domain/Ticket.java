@@ -14,12 +14,12 @@ import javax.persistence.*;
 public class Ticket extends DomainObject {
 
     /** passenger, who bought ticket */
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.MERGE})
     @JoinColumn(name = "passengerId")
     private Passenger passenger;
 
     /** train ride, which corresponds to ticket */
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.MERGE})
     @JoinColumn(name = "trainRideId")
     private TrainRide trainRide;
 
@@ -27,9 +27,19 @@ public class Ticket extends DomainObject {
      * boarding railway station for buying ticket
      * and starting travel
      */
-    @OneToOne
+    @OneToOne(cascade = {CascadeType.PERSIST,CascadeType.MERGE})
     @JoinColumn(name = "boardingStationId")
     private Station boardingStation;
+
+    public Ticket() {
+        //does nothing
+    }
+
+    public Ticket(Passenger passenger, TrainRide trainRide, Station boardingStation) {
+        this.passenger = passenger;
+        this.trainRide = trainRide;
+        this.boardingStation = boardingStation;
+    }
 
     public Passenger getPassenger() {
         return passenger;

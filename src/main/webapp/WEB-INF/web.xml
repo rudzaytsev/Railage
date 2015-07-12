@@ -49,6 +49,10 @@
         <servlet-name>AjaxServlet</servlet-name>
         <servlet-class>com.tsystems.jschool.railage.view.servlets.AjaxServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>TicketServlet</servlet-name>
+        <servlet-class>com.tsystems.jschool.railage.view.servlets.TicketServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
       <servlet-name>LoginServlet</servlet-name>
       <url-pattern>/LoginServlet</url-pattern>
@@ -93,6 +97,10 @@
   <servlet-mapping>
       <servlet-name>RouteBuilderServlet</servlet-name>
       <url-pattern>/build/route</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+      <servlet-name>TicketServlet</servlet-name>
+      <url-pattern>/buy/ticket</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
       <servlet-name>AjaxServlet</servlet-name>
