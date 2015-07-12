@@ -5,7 +5,7 @@ package com.tsystems.jschool.railage.view.servlets;
  */
 public enum AjaxRequestType {
 
-    ROUTE("route"), STATIONS("stations");
+    ROUTE("route"), STATIONS("stations"), STATIONS_BY_RIDE("stationsByRide");
 
     private String type;
 

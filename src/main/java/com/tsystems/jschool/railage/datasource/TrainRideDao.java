@@ -86,12 +86,6 @@ public class TrainRideDao extends JpaDao<TrainRide> {
         query.setParameter(4,interval.getUpperBound());
         List<TrainRide> rides = query.getResultList();
 
-
-        System.out.println("************[ Rides ]******************");
-        for(TrainRide ride : rides){
-            System.out.println(ride.getId());
-        }
-        System.out.println("*********************************");
         return rides;
     }
 

@@ -1,5 +1,6 @@
 package com.tsystems.jschool.railage.view.servlets.helpers;
 
+import com.tsystems.jschool.railage.domain.RoutePart;
 import com.tsystems.jschool.railage.domain.Station;
 
 import java.util.ArrayList;
@@ -39,6 +40,15 @@ public class StationHelper {
 
         ArrayList<StationHelper> result = new ArrayList<>();
         for(Station station : stations){
+            result.add(new StationHelper(station.getId(),station.getName()));
+        }
+        return result;
+    }
+
+    public static List<StationHelper> mapRouteParts(List<RoutePart> parts){
+        ArrayList<StationHelper> result = new ArrayList<>();
+        for(RoutePart part : parts){
+            Station station = part.getStation();
             result.add(new StationHelper(station.getId(),station.getName()));
         }
         return result;

@@ -1,8 +1,12 @@
 package com.tsystems.jschool.railage.view.servlets;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.tsystems.jschool.railage.domain.Route;
+import com.tsystems.jschool.railage.domain.RoutePart;
+import com.tsystems.jschool.railage.domain.TrainRide;
 import com.tsystems.jschool.railage.service.RouteService;
 import com.tsystems.jschool.railage.service.StationService;
+import com.tsystems.jschool.railage.service.TrainService;
 import com.tsystems.jschool.railage.view.servlets.helpers.RouteHelper;
 import com.tsystems.jschool.railage.view.servlets.helpers.StationHelper;
 import org.json.simple.JSONObject;
@@ -41,7 +45,12 @@ public class AjaxServlet extends HttpServlet {
                 Integer routeId = Integer.parseInt(jsonObj.get("routeId").toString());
 
                 this.sendRouteHelper(response, routeId);
-            } else {
+            }
+            else if (AjaxRequestType.STATIONS_BY_RIDE.value().equals(requestName)) {
+                Integer rideId = Integer.parseInt(jsonObj.get("rideId").toString());
+                this.sendStationHelpersByRide(response,rideId);
+            }
+            else {
                 this.sendStationHelpers(response);
             }
         }
@@ -52,6 +61,20 @@ public class AjaxServlet extends HttpServlet {
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }
 
+    }
+
+    private void sendStationHelpersByRide(HttpServletResponse response, Integer rideId) throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        TrainService trainService = new TrainService();
+        TrainRide ride = trainService.findTrainRideById(rideId);
+        RouteService routeService = new RouteService();
+        Route route = routeService.findRouteById(ride.getRoute().getId());
+       // List<RoutePart> routeParts = ride.getRoute().getRouteParts();
+
+        List<RoutePart> routeParts = route.getRouteParts();
+        List<StationHelper> helpers = StationHelper.mapRouteParts(routeParts);
+        response.setContentType("application/json");
+        mapper.writeValue(response.getOutputStream(), helpers);
     }
 
     private void sendRouteHelper(HttpServletResponse response, Integer routeId) throws IOException {
