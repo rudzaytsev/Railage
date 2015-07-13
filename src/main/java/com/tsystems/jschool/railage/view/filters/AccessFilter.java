@@ -1,5 +1,6 @@
 package com.tsystems.jschool.railage.view.filters;
 
+import com.tsystems.jschool.railage.view.Pages;
 import com.tsystems.jschool.railage.view.Utils;
 
 import javax.servlet.*;
@@ -20,10 +21,18 @@ public class AccessFilter implements Filter {
         HttpSession session = ((HttpServletRequest) req).getSession();
         Boolean logged = (Boolean) session.getAttribute(Utils.LOGGED_SESSION_ATTRIB);
         if ( logged != null && logged){
+
+            Boolean isEmployee = (Boolean) session.getAttribute(Utils.IS_EMPLOYEE_SESSION_ATTRIB);
+            String uri = ((HttpServletRequest) req).getRequestURI();
+            boolean accessToRouteBuilder = uri.contains(Pages.ROUTE_BULDER);
+            if (!isEmployee && accessToRouteBuilder ) {
+                (( HttpServletResponse ) resp).sendRedirect(Pages.INDEX);
+                return;
+            }
             chain.doFilter(req, resp);
         }
         else {
-            (( HttpServletResponse ) resp).sendRedirect("error.jsp");
+            (( HttpServletResponse ) resp).sendRedirect(Pages.INDEX);
             return;
         }
 

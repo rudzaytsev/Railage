@@ -34,7 +34,7 @@
                 <li><a href="/trains/all">Trains</a></li>
                 <li><a href="/stations/all">Stations</a></li>
                 <li><a href="/routes/all">Routes</a></li>
-                <li><a href="#">Help</a></li>
+                <li><a href="/logout">Log Out</a></li>
             </ul>
         </div>
     </div>
