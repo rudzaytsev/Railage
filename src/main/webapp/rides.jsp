@@ -44,10 +44,15 @@
     <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
             <ul class="nav nav-sidebar">
-                <li><a id="addride" href="#">Add Ride</a></li>
-                <li><a id="findrides" href="#">Find Rides</a></li>
-                <c:if test="${hasCurrentTrain}">
-                    <li><a href="/rides/all/?trainId=${currentTrain.id}">All Passengers for train</a>
+                <c:if test="${isEmployee}">
+                    <li><a id="addride" href="#">Add Ride</a></li>
+                </c:if>
+                    <li><a id="findrides" href="#">Find Rides</a></li>
+
+                <c:if test="${isEmployee}">
+                    <c:if test="${hasCurrentTrain}">
+                        <li><a href="/rides/all/?trainId=${currentTrain.id}">All Passengers for train</a>
+                    </c:if>
                 </c:if>
             </ul>
         </div>
@@ -86,8 +91,12 @@
                             <td>"${destStation.name}" time</td>
                         </c:if>
                         <td> RideDate </td>
-                        <td> Ticket </td>
-                        <td> Passengers</td>
+                        <c:if test="${ not isEmployee}">
+                            <td> Ticket </td>
+                        </c:if>
+                        <c:if test="${isEmployee}">
+                            <td> Passengers</td>
+                        </c:if>
                     </tr>
                     </thead>
                     <tbody>
@@ -101,8 +110,12 @@
                                 <td> ${ride.route.getTimeInfoByStationId(sessionScope.get("destStation").id).departureTime} </td>
                             </c:if>
                             <td>${ride.date}</td>
-                            <td><button id="buy_button_${ride.id}" onclick="showBuyTicketForm(this)" class="btn btn-success">Buy</button></td>
-                            <td><a href="/rides/${ride.id}" class="btn btn-info">View</a></td>
+                            <c:if test="${ not isEmployee}">
+                                <td><button id="buy_button_${ride.id}" onclick="showBuyTicketForm(this)" class="btn btn-success">Buy</button></td>
+                            </c:if>
+                            <c:if test="${isEmployee}">
+                                <td><a href="/rides/${ride.id}" class="btn btn-info">View</a></td>
+                            </c:if>
                         </tr>
                     </c:forEach>
                     </tbody>
