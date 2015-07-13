@@ -57,6 +57,7 @@ public class TicketServlet extends HttpServlet {
 
             session.setAttribute(Utils.SUCCESS, true);
             session.setAttribute(Utils.INFO_MSG, "Ticket was bought!");
+            session.setAttribute(Utils.IS_VALIDATION_ERR, false);
 
         }
         catch (ParseException | NoFreeSeatsForRideException |
