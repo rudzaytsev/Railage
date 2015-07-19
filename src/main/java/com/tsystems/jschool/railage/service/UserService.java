@@ -68,8 +68,14 @@ public class UserService {
        Integer id = null;
         boolean added = addUser(login,password,role);
        if(added){
-           User user = userDao.findUserByParams(login,password);
-           id = user.getId();
+           try {
+               userDao.open();
+               User user = userDao.findUserByParams(login, password);
+               id = user.getId();
+           }
+           finally {
+               userDao.close();
+           }
        }
        return id;
     }

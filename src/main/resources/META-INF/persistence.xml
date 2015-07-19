@@ -1,7 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<persistence xmlns="http://java.sun.com/xml/ns/persistence" version="2.0">
+<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="
+             http://xmlns.jcp.org/xml/ns/persistence
+             http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd"
+             version="2.1">
     <persistence-unit name="RailagePU" transaction-type="RESOURCE_LOCAL">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+
+        <class>com.tsystems.jschool.railage.domain.DomainObject</class>
+        <class>com.tsystems.jschool.railage.domain.User</class>
+        <class>com.tsystems.jschool.railage.domain.Route</class>
+        <class>com.tsystems.jschool.railage.domain.RoutePart</class>
+        <class>com.tsystems.jschool.railage.domain.Passenger</class>
+        <class>com.tsystems.jschool.railage.domain.Station</class>
+        <class>com.tsystems.jschool.railage.domain.Ticket</class>
+        <class>com.tsystems.jschool.railage.domain.TimeInfo</class>
+        <class>com.tsystems.jschool.railage.domain.RoutePart</class>
+        <class>com.tsystems.jschool.railage.domain.TimeTableLine</class>
+        <class>com.tsystems.jschool.railage.domain.TrainRide</class>
+        <class>com.tsystems.jschool.railage.domain.Train</class>
+
         <properties>
             <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>
             <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/railage" />
@@ -15,6 +33,5 @@
             <property name="hibernate.hbm2ddl.auto" value="update" />
             <property name="hibernate.connection.isolation" value="8"/>
         </properties>
-
     </persistence-unit>
 </persistence>
