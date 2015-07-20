@@ -5,11 +5,14 @@ package com.tsystems.jschool.railage.view;
  */
 public class Pages {
 
+    private static final String CONTEXT_URL = "/railage";
+
+
     public static final String INDEX = "/index.jsp";
 
-    public static final String REGISTRATION = "/register.jsp";
+    public static final String REGISTRATION = CONTEXT_URL + "/register.jsp";
 
-    public static final String TRAINS = "/trains.jsp";
+    public static final String TRAINS = CONTEXT_URL + "/trains.jsp";
 
     public static final String ERROR = "/error.jsp";
 

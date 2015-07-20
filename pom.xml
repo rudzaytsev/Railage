@@ -24,34 +24,26 @@
 
         <version.wildfly>8.2.0.Final</version.wildfly>
 
+        <version.standard.taglibs>1.1.2</version.standard.taglibs>
 
         <!-- other plugin versions -->
         <version.compiler.plugin>3.1</version.compiler.plugin>
         <version.war.plugin>2.5</version.war.plugin>
+
+        <!-- Other dependency versions -->
+        <version.javax.servlet.jstl>1.2</version.javax.servlet.jstl>
 
         <!-- maven-compiler-plugin -->
         <maven.compiler.target>1.7</maven.compiler.target>
         <maven.compiler.source>1.7</maven.compiler.source>
     </properties>
 
-    <dependencyManagement>
-        <dependencies>
-            <!-- JBoss distributes a complete set of Java EE 7 APIs including
-                a Bill of Materials (BOM). A BOM specifies the versions of a "stack" (or
-                a collection) of artifacts. We use this here so that we always get the correct
-                versions of artifacts. Here we use the jboss-javaee-7.0-with-hibernate stack
-                (you can read this as the JBoss stack of the Java EE Web Profile 6 APIs with
-                extras from the Hibernate family of projects) -->
-            <dependency>
-                <groupId>org.wildfly.bom</groupId>
-                <artifactId>jboss-javaee-7.0-wildfly</artifactId>
-                <version>${version.jboss.bom}</version>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
+
+
 
   <dependencies>
+
+
    <dependency>
      <groupId>org.mockito</groupId>
      <artifactId>mockito-core</artifactId>
@@ -77,18 +69,21 @@
       <version>4.10</version>
       <scope>test</scope>
     </dependency>
+<!--
     <dependency>
       <groupId>javax</groupId>
       <artifactId>javaee-api</artifactId>
       <version>7.0</version>
       <type>jar</type>
     </dependency>
+-->
     <dependency>
       <groupId>javax</groupId>
       <artifactId>javaee-web-api</artifactId>
       <version>7.0</version>
-      <scope>compile</scope>
-     </dependency>
+      <scope>provided</scope>
+    </dependency>
+
     <!--
     <dependency>
       <groupId>org.hibernate.javax.persistence</groupId>
@@ -97,11 +92,21 @@
     </dependency>
     -->
 
+
     <dependency>
       <groupId>jstl</groupId>
       <artifactId>jstl</artifactId>
       <version>1.2</version>
     </dependency>
+
+      <!--
+      <dependency>
+          <groupId>org.jboss.spec.javax.servlet.jstl</groupId>
+          <artifactId>jboss-jstl-api_1.2_spec</artifactId>
+          <version>1.1.2.Final</version>
+      </dependency>
+        -->
+
 
     <dependency>
       <groupId>mysql</groupId>
@@ -119,6 +124,7 @@
           <artifactId>javax.servlet-api</artifactId>
           <version>3.1.0</version>
       </dependency>
+
       <dependency>
           <groupId>com.fasterxml.jackson.core</groupId>
           <artifactId>jackson-core</artifactId>
