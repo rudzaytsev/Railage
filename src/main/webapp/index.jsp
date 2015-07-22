@@ -23,7 +23,7 @@
             </form>
             </div>
             <div id="registerformdiv">
-            <form id="registerform" class="form-signin" action="registration" method="get">
+            <form id="registerform" class="form-signin" action="registerpage" method="get">
                     <input type="submit" class="btn btn-lg btn-primary btn-block" value="Register" >
             </form>
             </div>
