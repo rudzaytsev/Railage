@@ -7,6 +7,7 @@
     <persistence-unit name="RailagePU" transaction-type="RESOURCE_LOCAL">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 
+        <non-jta-data-source>mysql_datasource</non-jta-data-source>
         <class>com.tsystems.jschool.railage.domain.DomainObject</class>
         <class>com.tsystems.jschool.railage.domain.User</class>
         <class>com.tsystems.jschool.railage.domain.Route</class>
@@ -19,6 +20,7 @@
         <class>com.tsystems.jschool.railage.domain.TimeTableLine</class>
         <class>com.tsystems.jschool.railage.domain.TrainRide</class>
         <class>com.tsystems.jschool.railage.domain.Train</class>
+        <exclude-unlisted-classes>true</exclude-unlisted-classes>
 
         <properties>
             <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>
