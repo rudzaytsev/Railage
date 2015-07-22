@@ -10,37 +10,14 @@
 <html>
 <head>
     <title>Passengers</title>
-    <link rel="stylesheet" href="/resources/css/bootstrap.css">
-    <link rel="stylesheet" href="/resources/css/dashboard.css">
+    <link rel="stylesheet" href="/railage/resources/css/bootstrap.css">
+    <link rel="stylesheet" href="/railage/resources/css/dashboard.css">
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js" type="text/javascript"></script>
-    <script src="/resources/js/bootstrap.js" type="text/javascript"></script>
+    <script src="/railage/resources/js/bootstrap.js" type="text/javascript"></script>
 </head>
 <body>
 
-
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="#">Railage</a>
-            </div>
-            <div id="navbar" class="navbar-collapse collapse">
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="/trains/all">Trains</a></li>
-                    <li><a href="/stations/all">Stations</a></li>
-                    <li><a href="/rides/all">Rides</a></li>
-                    <li><a href="/routes/all">Routes</a></li>
-                    <li><a href="/logout">Log Out</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-
+    <%@ include file="navigation_panel.jsp" %>
 
     <div class="container-fluid">
         <div class="row">

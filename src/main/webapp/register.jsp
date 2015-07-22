@@ -9,15 +9,15 @@
 <html>
 <head>
     <title>Register</title>
-    <link rel="stylesheet" href="/resources/css/bootstrap.css">
-    <link rel="stylesheet" href="/resources/css/register.css">
+    <link rel="stylesheet" href="/railage/resources/css/bootstrap.css">
+    <link rel="stylesheet" href="/railage/resources/css/register.css">
 </head>
 <body>
     <div class="container">
         <div align="center">
             <h1 class="form-signin-heading">Register New User</h1>
         </div>
-        <form id="registerform" class="form-signin" action="/RegisterServlet" method="post">
+        <form id="registerform" class="form-signin" action="registration" method="post">
             <label for="inputLogin">Login:</label>
             <input id="inputLogin" class="form-control" type="text" name="login" />
 

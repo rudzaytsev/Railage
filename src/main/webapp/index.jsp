@@ -4,8 +4,8 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Railage</title>
-    <link rel="stylesheet" href="/resources/css/bootstrap.css">
-    <link rel="stylesheet" href="/resources/css/login.css">
+    <link rel="stylesheet" href="/railage/resources/css/bootstrap.css">
+    <link rel="stylesheet" href="/railage/resources/css/login.css">
 </head>
     <body>
         <div class="container">
@@ -13,7 +13,7 @@
                 <h1 class="form-signin-heading">Welcome to Railage Information System</h1>
             </div>
             <div id="loginformdiv">
-            <form id="loginform" class="form-signin" action="LoginServlet" method="POST">
+            <form id="loginform" class="form-signin" action="login" method="post">
                 <h2 class="form-signin-heading">Please log in</h2>
                 <label for="inputLogin" class="sr-only">Login</label>
                 <input type="text" id="inputLogin" class="form-control" name="login" placeholder="Login" required autofocus  />
@@ -23,7 +23,7 @@
             </form>
             </div>
             <div id="registerformdiv">
-            <form id="registerform" class="form-signin" action="LoginServlet" method="get">
+            <form id="registerform" class="form-signin" action="registration" method="get">
                     <input type="submit" class="btn btn-lg btn-primary btn-block" value="Register" >
             </form>
             </div>

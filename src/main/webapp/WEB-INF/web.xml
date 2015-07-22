@@ -59,83 +59,83 @@
   </servlet>
   <servlet-mapping>
       <servlet-name>LoginServlet</servlet-name>
-      <url-pattern>/LoginServlet</url-pattern>
+      <url-pattern>login</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
       <servlet-name>LogOutServlet</servlet-name>
-      <url-pattern>/logout</url-pattern>
+      <url-pattern>/railage/logout</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
       <servlet-name>RegisterServlet</servlet-name>
-      <url-pattern>/RegisterServlet</url-pattern>
+      <url-pattern>registration</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
       <servlet-name>StationsServlet</servlet-name>
-      <url-pattern>/add/station</url-pattern>
+      <url-pattern>/railage/add/station</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
         <servlet-name>TrainsServlet</servlet-name>
-        <url-pattern>/add/train</url-pattern>
+        <url-pattern>/railage/add/train</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
        <servlet-name>RouteBuilderServlet</servlet-name>
-       <url-pattern>/add/route</url-pattern>
+       <url-pattern>/railage/add/route</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
       <servlet-name>TrainsServlet</servlet-name>
-      <url-pattern>/trains/*</url-pattern>
+      <url-pattern>/railage/trains/*</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
       <servlet-name>TrainRideServlet</servlet-name>
-      <url-pattern>/rides/*</url-pattern>
+      <url-pattern>/railage/rides/*</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
        <servlet-name>TrainRideServlet</servlet-name>
-       <url-pattern>/add/ride</url-pattern>
-       <url-pattern>/find/rides</url-pattern>
+       <url-pattern>/railage/add/ride</url-pattern>
+       <url-pattern>/railage/find/rides</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
       <servlet-name>StationsServlet</servlet-name>
-      <url-pattern>/stations/*</url-pattern>
+      <url-pattern>/railage/stations/*</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
       <servlet-name>RoutesServlet</servlet-name>
-      <url-pattern>/routes/*</url-pattern>
+      <url-pattern>/railage/routes/*</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
       <servlet-name>RouteBuilderServlet</servlet-name>
-      <url-pattern>/build/route</url-pattern>
+      <url-pattern>/railage/build/route</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
       <servlet-name>TicketServlet</servlet-name>
-      <url-pattern>/buy/ticket</url-pattern>
+      <url-pattern>/railage/buy/ticket</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
       <servlet-name>AjaxServlet</servlet-name>
-      <url-pattern>/ajax/*</url-pattern>
+      <url-pattern>/railage/ajax/*</url-pattern>
   </servlet-mapping>
   <filter-mapping>
       <filter-name>AccessFilter</filter-name>
-      <url-pattern>/trains.jsp</url-pattern>
-      <url-pattern>/passengers.jsp</url-pattern>
-      <url-pattern>/rides.jsp</url-pattern>
-      <url-pattern>/stations.jsp</url-pattern>
-      <url-pattern>/routes.jsp</url-pattern>
-      <url-pattern>/route_builder.jsp</url-pattern>
-      <url-pattern>/timetable.jsp</url-pattern>
+      <url-pattern>/railage/trains.jsp</url-pattern>
+      <url-pattern>/railage/passengers.jsp</url-pattern>
+      <url-pattern>/railage/rides.jsp</url-pattern>
+      <url-pattern>/railage/stations.jsp</url-pattern>
+      <url-pattern>/railage/routes.jsp</url-pattern>
+      <url-pattern>/railage/route_builder.jsp</url-pattern>
+      <url-pattern>/railage/timetable.jsp</url-pattern>
   </filter-mapping>
   <filter-mapping>
     <filter-name>CleaningSessionAttributesFilter</filter-name>
-    <url-pattern>/add/*</url-pattern>
-    <url-pattern>/trains/*</url-pattern>
-    <url-pattern>/rides/*</url-pattern>
-    <url-pattern>/routes/*</url-pattern>
-    <url-pattern>/stations/*</url-pattern>
-    <url-pattern>/index.jsp</url-pattern>
-    <url-pattern>/register.jsp</url-pattern>
+    <url-pattern>/railage/add/*</url-pattern>
+    <url-pattern>/railage/trains/*</url-pattern>
+    <url-pattern>/railage/rides/*</url-pattern>
+    <url-pattern>/railage/routes/*</url-pattern>
+    <url-pattern>/railage/stations/*</url-pattern>
+    <url-pattern>/railage/index.jsp</url-pattern>
+    <url-pattern>/railage/register.jsp</url-pattern>
   </filter-mapping>
 
   <welcome-file-list>
-      <welcome-file>index.jsp</welcome-file>
+      <welcome-file>/index.jsp</welcome-file>
   </welcome-file-list>
 </web-app>
