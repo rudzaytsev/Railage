@@ -22,8 +22,10 @@
     <jee:jndi-lookup jndi-name="java:/mysql_datasource" id="dataSource"
                      expected-type="javax.sql.DataSource" />
     <!-- Look up the container deployed EntityManager -->
-    <jee:jndi-lookup jndi-name="java:/EntityManager"
-                     id="EntityManager" expected-type="javax.persistence.EntityManager" />
+    <!--<jee:jndi-lookup jndi-name="java:/EntityManager"
+                     id="EntityManager" expected-type="javax.persistence.EntityManager" /> -->
+    <jee:jndi-lookup jndi-name="java:/EntityManagerFactory"
+                     id="EntityManager"/>
 
 
     <!--

@@ -2,6 +2,7 @@ package com.tsystems.jschool.railage.view.controllers;
 
 import com.tsystems.jschool.railage.domain.User;
 import com.tsystems.jschool.railage.service.UserService;
+import com.tsystems.jschool.railage.view.Pages;
 import com.tsystems.jschool.railage.view.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,7 +16,7 @@ import javax.servlet.http.HttpSession;
  * Created by rudolph on 25.07.15.
  */
 @Controller
-public class LoginController {
+public class UserController {
 
     //@Autowired
     //TrainService trainService;
@@ -26,13 +27,13 @@ public class LoginController {
     @RequestMapping(value = "/",method = RequestMethod.GET)
     public String welcome(){
 
-        return "index";
+        return Pages.INDEX;
     }
 
     @RequestMapping(value = "/registration",method = RequestMethod.GET)
     public String register(){
 
-        return "register";
+        return Pages.REGISTRATION;
     }
 
     @RequestMapping(value = "/login",method = RequestMethod.POST)
@@ -42,8 +43,8 @@ public class LoginController {
                                 user.getLogin(),user.getPassword());
 
         boolean userIsLoggedIn = (registeredUser != null);
-        if (userIsLoggedIn){
-            return "index";
+        if (!userIsLoggedIn){
+            return Pages.INDEX;
         }
 
         boolean isEmployee = Utils.isEmployee(registeredUser.getRole());
@@ -52,7 +53,7 @@ public class LoginController {
         session.setAttribute(Utils.USER_ID_SESSION_ATTRIB,registeredUser.getId());
         session.setAttribute(Utils.IS_EMPLOYEE_SESSION_ATTRIB,isEmployee);
 
-        return "trains";
+        return Pages.TRAINS;
     }
 
 
