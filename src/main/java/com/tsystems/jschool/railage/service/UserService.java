@@ -3,16 +3,26 @@ package com.tsystems.jschool.railage.service;
 import com.tsystems.jschool.railage.datasource.UserDao;
 import com.tsystems.jschool.railage.domain.Role;
 import com.tsystems.jschool.railage.domain.User;
-import com.tsystems.jschool.railage.service.helper.Triple;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  * Created by rudolph on 24.06.15.
  */
+@Service
 public class UserService {
 
+    @Autowired
+    private UserDao userDao;
 
-    private UserDao userDao = new UserDao();
 
+    public User findUser(String login, String password){
+        User user;
+        user = userDao.findUserByParams(login,password);
+        return user;
+    }
+
+    /*
     public Triple<Boolean,Integer,String> logInUser(String login, String password){
         User user;
         userDao.open();
@@ -25,6 +35,7 @@ public class UserService {
         return (user != null) ? new Triple(true,user.getId(),user.getRole()) :
                                 new Triple(false,null,null);
     }
+    */
 
     public boolean isValidUserData(String login,String password, String role){
         return isValidLogin(login) && isValidPassword(password) && isValidPassword(role);

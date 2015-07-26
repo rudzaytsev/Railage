@@ -33,9 +33,14 @@
         <!-- Other dependency versions -->
         <version.javax.servlet.jstl>1.2</version.javax.servlet.jstl>
 
+
+        <!-- Spring framework version -->
+        <version.spring.framework>4.1.7.RELEASE</version.spring.framework>
+
         <!-- maven-compiler-plugin -->
         <maven.compiler.target>1.7</maven.compiler.target>
         <maven.compiler.source>1.7</maven.compiler.source>
+
     </properties>
 
 
@@ -145,6 +150,41 @@
           <artifactId>json-simple</artifactId>
           <version>1.1.1</version>
       </dependency>
+
+
+      <!-- Spring depencies -->
+      <dependency>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-context</artifactId>
+          <version>${version.spring.framework}</version>
+      </dependency>
+      <dependency>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-beans</artifactId>
+          <version>${version.spring.framework}</version>
+      </dependency>
+      <dependency>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-webmvc</artifactId>
+          <version>${version.spring.framework}</version>
+      </dependency>
+      <dependency>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-aop</artifactId>
+          <version>${version.spring.framework}</version>
+      </dependency>
+      <dependency>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-tx</artifactId>
+          <version>${version.spring.framework}</version>
+      </dependency>
+      <dependency>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-orm</artifactId>
+          <version>${version.spring.framework}</version>
+      </dependency>
+
+
 
   </dependencies>
 

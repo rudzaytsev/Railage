@@ -1,6 +1,7 @@
 package com.tsystems.jschool.railage.datasource;
 
 import com.tsystems.jschool.railage.domain.User;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
@@ -9,6 +10,7 @@ import java.util.List;
 /**
  * Created by rudolph on 24.06.15.
  */
+@Repository
 public class UserDao extends JpaDao<User> {
 
     @Override

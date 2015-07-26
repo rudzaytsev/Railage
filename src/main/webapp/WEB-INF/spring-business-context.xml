@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:jee="http://www.springframework.org/schema/jee"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/context
+                           http://www.springframework.org/schema/context/spring-context.xsd
+                           http://www.springframework.org/schema/jee
+                           http://www.springframework.org/schema/jee/spring-jee.xsd
+
+
+                           http://www.springframework.org/schema/tx
+                           http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+    <!-- Scan the the domain package for Spring repositories and services -->
+    <context:component-scan base-package="com.tsystems.jschool.railage.service" />
+    <context:component-scan base-package="com.tsystems.jschool.railage.datasource" />
+    <!-- Look up the database in JNDI -->
+    <jee:jndi-lookup jndi-name="java:/mysql_datasource" id="dataSource"
+                     expected-type="javax.sql.DataSource" />
+    <!-- Look up the container deployed EntityManager -->
+    <jee:jndi-lookup jndi-name="java:/EntityManager"
+                     id="EntityManager" expected-type="javax.persistence.EntityManager" />
+
+
+    <!--
+    <bean id="entityManagerFactory"
+          class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+        <property name="persistenceUnitName" value="RailagePU"/>
+    </bean>
+    -->
+
+    <!-- Use JTA transactions with the container-deployed EntityManager -->
+    <tx:jta-transaction-manager />
+    <!-- Use declarative transactions on the services -->
+    <tx:annotation-driven />
+
+</beans>

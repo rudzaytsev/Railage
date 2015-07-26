@@ -6,11 +6,13 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page isELIgnored="false" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
     <title>Register</title>
-    <link rel="stylesheet" href="/railage/resources/css/bootstrap.css">
-    <link rel="stylesheet" href="/railage/resources/css/register.css">
+    <link rel="stylesheet" href="<c:url value="/railage/resources/css/bootstrap.css"/>">
+    <link rel="stylesheet" href="<c:url value="/railage/resources/css/register.css"/>">
 </head>
 <body>
     <div class="container">

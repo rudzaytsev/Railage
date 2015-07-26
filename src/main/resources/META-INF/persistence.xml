@@ -4,10 +4,10 @@
              http://xmlns.jcp.org/xml/ns/persistence
              http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd"
              version="2.1">
-    <persistence-unit name="RailagePU" transaction-type="RESOURCE_LOCAL">
+    <persistence-unit name="RailagePU" transaction-type="JTA">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 
-        <non-jta-data-source>mysql_datasource</non-jta-data-source>
+        <jta-data-source>java:/mysql_datasource</jta-data-source>
         <class>com.tsystems.jschool.railage.domain.DomainObject</class>
         <class>com.tsystems.jschool.railage.domain.User</class>
         <class>com.tsystems.jschool.railage.domain.Route</class>
@@ -27,6 +27,9 @@
             <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/railage" />
             <property name="javax.persistence.jdbc.user" value="root" />
             <property name="javax.persistence.jdbc.password" value="root" />
+
+            <property name="jboss.entity.manager.jndi.name" value="java:/EntityManager"/>
+            <property name="jboss.entity.manager.factory.jndi.name" value="java:/EntityManagerFactory"/>
 
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />
             <property name="hibernate.show_sql" value="true" />

@@ -9,6 +9,8 @@
         version="3.0">
 
   <display-name>Archetype Created Web Application</display-name>
+
+  <!--
   <filter>
         <filter-name>AccessFilter</filter-name>
         <filter-class>com.tsystems.jschool.railage.view.filters.AccessFilter</filter-class>
@@ -135,8 +137,35 @@
     <url-pattern>/railage/index.jsp</url-pattern>
     <url-pattern>/railage/register.jsp</url-pattern>
   </filter-mapping>
+  -->
 
-  <welcome-file-list>
-      <welcome-file>/index.jsp</welcome-file>
-  </welcome-file-list>
+    <servlet>
+        <servlet-name>railage</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>railage</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>
+            /WEB-INF/railage-servlet.xml
+            /WEB-INF/spring-business-context.xml
+        </param-value>
+    </context-param>
+
+
+    <persistence-context-ref>
+        <persistence-context-ref-name>EntityManager</persistence-context-ref-name>
+        <persistence-unit-name>RailagePU</persistence-unit-name>
+    </persistence-context-ref>
+
+
 </web-app>
