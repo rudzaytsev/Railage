@@ -8,6 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page isELIgnored="false" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <html>
 <head>
     <title>Register</title>
@@ -19,9 +20,10 @@
         <div align="center">
             <h1 class="form-signin-heading">Register New User</h1>
         </div>
-        <form id="registerform" class="form-signin" action="registration" method="post">
+        <form:form id="registerform" class="form-signin" modelAttribute="user"
+                   action="/railage/register/user" method="post">
             <label for="inputLogin">Login:</label>
-            <input id="inputLogin" class="form-control" type="text" name="login" />
+            <input id="inputLogin" class="form-control" type="text" name="login"/>
 
             <label for="inputPassword" >Password:</label>
             <input id="inputPassword" type="password"  class="form-control" name="password" />
@@ -32,7 +34,7 @@
                 <option value="EMPLOYEE">Employee</option>
             </select>
             <input type="submit" class="btn btn-lg btn-primary btn-block" value="Register">
-        </form>
+        </form:form>
     </div>
 </body>
 </html>

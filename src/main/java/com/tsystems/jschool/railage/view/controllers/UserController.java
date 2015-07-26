@@ -56,5 +56,25 @@ public class UserController {
         return Pages.TRAINS;
     }
 
+    @RequestMapping(value="/register/user", method = RequestMethod.POST)
+    public String registerUser(HttpSession session,User user,Model model){
+
+        boolean isValidUserData = userService.isValidUserData(user);
+        if(!isValidUserData){
+            return Pages.REGISTRATION;
+        }
+        Integer id = userService.createUser(user);
+        if(id == null){
+            return Pages.REGISTRATION;
+        }
+        session.setAttribute(Utils.USER_ID_SESSION_ATTRIB,id);
+        session.setAttribute(Utils.USER_LOGIN_SESSION_ATTRIB,user.getLogin());
+        session.setAttribute(Utils.LOGGED_SESSION_ATTRIB,true);
+        session.setAttribute(Utils.IS_EMPLOYEE_SESSION_ATTRIB,Utils.isEmployee(user.getRole()));
+
+        return Pages.TRAINS;
+
+    }
+
 
 }

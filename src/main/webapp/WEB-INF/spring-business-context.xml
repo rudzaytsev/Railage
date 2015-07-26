@@ -36,7 +36,7 @@
     -->
 
     <!-- Use JTA transactions with the container-deployed EntityManager -->
-    <tx:jta-transaction-manager />
+    <tx:jta-transaction-manager/>
     <!-- Use declarative transactions on the services -->
     <tx:annotation-driven />
 
