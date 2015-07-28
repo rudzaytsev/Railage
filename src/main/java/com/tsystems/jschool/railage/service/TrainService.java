@@ -13,6 +13,7 @@ import com.tsystems.jschool.railage.service.exceptions.TimeTableConflictExceptio
 import com.tsystems.jschool.railage.view.servlets.helpers.TimeInterval;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.text.ParseException;
@@ -33,6 +34,8 @@ public class TrainService {
 
     @Autowired
     private TrainRideDao trainRideDao;
+
+    private static final String TRAIN_NUMBER_PATTERN = "^[0-9a-zA-Z]+";
 
 
     public List<Train> findAllTrains(){
@@ -68,30 +71,25 @@ public class TrainService {
         return train;
     }
 
+    @Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
     public void addTrain(String trainNumber,Integer seats)
-            throws NotPositiveNumberOfSeatsException, DomainObjectAlreadyExistsException,
+            throws NotPositiveNumberOfSeatsException,DomainObjectAlreadyExistsException,
             IncorrectParameterException {
 
-        //trainDao.open();
-        try {
-            if (seats <= 0) {
-                throw new NotPositiveNumberOfSeatsException(
-                        "Number of seats should be positive");
-            }
-            if (!trainNumber.matches("^[0-9a-zA-Z]+")) {
-                throw new IncorrectParameterException(
-                        "Train number should contains only latin characters and digits");
-            }
-            List<Train> trains = trainDao.findTrainsByTrainNumber(trainNumber);
-            if (!trains.isEmpty()) {
-                throw new DomainObjectAlreadyExistsException(
-                        "Train with such parameters already exists");
-            }
-            trainDao.persist(new Train(seats, trainNumber));
+        if (seats <= 0) {
+            throw new NotPositiveNumberOfSeatsException(
+                    "Number of seats should be positive");
         }
-        finally {
-            //trainDao.close();
+        if (!trainNumber.matches(TRAIN_NUMBER_PATTERN)) {
+            throw new IncorrectParameterException(
+                    "Train number should contains only latin characters and digits");
         }
+        List<Train> trains = trainDao.findTrainsByTrainNumber(trainNumber);
+        if (!trains.isEmpty()) {
+            throw new DomainObjectAlreadyExistsException(
+                    "Train with such parameters already exists");
+        }
+        trainDao.persist(new Train(seats, trainNumber));
     }
 
     public void addTrainRide(Integer routeId, String dateStr) throws ParseException, TimeTableConflictException {

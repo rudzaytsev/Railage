@@ -26,6 +26,11 @@ public abstract class JpaDao<T> implements Dao<T, Integer>  {
         entityManager.persist(entity);
     }
 
+    @Override
+    public T merge(T entity) {
+        return entityManager.merge(entity);
+    }
+
     public final void open(){
        // does nothing
     }

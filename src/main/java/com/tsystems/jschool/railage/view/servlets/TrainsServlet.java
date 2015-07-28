@@ -4,9 +4,6 @@ import com.tsystems.jschool.railage.domain.Station;
 import com.tsystems.jschool.railage.domain.TrainRide;
 import com.tsystems.jschool.railage.service.StationService;
 import com.tsystems.jschool.railage.service.TrainService;
-import com.tsystems.jschool.railage.service.exceptions.DomainObjectAlreadyExistsException;
-import com.tsystems.jschool.railage.service.exceptions.IncorrectParameterException;
-import com.tsystems.jschool.railage.service.exceptions.NotPositiveNumberOfSeatsException;
 import com.tsystems.jschool.railage.view.Pages;
 import com.tsystems.jschool.railage.view.Utils;
 
@@ -44,6 +41,7 @@ public class TrainsServlet extends HttpServlet {
     }
 
     private void addTrain(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        /*
         String trainNumber = request.getParameter("trainNumber");
         try {
             Integer seats = Integer.parseInt(request.getParameter("seatsNumber"));
@@ -71,6 +69,7 @@ public class TrainsServlet extends HttpServlet {
         request.getSession().setAttribute(Utils.INFO_MSG,"Train added");
         processTrains(request, response);
         return;
+        */
 
     }
 

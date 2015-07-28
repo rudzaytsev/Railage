@@ -5,7 +5,6 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityTransaction;
 import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 import java.util.List;
@@ -17,6 +16,7 @@ import java.util.List;
 @Repository
 public class TrainDaoImpl extends JpaDao<Train> implements TrainDao {
 
+    /*
     @Override
     public Train merge(Train entity) {
         EntityTransaction transaction = entityManager.getTransaction();
@@ -33,6 +33,7 @@ public class TrainDaoImpl extends JpaDao<Train> implements TrainDao {
         }
         return result;
     }
+    */
 
     @Override
     public Train findById(Integer id) {
@@ -63,6 +64,5 @@ public class TrainDaoImpl extends JpaDao<Train> implements TrainDao {
         TypedQuery<Train> query = entityManager.createQuery(queryStr, Train.class);
         query.setParameter(1,trainNumber);
         return query.getResultList();
-
     }
 }

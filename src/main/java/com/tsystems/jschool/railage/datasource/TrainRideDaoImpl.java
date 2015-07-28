@@ -6,7 +6,6 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityTransaction;
 import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 import java.sql.Time;
@@ -20,6 +19,7 @@ import java.util.List;
 public class TrainRideDaoImpl extends JpaDao<TrainRide> implements TrainRideDao {
 
 
+    /*
     @Override
     public TrainRide merge(TrainRide entity) {
         EntityTransaction transaction = entityManager.getTransaction();
@@ -36,6 +36,7 @@ public class TrainRideDaoImpl extends JpaDao<TrainRide> implements TrainRideDao 
         }
         return result;
     }
+    */
 
     @Override
     public TrainRide findById(Integer id) {
