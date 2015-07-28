@@ -47,6 +47,9 @@ public class UserController {
 
         boolean userIsLoggedIn = (registeredUser != null);
         if (!userIsLoggedIn){
+            String errorMsg = "Invalid user login or password";
+            model.addAttribute(Utils.IS_VALIDATION_ERR, true);
+            model.addAttribute(Utils.VALIDATION_ERROR_MSG,errorMsg);
             return Pages.INDEX;
         }
 

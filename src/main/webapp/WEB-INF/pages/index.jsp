@@ -8,12 +8,20 @@
     <title>Railage</title>
     <link rel="stylesheet" href="<c:url value="/railage/resources/css/bootstrap.css"/>">
     <link rel="stylesheet" href="<c:url value="/railage/resources/css/login.css"/>">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js" type="text/javascript"></script>
+    <script src="<c:url value="/railage/resources/js/bootstrap.js"/>" type="text/javascript"></script>
 </head>
     <body>
         <div class="container">
             <div align="center">
                 <h1 class="form-signin-heading">Welcome to Railage Information System</h1>
             </div>
+            <c:if test="${isValidationError}">
+                <div class="alert alert-danger alert-dismissible" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <strong>Error!</strong> ${errorMsg}
+                </div>
+            </c:if>
             <div id="login_form_div">
             <form:form id="loginform" class="form-signin" modelAttribute="user"
                   action="/railage/login" method="post">
