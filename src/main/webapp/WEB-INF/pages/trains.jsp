@@ -19,7 +19,7 @@
 </head>
 <body>
 
-    <%@ include file="../../navigation_panel.jsp" %>
+    <%@ include file="navigation_panel.jsp" %>
 
     <div class="container-fluid">
         <div class="row">
@@ -60,7 +60,7 @@
                                 <td>${train.id}</td>
                                 <td>${train.number}</td>
                                 <td>${train.seats}</td>
-                                <td><a href="/trains/${train.id}" class="btn btn-info">Watch</a></td>
+                                <td><a href="/railage/trains/${train.id}" class="btn btn-info">Watch</a></td>
                             </tr>
                         </c:forEach>
                         </tbody>

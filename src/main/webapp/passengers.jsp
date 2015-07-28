@@ -17,7 +17,7 @@
 </head>
 <body>
 
-    <%@ include file="navigation_panel.jsp" %>
+    <%@ include file="WEB-INF/pages/navigation_panel.jsp" %>
 
     <div class="container-fluid">
         <div class="row">
