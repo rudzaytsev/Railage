@@ -4,7 +4,9 @@ import com.tsystems.jschool.railage.datasource.StationDao;
 import com.tsystems.jschool.railage.domain.Station;
 import com.tsystems.jschool.railage.service.exceptions.DomainObjectAlreadyExistsException;
 import com.tsystems.jschool.railage.service.exceptions.IncorrectParameterException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -12,30 +14,24 @@ import java.util.List;
  * Created by rudolph on 01.07.15.
  */
 @Service
+@Transactional(readOnly = true)
 public class StationService {
 
-    private StationDao stationDao = new StationDao();
+    @Autowired
+    private StationDao stationDao;
 
     public List<Station> findAllStations(){
-        List<Station> stations;
-        stationDao.open();
-        try {
-            stations = stationDao.findAll();
-        }
-        finally {
-            stationDao.close();
-        }
-        return stations;
+        return stationDao.findAll();
     }
 
     public Station findStationById(Integer id){
         Station station;
-        stationDao.open();
+        //stationDao.open();
         try {
             station = stationDao.findById(id);
         }
         finally {
-            stationDao.close();
+            //stationDao.close();
         }
         return station;
     }
@@ -48,7 +44,7 @@ public class StationService {
                     "Station name should contains only latin characters and digits");
        }
 
-       stationDao.open();
+       //stationDao.open();
        try {
            List<Station> stations = stationDao.findStationsByName(stationName);
            if (!stations.isEmpty()) {
@@ -60,7 +56,7 @@ public class StationService {
            }
        }
        finally {
-           stationDao.close();
+           //stationDao.close();
        }
     }
 }

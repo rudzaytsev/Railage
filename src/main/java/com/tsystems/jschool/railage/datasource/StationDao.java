@@ -2,52 +2,20 @@ package com.tsystems.jschool.railage.datasource;
 
 import com.tsystems.jschool.railage.domain.Station;
 
-import javax.persistence.NoResultException;
-import javax.persistence.TypedQuery;
 import java.util.List;
 
 /**
- * Created by rudolph on 01.07.15.
+ * Created by rudolph on 29.07.15.
  */
-public class StationDao extends JpaDao<Station> {
+public interface StationDao extends Dao<Station, Integer> {
+    @Override
+    Station merge(Station entity);
 
     @Override
-    public Station merge(Station entity) {
-        return null;
-    }
+    Station findById(Integer id);
 
     @Override
-    public Station findById(Integer id) {
+    List<Station> findAll();
 
-        String queryStr = "SELECT s FROM Station s WHERE s.id = ?1";
-        TypedQuery<Station> query = entityManager.createQuery(
-                                                queryStr, Station.class);
-        query.setParameter(1,id);
-        Station requiredStation = null;
-        try {
-            requiredStation = query.getSingleResult();
-        }
-        catch(NoResultException e){
-            return null;
-        }
-        return requiredStation;
-    }
-
-    @Override
-    public List<Station> findAll() {
-
-        String queryStr = "SELECT s FROM Station s";
-        TypedQuery<Station> query = entityManager.createQuery(
-                                                queryStr, Station.class);
-        return query.getResultList();
-    }
-
-
-    public List<Station> findStationsByName(String stationName){
-        String queryStr = "SELECT s FROM Station s WHERE s.name = ?1";
-        TypedQuery<Station> query = entityManager.createQuery(
-                queryStr, Station.class);
-        query.setParameter(1,stationName);
-        return query.getResultList();
-    }
+    List<Station> findStationsByName(String stationName);
 }
