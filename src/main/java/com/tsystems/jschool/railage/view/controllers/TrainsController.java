@@ -1,5 +1,8 @@
 package com.tsystems.jschool.railage.view.controllers;
 
+import com.tsystems.jschool.railage.domain.Station;
+import com.tsystems.jschool.railage.domain.TrainRide;
+import com.tsystems.jschool.railage.service.StationService;
 import com.tsystems.jschool.railage.service.TrainService;
 import com.tsystems.jschool.railage.service.exceptions.DomainObjectAlreadyExistsException;
 import com.tsystems.jschool.railage.service.exceptions.IncorrectParameterException;
@@ -10,8 +13,11 @@ import com.tsystems.jschool.railage.view.servlets.helpers.AddTrainFormParams;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import java.util.List;
 
 /**
  * Created by rudolph on 28.07.15.
@@ -21,6 +27,26 @@ public class TrainsController {
 
     @Autowired
     TrainService trainService;
+
+    @Autowired
+    StationService stationService;
+
+    @Autowired
+    ControllersUtils controllersUtils;
+
+    @RequestMapping(value="/trains/{trainId}")
+    public String showRides(@PathVariable("trainId") Integer trainId, Model model){
+
+        List<TrainRide> rides = trainService.findAllRidesByTrainId(trainId);
+        List<Station> stations = stationService.findAllStations();
+        model.addAttribute(Utils.IS_SEARCH_RESULT, false);
+        model.addAttribute(Utils.TRAIN_RIDES, rides);
+        model.addAttribute(Utils.STATIONS, stations);
+        model.addAttribute(Utils.HAS_CURRENT_TRAIN, true);
+        model.addAttribute(Utils.CURRENT_TRAIN, trainService.findTrainById(trainId));
+
+        return Pages.RIDES;
+    }
 
     @RequestMapping(value = "/add/train", method = RequestMethod.POST)
     public String addTrain(AddTrainFormParams params, Model model){
@@ -33,11 +59,8 @@ public class TrainsController {
         }
         catch(NumberFormatException e){
 
-            model.addAttribute(Utils.IS_VALIDATION_ERR, true);
-            model.addAttribute(Utils.VALIDATION_ERROR_MSG,
+            controllersUtils.addErrorMessage(model,
                     "Can Add Train. Seats is not a number!");
-
-            this.addTrainsToModel(model);
             return Pages.TRAINS;
         }
         catch (NotPositiveNumberOfSeatsException |
@@ -45,18 +68,17 @@ public class TrainsController {
                DomainObjectAlreadyExistsException e) {
 
             String errorMsg = "Can not add train. " + e.getMessage();
-            model.addAttribute(Utils.IS_VALIDATION_ERR, true);
-            model.addAttribute(Utils.VALIDATION_ERROR_MSG, errorMsg);
-            this.addTrainsToModel(model);
+            controllersUtils.addErrorMessage(model,errorMsg);
             return Pages.TRAINS;
         }
-        model.addAttribute(Utils.SUCCESS, true);
-        model.addAttribute(Utils.INFO_MSG, "Train added");
-        this.addTrainsToModel(model);
+        finally {
+            controllersUtils.addTrains2Model(model);
+            controllersUtils.addTrainAdditionFormParams(model);
+        }
+        controllersUtils.addSuccessMessage(model,"Train added");
+
         return Pages.TRAINS;
     }
 
-    private void addTrainsToModel(Model model){
-        model.addAttribute(Utils.TRAINS,trainService.findAllTrains());
-    }
+
 }

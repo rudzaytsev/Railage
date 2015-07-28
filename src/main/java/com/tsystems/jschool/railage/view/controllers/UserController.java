@@ -27,6 +27,9 @@ public class UserController {
     @Autowired
     UserService userService;
 
+    @Autowired
+    ControllersUtils controllersUtils;
+
     @RequestMapping(value = "/",method = RequestMethod.GET)
     public String welcome(){
 
@@ -40,17 +43,14 @@ public class UserController {
     }
 
     @RequestMapping(value = "/login",method = RequestMethod.POST)
-    public String login(HttpSession session,User user,Model model){
-
+    public String login(HttpSession session, User user, Model model){
         User registeredUser = userService.findUser(
-                                user.getLogin(),user.getPassword());
+                                user.getLogin(), user.getPassword());
 
         boolean userIsLoggedIn = (registeredUser != null);
         if (!userIsLoggedIn){
-            String errorMsg = "Invalid user login or password";
-            model.addAttribute(Utils.IS_VALIDATION_ERR, true);
-            model.addAttribute(Utils.VALIDATION_ERROR_MSG,errorMsg);
-            return Pages.INDEX;
+           controllersUtils.addErrorMessage(model,"Invalid user login or password");
+           return Pages.INDEX;
         }
 
         boolean isEmployee = Utils.isEmployee(registeredUser.getRole());
@@ -59,7 +59,8 @@ public class UserController {
         session.setAttribute(Utils.USER_ID_SESSION_ATTRIB,registeredUser.getId());
         session.setAttribute(Utils.IS_EMPLOYEE_SESSION_ATTRIB,isEmployee);
 
-        this.addTrainsToModel(model);
+        controllersUtils.addTrains2Model(model);
+        controllersUtils.addTrainAdditionFormParams(model);
 
         return Pages.TRAINS;
     }
@@ -76,22 +77,19 @@ public class UserController {
             session.setAttribute(Utils.IS_EMPLOYEE_SESSION_ATTRIB,
                                                     Utils.isEmployee(user.getRole()));
         }
-        catch(InvalidUserDataException |
+        catch (InvalidUserDataException |
               DomainObjectAlreadyExistsException e){
 
-            model.addAttribute(Utils.IS_VALIDATION_ERR, true);
-            model.addAttribute(Utils.VALIDATION_ERROR_MSG, e.getMessage());
+            controllersUtils.addErrorMessage(model, e.getMessage());
             return Pages.REGISTRATION;
         }
 
-        this.addTrainsToModel(model);
+        controllersUtils.addTrains2Model(model);
+        controllersUtils.addTrainAdditionFormParams(model);
 
         return Pages.TRAINS;
     }
 
-    private void addTrainsToModel(Model model){
-        model.addAttribute(Utils.TRAINS,trainService.findAllTrains());
-    }
 
 
 }

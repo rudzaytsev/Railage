@@ -60,6 +60,8 @@ public class Utils {
 
     public static final String CMD_FIND_RIDES = "findrides";
 
+    public static final String TRAIN_ADDITION_FORM_PARAMS = "trainAdditionFormParams";
+
 
     public static boolean isEmployee(String role){
         return Role.EMPLOYEE.toString().equals(role);

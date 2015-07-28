@@ -4,12 +4,14 @@ import com.tsystems.jschool.railage.datasource.StationDao;
 import com.tsystems.jschool.railage.domain.Station;
 import com.tsystems.jschool.railage.service.exceptions.DomainObjectAlreadyExistsException;
 import com.tsystems.jschool.railage.service.exceptions.IncorrectParameterException;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 /**
  * Created by rudolph on 01.07.15.
  */
+@Service
 public class StationService {
 
     private StationDao stationDao = new StationDao();

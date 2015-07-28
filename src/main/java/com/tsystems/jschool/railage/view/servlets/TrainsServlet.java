@@ -1,8 +1,5 @@
 package com.tsystems.jschool.railage.view.servlets;
 
-import com.tsystems.jschool.railage.domain.Station;
-import com.tsystems.jschool.railage.domain.TrainRide;
-import com.tsystems.jschool.railage.service.StationService;
 import com.tsystems.jschool.railage.service.TrainService;
 import com.tsystems.jschool.railage.view.Pages;
 import com.tsystems.jschool.railage.view.Utils;
@@ -13,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.List;
 
 /**
  * Created by rudolph on 28.06.15.
@@ -75,15 +71,18 @@ public class TrainsServlet extends HttpServlet {
 
 
     private void processTrains(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
         TrainService trainService = new TrainService();
         HttpSession session = request.getSession();
         session.setAttribute(Utils.TRAINS,trainService.findAllTrains());
         response.sendRedirect(Pages.TRAINS);
+
     }
 
     private void processTrainRides(Integer trainId,HttpServletRequest request, HttpServletResponse response)
                 throws IOException {
 
+        /*
         TrainService trainService = new TrainService();
         StationService stationService = new StationService();
 
@@ -96,5 +95,6 @@ public class TrainsServlet extends HttpServlet {
         session.setAttribute(Utils.HAS_CURRENT_TRAIN,true);
         session.setAttribute(Utils.CURRENT_TRAIN, trainService.findTrainById(trainId));
         response.sendRedirect(Pages.RIDES);
+        */
     }
 }
