@@ -47,4 +47,20 @@ public class UserDaoImpl extends JpaDao<User> implements UserDao {
         }
         return registered;
     }
+
+    @Override
+    public User findUserByLogin(String login) {
+        String queryStr =
+                "SELECT u FROM User u WHERE u.login = ?1";
+        TypedQuery<User> query = entityManager.createQuery(queryStr, User.class);
+        query.setParameter(1,login);
+        List<User> users;
+        users = query.getResultList();
+        if (users.isEmpty()){
+            return null;
+        }
+        return users.get(0);
+    }
+
+
 }

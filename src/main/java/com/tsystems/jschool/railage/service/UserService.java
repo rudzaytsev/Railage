@@ -3,6 +3,8 @@ package com.tsystems.jschool.railage.service;
 import com.tsystems.jschool.railage.datasource.UserDao;
 import com.tsystems.jschool.railage.domain.Role;
 import com.tsystems.jschool.railage.domain.User;
+import com.tsystems.jschool.railage.service.exceptions.DomainObjectAlreadyExistsException;
+import com.tsystems.jschool.railage.service.exceptions.InvalidUserDataException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -26,27 +28,37 @@ public class UserService {
     }
 
 
-    public boolean isValidUserData(User user){
-        return isValidLogin(user.getLogin()) &&
-               isValidPassword(user.getPassword()) &&
-                isValidRole(user.getRole());
+    public void isValidUserData(User user) throws InvalidUserDataException {
+        validateLogin(user.getLogin());
+        validatePassword(user.getPassword());
+        validateRole(user.getRole());
     }
 
-    public boolean isValidLogin(String login){
-        return login != null && login.matches("^[a-zA-Z]+[0-9a-zA-Z]*$");
+    private void validateLogin(String login) throws InvalidUserDataException {
+        String loginPattern = "^[a-zA-Z]+[0-9a-zA-Z]*$";
+        if (!login.matches(loginPattern)){
+            throw new InvalidUserDataException(
+                    "User login should contains only latin character or digits."
+                    + " And fist symbol in login must be character"
+            );
+        }
     }
 
-    public boolean isValidPassword(String password){
-        return password != null && !password.isEmpty();
+    public void validatePassword(String password) throws InvalidUserDataException {
+        if(password.isEmpty()){
+            throw new InvalidUserDataException(
+                    "User password is empty string"
+            );
+        }
     }
 
-    public boolean isValidRole(String userRole){
+    public void validateRole(String userRole) throws InvalidUserDataException {
         for (Role role : Role.values()){
             if (userRole.equals(role.toString())){
-                return true;
+                return;
             }
         }
-        return false;
+        throw new InvalidUserDataException("Invalid role");
     }
 
 
@@ -56,7 +68,13 @@ public class UserService {
     }
 
     @Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
-    public Integer createUser(User user){
+    public Integer createUser(User user) throws DomainObjectAlreadyExistsException {
+        User existedUser = userDao.findUserByLogin(user.getLogin());
+        if (existedUser != null){
+            throw new DomainObjectAlreadyExistsException(
+                    "User with each login already exists"
+            );
+        }
         Integer id = null;
         addUser(user);
         User createdUser = userDao.findUserByParams(

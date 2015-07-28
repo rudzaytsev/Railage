@@ -2,6 +2,8 @@ package com.tsystems.jschool.railage.view.controllers;
 
 import com.tsystems.jschool.railage.domain.User;
 import com.tsystems.jschool.railage.service.UserService;
+import com.tsystems.jschool.railage.service.exceptions.DomainObjectAlreadyExistsException;
+import com.tsystems.jschool.railage.service.exceptions.InvalidUserDataException;
 import com.tsystems.jschool.railage.view.Pages;
 import com.tsystems.jschool.railage.view.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,18 +61,21 @@ public class UserController {
     @RequestMapping(value="/register/user", method = RequestMethod.POST)
     public String registerUser(HttpSession session,User user,Model model){
 
-        boolean isValidUserData = userService.isValidUserData(user);
-        if(!isValidUserData){
+        try {
+            userService.isValidUserData(user);
+            Integer id = userService.createUser(user);
+            session.setAttribute(Utils.USER_ID_SESSION_ATTRIB, id);
+            session.setAttribute(Utils.USER_LOGIN_SESSION_ATTRIB, user.getLogin());
+            session.setAttribute(Utils.LOGGED_SESSION_ATTRIB, true);
+            session.setAttribute(Utils.IS_EMPLOYEE_SESSION_ATTRIB, Utils.isEmployee(user.getRole()));
+        }
+        catch(InvalidUserDataException |
+              DomainObjectAlreadyExistsException e){
+
+            model.addAttribute(Utils.IS_VALIDATION_ERR, true);
+            model.addAttribute(Utils.VALIDATION_ERROR_MSG, e.getMessage());
             return Pages.REGISTRATION;
         }
-        Integer id = userService.createUser(user);
-        if(id == null){
-            return Pages.REGISTRATION;
-        }
-        session.setAttribute(Utils.USER_ID_SESSION_ATTRIB,id);
-        session.setAttribute(Utils.USER_LOGIN_SESSION_ATTRIB,user.getLogin());
-        session.setAttribute(Utils.LOGGED_SESSION_ATTRIB,true);
-        session.setAttribute(Utils.IS_EMPLOYEE_SESSION_ATTRIB,Utils.isEmployee(user.getRole()));
 
         return Pages.TRAINS;
 
