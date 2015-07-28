@@ -44,31 +44,18 @@ public class TrainService {
 
 
     public List<TrainRide> findAllRidesByTrainId(Integer id){
-        //trainDao.open();
+
         Train train;
         List<TrainRide> rides = null;
-        try {
-            train = trainDao.findById(id);
-            if(train != null) {
-                rides = train.getRides();
-            }
-        }
-        finally {
-            //trainDao.close();
+        train = trainDao.findById(id);
+        if(train != null) {
+            rides = train.getRides();
         }
         return rides;
     }
 
     public Train findTrainById(Integer id){
-        //trainDao.open();
-        Train train;
-        try {
-           train = trainDao.findById(id);
-        }
-        finally {
-           // trainDao.close();
-        }
-        return train;
+        return trainDao.findById(id);
     }
 
     @Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
@@ -92,23 +79,15 @@ public class TrainService {
         trainDao.persist(new Train(seats, trainNumber));
     }
 
+    @Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
     public void addTrainRide(Integer routeId, String dateStr) throws ParseException, TimeTableConflictException {
 
         RouteService routeService = new RouteService();
         Route route = routeService.findRouteById(routeId);
         Train train = route.getTrain();
         java.sql.Date date = this.validateDate(dateStr,route.getPeriod());
-
-        //trainRideDao.open();
-        try {
-
-            TrainRide ride = new TrainRide(route,date,train);
-            trainRideDao.merge(ride);
-
-        }
-        finally {
-            //trainRideDao.close();
-        }
+        TrainRide ride = new TrainRide(route,date,train);
+        trainRideDao.merge(ride);
     }
 
     private java.sql.Date validateDate(String dateStr, String period) throws ParseException, TimeTableConflictException {
@@ -148,55 +127,22 @@ public class TrainService {
 
 
     public Train merge(Train train){
-
-        Train mergedTrain;
-        //trainDao.open();
-        try {
-            mergedTrain = trainDao.merge(train);
-        }
-        finally {
-            //trainDao.close();
-        }
-        return mergedTrain;
+        return trainDao.merge(train);
     }
 
+
     public List<TrainRide> findAllTrainRides(){
-        List<TrainRide> result;
-        //trainRideDao.open();
-        try {
-            result = trainRideDao.findAll();
-        }
-        finally {
-            //trainRideDao.close();
-        }
-        return result;
+        return trainRideDao.findAll();
     }
 
 
     public TrainRide findTrainRideById(Integer id){
-        TrainRide ride;
-        //trainRideDao.open();
-        try {
-            ride = trainRideDao.findById(id);
-        }
-        finally {
-            //trainRideDao.close();
-        }
-        return ride;
+        return trainRideDao.findById(id);
     }
 
-    public List<TrainRide> findRidesBy(Integer sourceStationId, Integer destStaionId,
+    public List<TrainRide> findRidesBy(Integer sourceStationId, Integer destStationId,
                                        TimeInterval interval) {
 
-        //trainRideDao.open();
-        List<TrainRide> result;
-        try {
-            result = trainRideDao.findRidesBy(
-                            sourceStationId,destStaionId,interval);
-        }
-        finally {
-            //trainRideDao.close();
-        }
-        return result;
+        return trainRideDao.findRidesBy(sourceStationId,destStationId,interval);
     }
 }
