@@ -11,6 +11,9 @@ import com.tsystems.jschool.railage.service.exceptions.IncorrectParameterExcepti
 import com.tsystems.jschool.railage.service.exceptions.NotPositiveNumberOfSeatsException;
 import com.tsystems.jschool.railage.service.exceptions.TimeTableConflictException;
 import com.tsystems.jschool.railage.view.servlets.helpers.TimeInterval;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -21,27 +24,24 @@ import java.util.List;
 /**
  * Created by rudolph on 28.06.15.
  */
+@Service
+@Transactional(readOnly = true)
 public class TrainService {
 
-    private TrainDao trainDao = new TrainDao();
+    @Autowired
+    private TrainDao trainDao;
 
-    private TrainRideDao trainRideDao = new TrainRideDao();
+    @Autowired
+    private TrainRideDao trainRideDao;
+
 
     public List<Train> findAllTrains(){
-
-        List<Train> trains = null;
-        trainDao.open();
-        try {
-            trains = trainDao.findAll();
-        }
-        finally {
-            trainDao.close();
-        }
-        return trains;
+        return trainDao.findAll();
     }
 
+
     public List<TrainRide> findAllRidesByTrainId(Integer id){
-        trainDao.open();
+        //trainDao.open();
         Train train;
         List<TrainRide> rides = null;
         try {
@@ -51,19 +51,19 @@ public class TrainService {
             }
         }
         finally {
-            trainDao.close();
+            //trainDao.close();
         }
         return rides;
     }
 
     public Train findTrainById(Integer id){
-        trainDao.open();
+        //trainDao.open();
         Train train;
         try {
            train = trainDao.findById(id);
         }
         finally {
-            trainDao.close();
+           // trainDao.close();
         }
         return train;
     }
@@ -72,7 +72,7 @@ public class TrainService {
             throws NotPositiveNumberOfSeatsException, DomainObjectAlreadyExistsException,
             IncorrectParameterException {
 
-        trainDao.open();
+        //trainDao.open();
         try {
             if (seats <= 0) {
                 throw new NotPositiveNumberOfSeatsException(
@@ -90,7 +90,7 @@ public class TrainService {
             trainDao.persist(new Train(seats, trainNumber));
         }
         finally {
-            trainDao.close();
+            //trainDao.close();
         }
     }
 
@@ -101,7 +101,7 @@ public class TrainService {
         Train train = route.getTrain();
         java.sql.Date date = this.validateDate(dateStr,route.getPeriod());
 
-        trainRideDao.open();
+        //trainRideDao.open();
         try {
 
             TrainRide ride = new TrainRide(route,date,train);
@@ -109,7 +109,7 @@ public class TrainService {
 
         }
         finally {
-            trainRideDao.close();
+            //trainRideDao.close();
         }
     }
 
@@ -152,24 +152,24 @@ public class TrainService {
     public Train merge(Train train){
 
         Train mergedTrain;
-        trainDao.open();
+        //trainDao.open();
         try {
             mergedTrain = trainDao.merge(train);
         }
         finally {
-            trainDao.close();
+            //trainDao.close();
         }
         return mergedTrain;
     }
 
     public List<TrainRide> findAllTrainRides(){
         List<TrainRide> result;
-        trainRideDao.open();
+        //trainRideDao.open();
         try {
             result = trainRideDao.findAll();
         }
         finally {
-            trainRideDao.close();
+            //trainRideDao.close();
         }
         return result;
     }
@@ -177,12 +177,12 @@ public class TrainService {
 
     public TrainRide findTrainRideById(Integer id){
         TrainRide ride;
-        trainRideDao.open();
+        //trainRideDao.open();
         try {
             ride = trainRideDao.findById(id);
         }
         finally {
-            trainRideDao.close();
+            //trainRideDao.close();
         }
         return ride;
     }
@@ -190,14 +190,14 @@ public class TrainService {
     public List<TrainRide> findRidesBy(Integer sourceStationId, Integer destStaionId,
                                        TimeInterval interval) {
 
-        trainRideDao.open();
+        //trainRideDao.open();
         List<TrainRide> result;
         try {
             result = trainRideDao.findRidesBy(
                             sourceStationId,destStaionId,interval);
         }
         finally {
-            trainRideDao.close();
+            //trainRideDao.close();
         }
         return result;
     }

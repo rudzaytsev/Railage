@@ -1,6 +1,7 @@
 package com.tsystems.jschool.railage.view.controllers;
 
 import com.tsystems.jschool.railage.domain.User;
+import com.tsystems.jschool.railage.service.TrainService;
 import com.tsystems.jschool.railage.service.UserService;
 import com.tsystems.jschool.railage.service.exceptions.DomainObjectAlreadyExistsException;
 import com.tsystems.jschool.railage.service.exceptions.InvalidUserDataException;
@@ -20,8 +21,8 @@ import javax.servlet.http.HttpSession;
 @Controller
 public class UserController {
 
-    //@Autowired
-    //TrainService trainService;
+    @Autowired
+    TrainService trainService;
 
     @Autowired
     UserService userService;
@@ -55,6 +56,8 @@ public class UserController {
         session.setAttribute(Utils.USER_ID_SESSION_ATTRIB,registeredUser.getId());
         session.setAttribute(Utils.IS_EMPLOYEE_SESSION_ATTRIB,isEmployee);
 
+        this.addTrainsToModel(model);
+
         return Pages.TRAINS;
     }
 
@@ -67,7 +70,8 @@ public class UserController {
             session.setAttribute(Utils.USER_ID_SESSION_ATTRIB, id);
             session.setAttribute(Utils.USER_LOGIN_SESSION_ATTRIB, user.getLogin());
             session.setAttribute(Utils.LOGGED_SESSION_ATTRIB, true);
-            session.setAttribute(Utils.IS_EMPLOYEE_SESSION_ATTRIB, Utils.isEmployee(user.getRole()));
+            session.setAttribute(Utils.IS_EMPLOYEE_SESSION_ATTRIB,
+                                                    Utils.isEmployee(user.getRole()));
         }
         catch(InvalidUserDataException |
               DomainObjectAlreadyExistsException e){
@@ -77,8 +81,13 @@ public class UserController {
             return Pages.REGISTRATION;
         }
 
-        return Pages.TRAINS;
+        this.addTrainsToModel(model);
 
+        return Pages.TRAINS;
+    }
+
+    private void addTrainsToModel(Model model){
+        model.addAttribute(Utils.TRAINS,trainService.findAllTrains());
     }
 
 
