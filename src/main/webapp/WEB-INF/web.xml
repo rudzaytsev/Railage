@@ -19,10 +19,7 @@
         <filter-name>CleaningSessionAttributesFilter</filter-name>
         <filter-class>com.tsystems.jschool.railage.view.filters.CleaningSessionAttributesFilter</filter-class>
     </filter>
-  <servlet>
-      <servlet-name>TrainsServlet</servlet-name>
-      <servlet-class>com.tsystems.jschool.railage.view.servlets.TrainsServlet</servlet-class>
-  </servlet>
+
   <servlet>
       <servlet-name>TrainRideServlet</servlet-name>
       <servlet-class>com.tsystems.jschool.railage.view.servlets.TrainRideServlet</servlet-class>
@@ -61,17 +58,10 @@
       <url-pattern>/railage/add/station</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
-        <servlet-name>TrainsServlet</servlet-name>
-        <url-pattern>/railage/add/train</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
        <servlet-name>RouteBuilderServlet</servlet-name>
        <url-pattern>/railage/add/route</url-pattern>
   </servlet-mapping>
-  <servlet-mapping>
-      <servlet-name>TrainsServlet</servlet-name>
-      <url-pattern>/railage/trains/*</url-pattern>
-  </servlet-mapping>
+
   <servlet-mapping>
       <servlet-name>TrainRideServlet</servlet-name>
       <url-pattern>/railage/rides/*</url-pattern>
