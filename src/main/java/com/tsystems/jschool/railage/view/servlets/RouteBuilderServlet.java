@@ -9,7 +9,7 @@ import com.tsystems.jschool.railage.service.exceptions.IncorrectStationsDepartur
 import com.tsystems.jschool.railage.service.exceptions.IncorrectTimeFormatException;
 import com.tsystems.jschool.railage.view.Pages;
 import com.tsystems.jschool.railage.view.Utils;
-import com.tsystems.jschool.railage.view.servlets.helpers.RouteFormParams;
+import com.tsystems.jschool.railage.view.controllers.helpers.RouteFormParams;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;

@@ -1,5 +1,6 @@
 package com.tsystems.jschool.railage.service;
 
+import com.tsystems.jschool.railage.datasource.RouteDao;
 import com.tsystems.jschool.railage.datasource.TrainDao;
 import com.tsystems.jschool.railage.datasource.TrainRideDao;
 import com.tsystems.jschool.railage.domain.Period;
@@ -10,7 +11,7 @@ import com.tsystems.jschool.railage.service.exceptions.DomainObjectAlreadyExists
 import com.tsystems.jschool.railage.service.exceptions.IncorrectParameterException;
 import com.tsystems.jschool.railage.service.exceptions.NotPositiveNumberOfSeatsException;
 import com.tsystems.jschool.railage.service.exceptions.TimeTableConflictException;
-import com.tsystems.jschool.railage.view.servlets.helpers.TimeInterval;
+import com.tsystems.jschool.railage.view.controllers.helpers.TimeInterval;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -34,6 +35,10 @@ public class TrainService {
 
     @Autowired
     private TrainRideDao trainRideDao;
+
+    @Autowired
+    private RouteDao routeDao;
+
 
     private static final String TRAIN_NUMBER_PATTERN = "^[0-9a-zA-Z]+";
 
@@ -82,8 +87,7 @@ public class TrainService {
     @Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
     public void addTrainRide(Integer routeId, String dateStr) throws ParseException, TimeTableConflictException {
 
-        RouteService routeService = new RouteService();
-        Route route = routeService.findRouteById(routeId);
+        Route route = routeDao.findById(routeId);
         Train train = route.getTrain();
         java.sql.Date date = this.validateDate(dateStr,route.getPeriod());
         TrainRide ride = new TrainRide(route,date,train);

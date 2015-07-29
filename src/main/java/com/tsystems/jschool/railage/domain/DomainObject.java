@@ -13,7 +13,10 @@ public abstract class DomainObject {
 
 
     /** Unique id of DomainObject instance */
-    @Id @GeneratedValue(strategy = GenerationType.TABLE)
+    @Id
+    @TableGenerator(name="generator", table="key_table" ,pkColumnName = "seq",
+                    valueColumnName = "seq_num",initialValue = 100, allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "generator")
     protected Integer id;
 
     public Integer getId() {

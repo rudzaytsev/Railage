@@ -1,7 +1,9 @@
 package com.tsystems.jschool.railage.view.controllers;
 
+import com.tsystems.jschool.railage.domain.Route;
 import com.tsystems.jschool.railage.domain.Station;
 import com.tsystems.jschool.railage.domain.TrainRide;
+import com.tsystems.jschool.railage.service.RouteService;
 import com.tsystems.jschool.railage.service.StationService;
 import com.tsystems.jschool.railage.service.TrainService;
 import com.tsystems.jschool.railage.service.exceptions.DomainObjectAlreadyExistsException;
@@ -9,7 +11,7 @@ import com.tsystems.jschool.railage.service.exceptions.IncorrectParameterExcepti
 import com.tsystems.jschool.railage.service.exceptions.NotPositiveNumberOfSeatsException;
 import com.tsystems.jschool.railage.view.Pages;
 import com.tsystems.jschool.railage.view.Utils;
-import com.tsystems.jschool.railage.view.servlets.helpers.AddTrainFormParams;
+import com.tsystems.jschool.railage.view.controllers.helpers.AddTrainFormParams;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,6 +34,9 @@ public class TrainsController {
     StationService stationService;
 
     @Autowired
+    RouteService routeService;
+
+    @Autowired
     ControllersUtils controllersUtils;
 
     @RequestMapping(value="/trains/{trainId}")
@@ -39,11 +44,14 @@ public class TrainsController {
 
         List<TrainRide> rides = trainService.findAllRidesByTrainId(trainId);
         List<Station> stations = stationService.findAllStations();
+        List<Route> routes = routeService.findAllRoutes();
         model.addAttribute(Utils.IS_SEARCH_RESULT, false);
         model.addAttribute(Utils.TRAIN_RIDES, rides);
         model.addAttribute(Utils.STATIONS, stations);
+        model.addAttribute(Utils.ROUTES,routes);
         model.addAttribute(Utils.HAS_CURRENT_TRAIN, true);
         model.addAttribute(Utils.CURRENT_TRAIN, trainService.findTrainById(trainId));
+        controllersUtils.addRideAdditionFormParams(model);
 
         return Pages.RIDES;
     }

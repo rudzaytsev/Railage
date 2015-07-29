@@ -1,7 +1,7 @@
 package com.tsystems.jschool.railage.datasource;
 
 import com.tsystems.jschool.railage.domain.TrainRide;
-import com.tsystems.jschool.railage.view.servlets.helpers.TimeInterval;
+import com.tsystems.jschool.railage.view.controllers.helpers.TimeInterval;
 
 import java.util.List;
 

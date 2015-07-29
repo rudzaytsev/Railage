@@ -2,7 +2,8 @@ package com.tsystems.jschool.railage.view.controllers;
 
 import com.tsystems.jschool.railage.service.TrainService;
 import com.tsystems.jschool.railage.view.Utils;
-import com.tsystems.jschool.railage.view.servlets.helpers.AddTrainFormParams;
+import com.tsystems.jschool.railage.view.controllers.helpers.AddRideFormParams;
+import com.tsystems.jschool.railage.view.controllers.helpers.AddTrainFormParams;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
@@ -22,6 +23,10 @@ public class ControllersUtils {
 
     public final void addTrainAdditionFormParams(Model model){
         model.addAttribute(Utils.TRAIN_ADDITION_FORM_PARAMS, new AddTrainFormParams());
+    }
+
+    public final void addRideAdditionFormParams(Model model){
+       model.addAttribute(Utils.RIDE_ADDITION_FORM_PARAMS, new AddRideFormParams());
     }
 
     public final void addErrorMessage(Model model,String errorMsg){

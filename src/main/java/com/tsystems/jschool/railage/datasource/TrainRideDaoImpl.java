@@ -1,7 +1,7 @@
 package com.tsystems.jschool.railage.datasource;
 
 import com.tsystems.jschool.railage.domain.TrainRide;
-import com.tsystems.jschool.railage.view.servlets.helpers.TimeInterval;
+import com.tsystems.jschool.railage.view.controllers.helpers.TimeInterval;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;

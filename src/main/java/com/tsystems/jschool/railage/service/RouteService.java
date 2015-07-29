@@ -1,8 +1,13 @@
 package com.tsystems.jschool.railage.service;
 
 import com.tsystems.jschool.railage.datasource.RouteDao;
+import com.tsystems.jschool.railage.datasource.TrainDao;
 import com.tsystems.jschool.railage.domain.*;
-import com.tsystems.jschool.railage.view.servlets.helpers.RouteFormParams;
+import com.tsystems.jschool.railage.view.controllers.helpers.RouteFormParams;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Time;
 import java.util.ArrayList;
@@ -11,62 +16,43 @@ import java.util.List;
 /**
  * Created by rudolph on 02.07.15.
  */
+@Service
+@Transactional(readOnly = true)
 public class RouteService {
 
-    private RouteDao routeDao = new RouteDao();
+    @Autowired
+    private RouteDao routeDao;
+
+    @Autowired
+    private TrainDao trainDao;
 
 
     public Route findRouteById(Integer id){
-
-        routeDao.open();
-        Route route = null;
-        try {
-           route = routeDao.findById(id);
-        }
-        finally {
-            routeDao.close();
-        }
-        return route;
+        return routeDao.findById(id);
     }
 
     public List<Route> findAllRoutes(){
-
-        routeDao.open();
-        List<Route> routes;
-        try {
-            routes = routeDao.findAll();
-        }
-        finally {
-            routeDao.close();
-        }
-        return routes;
+        return routeDao.findAll();
     }
 
+    @Transactional(readOnly = true,propagation = Propagation.REQUIRES_NEW)
     public void addRoute(RouteFormParams params){
 
-        routeDao.open();
-        try {
+        Route route = new Route();
+        List<Station> stations = createStations(params);
+        List<TimeTableLine> timeTableLines = createTimeTableLine(route, stations, params);
+        List<RoutePart> routeParts = createRouteParts(route, stations);
 
-            Route route = new Route();
-            List<Station> stations = createStations(params);
-            List<TimeTableLine> timeTableLines = createTimeTableLine(route, stations, params);
-            List<RoutePart> routeParts = createRouteParts(route, stations);
-            TrainService trainService = new TrainService();
+        Integer trainId = params.getTrainId();
 
-            Integer trainId = params.getTrainId();
-
-            Train train = trainService.findTrainById(trainId);
-            for (TimeTableLine line : timeTableLines) {
-                line.setTrain(train);
-            }
-            route.setRouteParts(routeParts);
-            route.setTimeTableLines(timeTableLines);
-            route.setTrain(train);
-            routeDao.merge(route);
+        Train train = trainDao.findById(trainId);
+        for (TimeTableLine line : timeTableLines) {
+            line.setTrain(train);
         }
-        finally {
-            routeDao.close();
-        }
+        route.setRouteParts(routeParts);
+        route.setTimeTableLines(timeTableLines);
+        route.setTrain(train);
+        routeDao.merge(route);
 
     }
 

@@ -8,6 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page isELIgnored="false" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <html>
 <head>
     <title>Train Rides</title>
@@ -262,7 +263,8 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title" id="add_ride_modal_label">Add Ride</h4>
                 </div>
-                <form id="add_ride_form" action="/add/ride" method="post">
+                <form:form id="add_ride_form" action="/railage/add/ride" method="post"
+                           modelAttribute="rideAdditionFormParams">
                     <div class="modal-body">
                         <label>Route:</label>
                         <select id="selected_route" name="routeId" class="form-control">
@@ -279,15 +281,15 @@
                         </select>
                         <div class="modal-body help-block" id="route_info">
                         </div>
-                        <label for="ride_date">Ride Date:</label>
-                        <input id="ride_date" name="ride_date" type="date" class="form-control"/>
+                        <label for="rideDate">Ride Date:</label>
+                        <input id="rideDate" name="rideDate" type="date" class="form-control"/>
                         <span id="helpBlock" class="help-block"> Input date in format YYYY-MM-DD, where Y - year, M - Mounth, D - day  </span>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
                         <button type="submit" class="btn btn-primary">Add</button>
                     </div>
-                </form>
+                </form:form>
             </div>
         </div>
     </div>

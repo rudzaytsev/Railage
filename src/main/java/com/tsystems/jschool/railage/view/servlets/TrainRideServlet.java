@@ -9,10 +9,9 @@ import com.tsystems.jschool.railage.service.StationService;
 import com.tsystems.jschool.railage.service.TrainService;
 import com.tsystems.jschool.railage.service.exceptions.IncorrectTimeFormatException;
 import com.tsystems.jschool.railage.service.exceptions.IncorrectTimeIntervalException;
-import com.tsystems.jschool.railage.service.exceptions.TimeTableConflictException;
 import com.tsystems.jschool.railage.view.Pages;
 import com.tsystems.jschool.railage.view.Utils;
-import com.tsystems.jschool.railage.view.servlets.helpers.FindRideFormParams;
+import com.tsystems.jschool.railage.view.controllers.helpers.FindRideFormParams;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -21,7 +20,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -85,7 +83,7 @@ public class TrainRideServlet extends HttpServlet {
     }
 
     private void addTrainRide(HttpServletRequest request, HttpServletResponse response) throws IOException {
-
+        /*
         Integer routeId =  Integer.parseInt(request.getParameter("routeId"));
         String dateStr = request.getParameter("ride_date");
         TrainService trainService = new TrainService();
@@ -102,7 +100,7 @@ public class TrainRideServlet extends HttpServlet {
         request.getSession().setAttribute(Utils.SUCCESS,true);
         request.getSession().setAttribute(Utils.INFO_MSG,"Train ride added!");
         this.processAllTrainRides(request,response);
-
+        */
         return;
     }
 
@@ -166,6 +164,7 @@ public class TrainRideServlet extends HttpServlet {
     }
 
     private void processAllTrainRides(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        /*
         TrainService trainService = new TrainService();
         RouteService routeService = new RouteService();
         StationService stationService = new StationService();
@@ -178,6 +177,7 @@ public class TrainRideServlet extends HttpServlet {
         request.getSession().setAttribute(Utils.STATIONS,stations);
         request.getSession().setAttribute(Utils.ROUTES, routeService.findAllRoutes());
         request.getSession().setAttribute(Utils.HAS_CURRENT_TRAIN,false);
+        */
         response.sendRedirect(Pages.RIDES);
     }
 

@@ -1,4 +1,4 @@
-package com.tsystems.jschool.railage.view.servlets.helpers;
+package com.tsystems.jschool.railage.view.controllers.helpers;
 
 import com.tsystems.jschool.railage.domain.RoutePart;
 import com.tsystems.jschool.railage.domain.Station;

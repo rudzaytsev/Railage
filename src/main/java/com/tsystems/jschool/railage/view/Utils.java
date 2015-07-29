@@ -62,6 +62,8 @@ public class Utils {
 
     public static final String TRAIN_ADDITION_FORM_PARAMS = "trainAdditionFormParams";
 
+    public static final String RIDE_ADDITION_FORM_PARAMS = "rideAdditionFormParams";
+
 
     public static boolean isEmployee(String role){
         return Role.EMPLOYEE.toString().equals(role);
