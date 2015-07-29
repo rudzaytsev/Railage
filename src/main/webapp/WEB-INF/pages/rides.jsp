@@ -307,7 +307,7 @@
                 function () {
 
                     $.ajax({
-                        url: "/ajax/route",
+                        url: "/railage/ajax/route",
                         type: 'POST',
                         dataType: 'json',
                         data: "{ \"request\" :  \"route\"," +
