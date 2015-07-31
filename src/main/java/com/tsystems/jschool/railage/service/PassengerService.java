@@ -3,6 +3,10 @@ package com.tsystems.jschool.railage.service;
 import com.tsystems.jschool.railage.datasource.PassengerDao;
 import com.tsystems.jschool.railage.domain.Passenger;
 import com.tsystems.jschool.railage.view.Utils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.text.ParseException;
 import java.util.Date;
@@ -11,58 +15,31 @@ import java.util.List;
 /**
  * Created by rudolph on 01.07.15.
  */
+@Service
+@Transactional(readOnly = true)
 public class PassengerService {
 
-    private PassengerDao passengerDao = new PassengerDao();
+    @Autowired
+    private PassengerDao passengerDao;
 
     public List<Passenger> findPassengersByRideId(Integer id){
-        List<Passenger> passengers;
-        passengerDao.open();
-        try {
-            passengers = passengerDao.findByRideId(id);
-        }
-        finally {
-            passengerDao.close();
-        }
-       return passengers;
+        return passengerDao.findByRideId(id);
     }
 
     public List<Passenger> findPassengersByTrainId(Integer id){
-        List<Passenger> passengers;
-        passengerDao.open();
-        try {
-            passengers = passengerDao.findByTrainId(id);
-        }
-        finally {
-            passengerDao.close();
-        }
-        return passengers;
+        return passengerDao.findByTrainId(id);
     }
 
-    public Passenger createPassenger(String name, String lastName, String birthDateStr) throws ParseException {
+    @Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
+    public Passenger createPassenger(String name, String lastName, String birthDateStr)
+            throws ParseException {
 
         Date birthDate = Utils.convert(birthDateStr);
-        passengerDao.open();
         Passenger passenger = new Passenger(name,lastName,birthDate);
-        Passenger createdPassenger;
-        try {
-            createdPassenger = passengerDao.merge(passenger);
-        }
-        finally {
-            passengerDao.close();
-        }
-        return createdPassenger;
+        return passengerDao.merge(passenger);
     }
 
     public List<Passenger> findBy(Integer rideId, Passenger passenger){
-        List<Passenger> passengers;
-        passengerDao.open();
-        try {
-            passengers = passengerDao.findBy(rideId,passenger);
-        }
-        finally {
-            passengerDao.close();
-        }
-        return passengers;
+        return passengerDao.findBy(rideId,passenger);
     }
 }

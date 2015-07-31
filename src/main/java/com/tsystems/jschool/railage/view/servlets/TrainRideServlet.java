@@ -1,8 +1,5 @@
 package com.tsystems.jschool.railage.view.servlets;
 
-import com.tsystems.jschool.railage.domain.Passenger;
-import com.tsystems.jschool.railage.service.PassengerService;
-import com.tsystems.jschool.railage.service.TrainService;
 import com.tsystems.jschool.railage.view.Pages;
 import com.tsystems.jschool.railage.view.Utils;
 
@@ -11,9 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.List;
 
 /**
  * Created by rudolph on 29.06.15.
@@ -34,6 +29,7 @@ public class TrainRideServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        /*
         String uri = request.getRequestURI();
         Integer trainRideId = Utils.extractId(uri);
         PassengerService passengerService = new PassengerService();
@@ -70,7 +66,7 @@ public class TrainRideServlet extends HttpServlet {
             response.sendRedirect(Pages.PASSENGERS);
             return;
         }
-
+        */
 
     }
 

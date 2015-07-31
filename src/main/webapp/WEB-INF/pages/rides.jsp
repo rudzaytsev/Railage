@@ -96,7 +96,7 @@
                                 <td><button id="buy_button_${ride.id}" onclick="showBuyTicketForm(this)" class="btn btn-success">Buy</button></td>
                             </c:if>
                             <c:if test="${isEmployee}">
-                                <td><a href="/rides/${ride.id}" class="btn btn-info">View</a></td>
+                                <td><a href="/railage/rides/${ride.id}" class="btn btn-info">View</a></td>
                             </c:if>
                         </tr>
                     </c:forEach>

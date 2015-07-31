@@ -1,8 +1,10 @@
 package com.tsystems.jschool.railage.view.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.tsystems.jschool.railage.domain.Passenger;
 import com.tsystems.jschool.railage.domain.Station;
 import com.tsystems.jschool.railage.domain.TrainRide;
+import com.tsystems.jschool.railage.service.PassengerService;
 import com.tsystems.jschool.railage.service.RouteService;
 import com.tsystems.jschool.railage.service.StationService;
 import com.tsystems.jschool.railage.service.TrainService;
@@ -20,6 +22,7 @@ import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -47,6 +50,9 @@ public class RidesController {
     StationService stationService;
 
     @Autowired
+    PassengerService passengerService;
+
+    @Autowired
     ControllersUtils controllersUtils;
 
     @RequestMapping(value = "/rides/all", method = RequestMethod.GET)
@@ -54,6 +60,18 @@ public class RidesController {
         this.addAllRides(model);
         controllersUtils.addRidesFormGroup(model);
         return Pages.RIDES;
+    }
+
+    @RequestMapping(value = "/rides/{rideId}")
+    public String showPassengersForRide(@PathVariable("rideId") Integer rideId, Model model){
+
+        List<Passenger> passengers = passengerService.findPassengersByRideId(rideId);
+        model.addAttribute(Utils.HAS_CURRENT_TRAIN, false);
+        model.addAttribute(Utils.HAS_CURRENT_RIDE, true);
+        model.addAttribute(Utils.CURRENT_TRAIN_RIDE, trainService.findTrainRideById(rideId));
+        model.addAttribute(Utils.PASSENGERS, passengers);
+
+        return Pages.PASSENGERS;
     }
 
     @RequestMapping(value = "/ajax/route", method = RequestMethod.POST)
