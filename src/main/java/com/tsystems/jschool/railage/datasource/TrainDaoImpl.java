@@ -16,24 +16,6 @@ import java.util.List;
 @Repository
 public class TrainDaoImpl extends JpaDao<Train> implements TrainDao {
 
-    /*
-    @Override
-    public Train merge(Train entity) {
-        EntityTransaction transaction = entityManager.getTransaction();
-        Train result = null;
-        try {
-            transaction.begin();
-            result = entityManager.merge(entity);
-            transaction.commit();
-        }
-        finally {
-            if(transaction.isActive()){
-                transaction.rollback();
-            }
-        }
-        return result;
-    }
-    */
 
     @Override
     public Train findById(Integer id) {

@@ -4,6 +4,7 @@ import com.tsystems.jschool.railage.service.TrainService;
 import com.tsystems.jschool.railage.view.Utils;
 import com.tsystems.jschool.railage.view.controllers.helpers.AddRideFormParams;
 import com.tsystems.jschool.railage.view.controllers.helpers.AddTrainFormParams;
+import com.tsystems.jschool.railage.view.controllers.helpers.FindRidesFormParams;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
@@ -28,6 +29,16 @@ public class ControllersUtils {
     public final void addRideAdditionFormParams(Model model){
        model.addAttribute(Utils.RIDE_ADDITION_FORM_PARAMS, new AddRideFormParams());
     }
+
+    public final void addRidesSearchFormParams(Model model){
+       model.addAttribute(Utils.RIDE_SEARCH_FORM_PARAMS,new FindRidesFormParams());
+    }
+
+    public final void addRidesFormGroup(Model model){
+        this.addRideAdditionFormParams(model);
+        this.addRidesSearchFormParams(model);
+    }
+
 
     public final void addErrorMessage(Model model,String errorMsg){
         model.addAttribute(Utils.IS_VALIDATION_ERR, true);

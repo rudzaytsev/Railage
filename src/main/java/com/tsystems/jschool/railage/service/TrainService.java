@@ -7,18 +7,18 @@ import com.tsystems.jschool.railage.domain.Period;
 import com.tsystems.jschool.railage.domain.Route;
 import com.tsystems.jschool.railage.domain.Train;
 import com.tsystems.jschool.railage.domain.TrainRide;
-import com.tsystems.jschool.railage.service.exceptions.DomainObjectAlreadyExistsException;
-import com.tsystems.jschool.railage.service.exceptions.IncorrectParameterException;
-import com.tsystems.jschool.railage.service.exceptions.NotPositiveNumberOfSeatsException;
-import com.tsystems.jschool.railage.service.exceptions.TimeTableConflictException;
+import com.tsystems.jschool.railage.service.exceptions.*;
+import com.tsystems.jschool.railage.view.controllers.helpers.FindRidesFormParams;
 import com.tsystems.jschool.railage.view.controllers.helpers.TimeInterval;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -41,6 +41,16 @@ public class TrainService {
 
 
     private static final String TRAIN_NUMBER_PATTERN = "^[0-9a-zA-Z]+";
+
+    public static final int HOURS_UPPER_BOUND = 23;
+
+    public static final int HOURS_LOWER_BOUND = 0;
+
+    public static final int MINUTES_UPPER_BOUND = 59;
+
+    public static final int MINUTES_LOWER_BOUND = 0;
+
+    private static final String ADDITION_SECONDS = ":00";
 
 
     public List<Train> findAllTrains(){
@@ -148,5 +158,58 @@ public class TrainService {
                                        TimeInterval interval) {
 
         return trainRideDao.findRidesBy(sourceStationId,destStationId,interval);
+    }
+
+
+    private void validateTime(String time) throws IncorrectTimeFormatException {
+
+        String[] hoursAndMinutes = time.split(":",2);
+        if (hoursAndMinutes.length < 2){
+            throw new IncorrectTimeFormatException(
+                    "Incorrect Format of time. Should be hh:mm .Example 18:30");
+        }
+        try {
+            int hours = Integer.parseInt(hoursAndMinutes[0]);
+            int minutes = Integer.parseInt(hoursAndMinutes[1]);
+
+            if (hours > HOURS_UPPER_BOUND || hours < HOURS_LOWER_BOUND){
+                throw new IncorrectTimeFormatException(
+                        "Incorrect Format of time. Hours must be in range from 0 to 23");
+            }
+            if (minutes > MINUTES_UPPER_BOUND || minutes < MINUTES_LOWER_BOUND ){
+                throw new IncorrectTimeFormatException(
+                        "Incorrect Format of time. Minutes must be in range from 0 to 59");
+            }
+        }
+        catch (NumberFormatException e){
+            throw new IncorrectTimeFormatException(
+                    "Incorrect Format of time. Hours and minutes should be integers. Example 18:30");
+        }
+    }
+
+    private TimeInterval validate(String lowerBoundTimeStr, String upperBoundTimeStr) throws IncorrectTimeIntervalException, IncorrectTimeFormatException {
+
+        List<String> times = new ArrayList<>();
+        times.add(lowerBoundTimeStr);
+        times.add(upperBoundTimeStr);
+
+        for(String timeStr : times){
+            this.validateTime(timeStr);
+        }
+
+        Time lowerBoundTime = Time.valueOf(lowerBoundTimeStr.trim() + ADDITION_SECONDS);
+        Time upperBoundTime = Time.valueOf(upperBoundTimeStr.trim() + ADDITION_SECONDS);
+
+        boolean lowerBoundIsGreaterThanUpperBound =
+                lowerBoundTime.getTime() >= upperBoundTime.getTime();
+        if (lowerBoundIsGreaterThanUpperBound) {
+            throw new IncorrectTimeIntervalException(
+                    "Time upper bound should be greater than lower bound");
+        }
+        return new TimeInterval(lowerBoundTime,upperBoundTime);
+    }
+
+    public TimeInterval validate(FindRidesFormParams params) throws IncorrectTimeIntervalException, IncorrectTimeFormatException {
+        return this.validate(params.getLowerBoundTime(),params.getUpperBoundTime());
     }
 }

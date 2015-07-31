@@ -1,34 +1,23 @@
 package com.tsystems.jschool.railage.view.controllers.helpers;
 
-import com.tsystems.jschool.railage.service.exceptions.IncorrectTimeFormatException;
-import com.tsystems.jschool.railage.service.exceptions.IncorrectTimeIntervalException;
-
-import javax.servlet.http.HttpServletRequest;
-import java.sql.Time;
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Created by rudolph on 10.07.15.
  */
-public class FindRideFormParams {
+public class FindRidesFormParams {
 
-    public static final int HOURS_UPPER_BOUND = 23;
 
-    public static final int HOURS_LOWER_BOUND = 0;
 
-    public static final int MINUTES_UPPER_BOUND = 59;
+    private String sourceStationId;
 
-    public static final int MINUTES_LOWER_BOUND = 0;
+    private String destStationId;
 
-    private static final String ADDITION_SECONDS = ":00";
+    private String lowerBoundTime;
 
-    private Integer sourceStationId;
+    private String upperBoundTime;
 
-    private Integer destStationId;
+    //private TimeInterval interval;
 
-    private TimeInterval interval;
-
+    /*
     public void fill(HttpServletRequest request) throws IncorrectTimeIntervalException, IncorrectTimeFormatException {
 
         sourceStationId = Integer.parseInt(request.getParameter("fromStationId"));
@@ -37,7 +26,9 @@ public class FindRideFormParams {
         String upperBound = request.getParameter("upperBoundTime");
         this.validate(lowerBound,upperBound);
     }
+    */
 
+    /*
     private void validateTime(String time) throws IncorrectTimeFormatException {
 
         String[] hoursAndMinutes = time.split(":",2);
@@ -65,7 +56,9 @@ public class FindRideFormParams {
         }
 
     }
+    */
 
+    /*
     private void validate(String lowerBoundTimeStr, String upperBoundTimeStr) throws IncorrectTimeIntervalException, IncorrectTimeFormatException {
 
         List<String> times = new ArrayList<>();
@@ -87,16 +80,51 @@ public class FindRideFormParams {
                     "Time upper bound should be greater than lower bound");
         }
     }
+    */
 
-    public Integer getSourceStationId() {
+    public String getSourceStationId() {
         return sourceStationId;
     }
 
-    public Integer getDestStationId() {
+    public String  getDestStationId() {
         return destStationId;
     }
 
+    public void setSourceStationId(String sourceStationId) {
+        this.sourceStationId = sourceStationId;
+    }
+
+    public void setDestStationId(String destStationId) {
+        this.destStationId = destStationId;
+    }
+
+    public Integer getSourceStationIdAsInt(){
+        return Integer.parseInt(sourceStationId);
+    }
+
+    public Integer getDestStationIdAsInt(){
+        return Integer.parseInt(destStationId);
+    }
+
+    public String getLowerBoundTime() {
+        return lowerBoundTime;
+    }
+
+    public void setLowerBoundTime(String lowerBoundTime) {
+        this.lowerBoundTime = lowerBoundTime;
+    }
+
+    public String getUpperBoundTime() {
+        return upperBoundTime;
+    }
+
+    public void setUpperBoundTime(String upperBoundTime) {
+        this.upperBoundTime = upperBoundTime;
+    }
+
+    /*
     public TimeInterval getInterval() {
         return interval;
     }
+    */
 }

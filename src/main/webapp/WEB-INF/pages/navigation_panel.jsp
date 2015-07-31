@@ -24,11 +24,11 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="railage/trains/all">Trains</a></li>
-                <li><a href="railage/stations/all">Stations</a></li>
-                <li><a href="railage/rides/all">Rides</a></li>
-                <li><a href="railage/routes/all">Routes</a></li>
-                <li><a href="railage/logout">Log Out</a></li>
+                <li><a href="/railage/trains/all">Trains</a></li>
+                <li><a href="/railage/stations/all">Stations</a></li>
+                <li><a href="/railage/rides/all">Rides</a></li>
+                <li><a href="/railage/routes/all">Routes</a></li>
+                <li><a href="/railage/logout">Log Out</a></li>
             </ul>
         </div>
     </div>

@@ -6,10 +6,13 @@ import com.tsystems.jschool.railage.domain.TrainRide;
 import com.tsystems.jschool.railage.service.RouteService;
 import com.tsystems.jschool.railage.service.StationService;
 import com.tsystems.jschool.railage.service.TrainService;
+import com.tsystems.jschool.railage.service.exceptions.IncorrectTimeFormatException;
+import com.tsystems.jschool.railage.service.exceptions.IncorrectTimeIntervalException;
 import com.tsystems.jschool.railage.service.exceptions.TimeTableConflictException;
 import com.tsystems.jschool.railage.view.Pages;
 import com.tsystems.jschool.railage.view.Utils;
 import com.tsystems.jschool.railage.view.controllers.helpers.AddRideFormParams;
+import com.tsystems.jschool.railage.view.controllers.helpers.FindRidesFormParams;
 import com.tsystems.jschool.railage.view.controllers.helpers.RouteHelper;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -25,6 +28,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -69,6 +73,64 @@ public class RidesController {
         }
     }
 
+    @RequestMapping(value = "/find/rides", method = RequestMethod.POST)
+    public String findRides(FindRidesFormParams params,Model model){
+
+        try {
+
+            List<TrainRide> rides = this.addFoundedRideList(params,model);
+
+            if(!rides.isEmpty()){
+                controllersUtils.addSuccessMessage(model,"Train Rides found");
+            }
+            else {
+                controllersUtils.addSuccessMessage(model,
+                        "No one Train Ride matches required criterias");
+            }
+            return Pages.RIDES;
+
+        } catch (IncorrectTimeFormatException | IncorrectTimeIntervalException e) {
+
+            controllersUtils.addErrorMessage(model,e.getMessage());
+            this.addEmptyRideList(model);
+        }
+
+        return Pages.RIDES;
+    }
+
+    private List<TrainRide> addFoundedRideList(FindRidesFormParams params,Model model) throws IncorrectTimeIntervalException, IncorrectTimeFormatException {
+        List<TrainRide> rides = trainService.findRidesBy(
+                params.getSourceStationIdAsInt(), params.getDestStationIdAsInt(),
+                trainService.validate(params));
+
+        List<Station> stations = stationService.findAllStations();
+
+        Station sourceStation = stationService.findStationById(
+                params.getSourceStationIdAsInt());
+
+        Station destStation = stationService.findStationById(
+                params.getDestStationIdAsInt());
+
+        model.addAttribute(Utils.IS_SEARCH_RESULT, true);
+        model.addAttribute(Utils.SOURCE_STATION, sourceStation);
+        model.addAttribute(Utils.DEST_STATION, destStation);
+        model.addAttribute(Utils.TRAIN_RIDES, rides);
+        model.addAttribute(Utils.STATIONS, stations);
+        model.addAttribute(Utils.ROUTES, routeService.findAllRoutes());
+        model.addAttribute(Utils.HAS_CURRENT_TRAIN, false);
+
+        return rides;
+    }
+
+    private void addEmptyRideList(Model model){
+
+        model.addAttribute(Utils.IS_SEARCH_RESULT, false);
+        model.addAttribute(Utils.ROUTES, routeService.findAllRoutes());
+        model.addAttribute(Utils.TRAIN_RIDES, new ArrayList<TrainRide>());
+        model.addAttribute(Utils.STATIONS, stationService.findAllStations());
+        model.addAttribute(Utils.ROUTES, routeService.findAllRoutes());
+    }
+
     @RequestMapping(value = "/add/ride", method = RequestMethod.POST)
     public String addRide(AddRideFormParams params, Model model){
 
@@ -84,7 +146,7 @@ public class RidesController {
         }
         finally {
             this.showAllRides(model);
-            controllersUtils.addRideAdditionFormParams(model);
+            controllersUtils.addRidesFormGroup(model);
         }
         controllersUtils.addSuccessMessage(model,"Train ride added!");
 

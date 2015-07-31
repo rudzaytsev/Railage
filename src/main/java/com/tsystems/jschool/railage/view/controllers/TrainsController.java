@@ -51,7 +51,7 @@ public class TrainsController {
         model.addAttribute(Utils.ROUTES,routes);
         model.addAttribute(Utils.HAS_CURRENT_TRAIN, true);
         model.addAttribute(Utils.CURRENT_TRAIN, trainService.findTrainById(trainId));
-        controllersUtils.addRideAdditionFormParams(model);
+        controllersUtils.addRidesFormGroup(model);
 
         return Pages.RIDES;
     }

@@ -8,7 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
-import java.sql.Time;
 import java.util.List;
 
 /**
@@ -17,26 +16,6 @@ import java.util.List;
 @Transactional(propagation = Propagation.MANDATORY)
 @Repository
 public class TrainRideDaoImpl extends JpaDao<TrainRide> implements TrainRideDao {
-
-
-    /*
-    @Override
-    public TrainRide merge(TrainRide entity) {
-        EntityTransaction transaction = entityManager.getTransaction();
-        TrainRide result = null;
-        try {
-            transaction.begin();
-            result = entityManager.merge(entity);
-            transaction.commit();
-        }
-        finally {
-            if(transaction.isActive()){
-                transaction.rollback();
-            }
-        }
-        return result;
-    }
-    */
 
     @Override
     public TrainRide findById(Integer id) {
@@ -67,9 +46,6 @@ public class TrainRideDaoImpl extends JpaDao<TrainRide> implements TrainRideDao 
     public List<TrainRide> findRidesBy(Integer sourceStationId, Integer destStaionId,
                                        TimeInterval interval){
 
-        Time lower = interval.getLowerBound();
-        Time upper = interval.getUpperBound();
-
         StringBuilder builder = new StringBuilder();
         builder.append("SELECT DISTINCT ride FROM TrainRide ride, ")
                .append("IN (ride.route.routeParts) fpart, ")
@@ -82,7 +58,6 @@ public class TrainRideDaoImpl extends JpaDao<TrainRide> implements TrainRideDao 
                .append("AND ( ftimeTable.timeInfo.departureTime BETWEEN ?3 AND ?4 ) ")
                .append("AND ( stimeTable.timeInfo.departureTime BETWEEN ?3 AND ?4 ) ")
                .append("AND ftimeTable.station.id = ?1 AND stimeTable.station.id = ?2 ");
-
 
         String queryStr = builder.toString();
         TypedQuery<TrainRide> query = entityManager.createQuery(

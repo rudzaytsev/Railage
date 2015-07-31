@@ -88,8 +88,10 @@
                             <td>${ride.train.number}</td>
                             <td>${ride.route.getStartStation().name} - ${ride.route.getEndStation().name}</td>
                             <c:if test="${isSearchResult}">
-                                <td> ${ride.route.getTimeInfoByStationId(sessionScope.get("sourceStation").id).departureTime} </td>
-                                <td> ${ride.route.getTimeInfoByStationId(sessionScope.get("destStation").id).departureTime} </td>
+                                <!-- <td> $ {ride.route.getTimeInfoByStationId(sessionScope.get("sourceStation").id).departureTime} </td> -->
+                                <!-- <td> $ {ride.route.getTimeInfoByStationId(sessionScope.get("destStation").id).departureTime} </td> -->
+                                <td> ${ride.route.getTimeInfoByStationId(requestScope.get("sourceStation").id).departureTime} </td>
+                                <td> ${ride.route.getTimeInfoByStationId(requestScope.get("destStation").id).departureTime} </td>
                             </c:if>
                             <td>${ride.date}</td>
                             <c:if test="${ not isEmployee}">
@@ -178,7 +180,8 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title" id="find_rides_modal_label">Find Rides</h4>
                 </div>
-                <form id="find_rides_form" action="/find/rides" method="post">
+                <form:form id="find_rides_form" action="/railage/find/rides"
+                      method="post" modelAttribute="findRidesFormParams">
                     <input type="hidden" name="cmd" value="findrides">
                     <div class="modal-body">
 
@@ -188,8 +191,8 @@
                         <hr class="form-group">
                         <div class="form-group form-inline">
                             <div class="form-group col-sm-6">
-                                <label for="fromStationId">From Station</label>
-                                <select class="form-control" id="fromStationId" name="fromStationId">
+                                <label for="sourceStationId">From Station</label>
+                                <select class="form-control" id="sourceStationId" name="sourceStationId">
                                     <c:forEach var="station" items="${stations}" varStatus="status">
                                         <c:choose>
                                             <c:when test="${status.count eq 0}">
@@ -203,8 +206,8 @@
                                 </select>
                             </div>
                             <div class="form-group col-sm-6">
-                                <label for="toStationId">To Station</label>
-                                <select class="form-control" id="toStationId" name="toStationId">
+                                <label for="destStationId">To Station</label>
+                                <select class="form-control" id="destStationId" name="destStationId">
                                     <c:forEach var="station" items="${stations}" varStatus="status">
                                         <c:choose>
                                             <c:when test="${status.count eq 0}">
@@ -243,7 +246,7 @@
                         <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
                         <button type="submit" class="btn btn-primary">Find</button>
                     </div>
-                </form>
+                </form:form>
             </div>
         </div>
     </div>

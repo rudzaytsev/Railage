@@ -321,7 +321,7 @@ INSERT INTO `railage`.`TimeTableLines` (`id`, `trainId`, `stationId`, `timeInfoI
 INSERT INTO `railage`.`TimeTableLines` (`id`, `trainId`, `stationId`, `timeInfoId`, `routeId`) VALUES (6, 1, 2, 11, 2);
 INSERT INTO `railage`.`TimeTableLines` (`id`, `trainId`, `stationId`, `timeInfoId`, `routeId`) VALUES (7, 1, 3, 12, 2);
 INSERT INTO `railage`.`TimeTableLines` (`id`, `trainId`, `stationId`, `timeInfoId`, `routeId`) VALUES (8, 1, 4, 13, 2);
-INSERT INTO `railage`.`TimeTableLines` (`id`, `trainId`, `stationId`, `timeInfoId`, `routeId`) VALUES (9, 1, 5, 14, 2);
+INSERT INTO `railage`.`TimeTableLines` (`id`, `trainId`, `stationId`, `timeInfoId`, `routeId`) VALUES (9, 1, 9, 14, 2);
 INSERT INTO `railage`.`TimeTableLines` (`id`, `trainId`, `stationId`, `timeInfoId`, `routeId`) VALUES (10, 2, 1, 2, 3);
 INSERT INTO `railage`.`TimeTableLines` (`id`, `trainId`, `stationId`, `timeInfoId`, `routeId`) VALUES (11, 2, 4, 3, 3);
 INSERT INTO `railage`.`TimeTableLines` (`id`, `trainId`, `stationId`, `timeInfoId`, `routeId`) VALUES (12, 2, 6, 4, 3);
