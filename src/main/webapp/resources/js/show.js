@@ -60,7 +60,7 @@ function showRouteStationListModalWindow(element){
     routeId = element.id.slice(idStartIndex);
 
     $.ajax({
-        url: "/ajax/stationsbyroute",
+        url: "/railage/ajax/stationsbyroute",
         type: 'POST',
         dataType: 'json',
         data: "{ \"request\" :  \"stationsByRoute\"," +

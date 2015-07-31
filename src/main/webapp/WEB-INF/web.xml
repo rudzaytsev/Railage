@@ -19,10 +19,6 @@
         <filter-name>CleaningSessionAttributesFilter</filter-name>
         <filter-class>com.tsystems.jschool.railage.view.filters.CleaningSessionAttributesFilter</filter-class>
     </filter>
-
-
-
-
   <servlet>
         <servlet-name>RouteBuilderServlet</servlet-name>
         <servlet-class>com.tsystems.jschool.railage.view.servlets.RouteBuilderServlet</servlet-class>
@@ -35,22 +31,11 @@
         <servlet-name>TicketServlet</servlet-name>
         <servlet-class>com.tsystems.jschool.railage.view.servlets.TicketServlet</servlet-class>
   </servlet>
-  <servlet>
-        <servlet-name>LogOutServlet</servlet-name>
-        <servlet-class>com.tsystems.jschool.railage.view.servlets.LogOutServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-      <servlet-name>LogOutServlet</servlet-name>
-      <url-pattern>/railage/logout</url-pattern>
-  </servlet-mapping>
 
   <servlet-mapping>
        <servlet-name>RouteBuilderServlet</servlet-name>
        <url-pattern>/railage/add/route</url-pattern>
   </servlet-mapping>
-
-
-
   <servlet-mapping>
       <servlet-name>RoutesServlet</servlet-name>
       <url-pattern>/railage/routes/*</url-pattern>
