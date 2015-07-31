@@ -49,6 +49,12 @@ public class RidesController {
     @Autowired
     ControllersUtils controllersUtils;
 
+    @RequestMapping(value = "/rides/all", method = RequestMethod.GET)
+    public String showAllRides(Model model){
+        this.addAllRides(model);
+        controllersUtils.addRidesFormGroup(model);
+        return Pages.RIDES;
+    }
 
     @RequestMapping(value = "/ajax/route", method = RequestMethod.POST)
     public void sendRouteInfoByAjax(HttpServletRequest req, HttpServletResponse resp) throws IOException {
@@ -145,7 +151,7 @@ public class RidesController {
             return Pages.RIDES;
         }
         finally {
-            this.showAllRides(model);
+            this.addAllRides(model);
             controllersUtils.addRidesFormGroup(model);
         }
         controllersUtils.addSuccessMessage(model,"Train ride added!");
@@ -153,7 +159,7 @@ public class RidesController {
         return Pages.RIDES;
     }
 
-    private void showAllRides(Model model){
+    private void addAllRides(Model model){
 
         List<TrainRide> rides = trainService.findAllTrainRides();
         List<Station> stations = stationService.findAllStations();
@@ -164,4 +170,5 @@ public class RidesController {
         model.addAttribute(Utils.ROUTES, routeService.findAllRoutes());
         model.addAttribute(Utils.HAS_CURRENT_TRAIN, false);
     }
+
 }
