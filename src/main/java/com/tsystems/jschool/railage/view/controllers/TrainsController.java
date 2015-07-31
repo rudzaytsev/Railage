@@ -39,8 +39,16 @@ public class TrainsController {
     @Autowired
     ControllersUtils controllersUtils;
 
+    @RequestMapping(value = "/trains/all", method = RequestMethod.GET)
+    public String showAllTrains(Model model){
+
+        controllersUtils.addTrains2Model(model);
+        controllersUtils.addTrainAdditionFormParams(model);
+        return Pages.TRAINS;
+    }
+
     @RequestMapping(value="/trains/{trainId}")
-    public String showRides(@PathVariable("trainId") Integer trainId, Model model){
+    public String showRidesForTrain(@PathVariable("trainId") Integer trainId, Model model){
 
         List<TrainRide> rides = trainService.findAllRidesByTrainId(trainId);
         List<Station> stations = stationService.findAllStations();
