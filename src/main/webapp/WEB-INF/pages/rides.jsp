@@ -88,8 +88,6 @@
                             <td>${ride.train.number}</td>
                             <td>${ride.route.getStartStation().name} - ${ride.route.getEndStation().name}</td>
                             <c:if test="${isSearchResult}">
-                                <!-- <td> $ {ride.route.getTimeInfoByStationId(sessionScope.get("sourceStation").id).departureTime} </td> -->
-                                <!-- <td> $ {ride.route.getTimeInfoByStationId(sessionScope.get("destStation").id).departureTime} </td> -->
                                 <td> ${ride.route.getTimeInfoByStationId(requestScope.get("sourceStation").id).departureTime} </td>
                                 <td> ${ride.route.getTimeInfoByStationId(requestScope.get("destStation").id).departureTime} </td>
                             </c:if>
