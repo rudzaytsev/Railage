@@ -22,10 +22,7 @@
 
 
 
-  <servlet>
-      <servlet-name>RoutesServlet</servlet-name>
-      <servlet-class>com.tsystems.jschool.railage.view.servlets.RoutesServlet</servlet-class>
-  </servlet>
+
   <servlet>
         <servlet-name>RouteBuilderServlet</servlet-name>
         <servlet-class>com.tsystems.jschool.railage.view.servlets.RouteBuilderServlet</servlet-class>
