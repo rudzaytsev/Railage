@@ -11,15 +11,15 @@
 <html>
 <head>
     <title>Routes</title>
-    <link rel="stylesheet" href="/railage/resources/css/bootstrap.css">
-    <link rel="stylesheet" href="/railage/resources/css/dashboard.css">
+    <link rel="stylesheet" href="<c:url value="/railage/resources/css/bootstrap.css"/>">
+    <link rel="stylesheet" href="<c:url value="/railage/resources/css/dashboard.css"/>">
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js" type="text/javascript"></script>
-    <script src="/railage/resources/js/bootstrap.js" type="text/javascript"></script>
-    <script src="/railage/resources/js/show.js" type="text/javascript"></script>
+    <script src="<c:url value="/railage/resources/js/bootstrap.js"/>" type="text/javascript"></script>
+    <script src="<c:url value="/railage/resources/js/show.js"/>" type="text/javascript"></script>
 </head>
 <body>
 
-    <%@ include file="WEB-INF/pages/navigation_panel.jsp" %>
+    <%@ include file="navigation_panel.jsp" %>
 
     <div class="container-fluid">
         <div class="row">
