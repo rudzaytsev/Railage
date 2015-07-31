@@ -19,7 +19,7 @@ import javax.servlet.http.HttpSession;
  * Created by rudolph on 25.07.15.
  */
 @Controller
-public class UserController {
+public class UsersController {
 
     @Autowired
     TrainService trainService;
@@ -88,6 +88,14 @@ public class UserController {
         controllersUtils.addTrainAdditionFormParams(model);
 
         return Pages.TRAINS;
+    }
+
+
+    @RequestMapping(value="/logout", method = RequestMethod.GET)
+    public String logOut(HttpSession session, Model model){
+
+        session.invalidate();
+        return Pages.INDEX;
     }
 
 

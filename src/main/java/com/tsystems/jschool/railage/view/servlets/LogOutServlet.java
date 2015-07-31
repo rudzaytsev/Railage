@@ -1,7 +1,5 @@
 package com.tsystems.jschool.railage.view.servlets;
 
-import com.tsystems.jschool.railage.view.Pages;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -22,7 +20,9 @@ public class LogOutServlet extends HttpServlet {
 
     private void logOut(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
+        /*
         request.getSession().invalidate();
         response.sendRedirect(Pages.INDEX);
+        */
     }
 }
