@@ -33,7 +33,7 @@
 
                 <c:if test="${isEmployee}">
                     <c:if test="${hasCurrentTrain}">
-                        <li><a href="/rides/all/?trainId=${currentTrain.id}">All Passengers for train</a>
+                        <li><a href="/railage/passengers/on/train/${currentTrain.id}">All Passengers for train</a>
                     </c:if>
                 </c:if>
             </ul>
@@ -96,7 +96,7 @@
                                 <td><button id="buy_button_${ride.id}" onclick="showBuyTicketForm(this)" class="btn btn-success">Buy</button></td>
                             </c:if>
                             <c:if test="${isEmployee}">
-                                <td><a href="/railage/rides/${ride.id}" class="btn btn-info">View</a></td>
+                                <td><a href="/railage/passengers/ride/${ride.id}" class="btn btn-info">View</a></td>
                             </c:if>
                         </tr>
                     </c:forEach>

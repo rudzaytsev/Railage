@@ -62,7 +62,7 @@ public class RidesController {
         return Pages.RIDES;
     }
 
-    @RequestMapping(value = "/rides/{rideId}")
+    @RequestMapping(value = "/passengers/ride/{rideId}")
     public String showPassengersForRide(@PathVariable("rideId") Integer rideId, Model model){
 
         List<Passenger> passengers = passengerService.findPassengersByRideId(rideId);
@@ -73,6 +73,21 @@ public class RidesController {
 
         return Pages.PASSENGERS;
     }
+
+    @RequestMapping(value = "/passengers/on/train/{trainId}")
+    public String showPassengersForTrain(@PathVariable("trainId") Integer trainId, Model model){
+
+        List<Passenger> passengers = passengerService.findPassengersByTrainId(trainId);
+
+        model.addAttribute(Utils.CURRENT_TRAIN, trainService.findTrainById(trainId));
+        model.addAttribute(Utils.HAS_CURRENT_TRAIN, true);
+        model.addAttribute(Utils.HAS_CURRENT_RIDE, false);
+        model.addAttribute(Utils.PASSENGERS, passengers);
+
+        return Pages.PASSENGERS;
+    }
+
+
 
     @RequestMapping(value = "/ajax/route", method = RequestMethod.POST)
     public void sendRouteInfoByAjax(HttpServletRequest req, HttpServletResponse resp) throws IOException {
