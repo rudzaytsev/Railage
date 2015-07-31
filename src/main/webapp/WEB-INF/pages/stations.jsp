@@ -8,6 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page isELIgnored="false" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <html>
 <head>
     <title>Stations</title>
@@ -77,7 +78,7 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title" id="add_station_modal_label">Add Station</h4>
                 </div>
-                <form id="add_station_form" action="/add/station" method="post">
+                <form:form id="add_station_form" action="/railage/add/station" method="post">
                 <div class="modal-body">
                      <label for="input_station_name">Station Name:</label>
                      <input id="input_station_name" name="stationName" type="text" class="form-control"/>
@@ -86,7 +87,7 @@
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
                     <button type="submit" class="btn btn-primary">Add</button>
                 </div>
-                </form>
+                </form:form>
             </div>
         </div>
     </div>

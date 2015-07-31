@@ -3,6 +3,8 @@ package com.tsystems.jschool.railage.view.controllers;
 import com.tsystems.jschool.railage.domain.TimeTableLine;
 import com.tsystems.jschool.railage.service.StationService;
 import com.tsystems.jschool.railage.service.TimeTableService;
+import com.tsystems.jschool.railage.service.exceptions.DomainObjectAlreadyExistsException;
+import com.tsystems.jschool.railage.service.exceptions.IncorrectParameterException;
 import com.tsystems.jschool.railage.view.Pages;
 import com.tsystems.jschool.railage.view.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,11 +28,35 @@ public class StationsController {
     @Autowired
     TimeTableService timeTableService;
 
+    @Autowired
+    ControllersUtils controllersUtils;
+
     @RequestMapping(value="/stations/all", method = RequestMethod.GET)
     public String showAllStations(Model model){
 
         model.addAttribute(Utils.STATIONS,stationService.findAllStations());
         return Pages.STATIONS;
+    }
+
+    @RequestMapping(value = "/add/station", method = RequestMethod.POST)
+    public String addStation(String stationName, Model model){
+
+        try {
+            stationService.addStation(stationName);
+
+        } catch (IncorrectParameterException |
+                 DomainObjectAlreadyExistsException e) {
+
+            String errorMsg = "Can not add Station. " + e.getMessage();
+            controllersUtils.addErrorMessage(model, errorMsg);
+            model.addAttribute(Utils.STATIONS, stationService.findAllStations());
+            return Pages.STATIONS;
+        }
+
+        controllersUtils.addSuccessMessage(model,"Station added.");
+        model.addAttribute(Utils.STATIONS, stationService.findAllStations());
+        return Pages.STATIONS;
+
     }
 
     @RequestMapping(value="/timetable/station/{stationId}", method = RequestMethod.GET)

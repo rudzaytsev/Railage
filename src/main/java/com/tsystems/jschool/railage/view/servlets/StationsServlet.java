@@ -1,10 +1,5 @@
 package com.tsystems.jschool.railage.view.servlets;
 
-import com.tsystems.jschool.railage.service.StationService;
-import com.tsystems.jschool.railage.service.exceptions.DomainObjectAlreadyExistsException;
-import com.tsystems.jschool.railage.service.exceptions.IncorrectParameterException;
-import com.tsystems.jschool.railage.view.Utils;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -47,6 +42,8 @@ public class StationsServlet extends HttpServlet {
     }
 
     private void addStation(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+        /*
         String stationName = request.getParameter("stationName");
         StationService stationService = new StationService();
         try {
@@ -64,6 +61,7 @@ public class StationsServlet extends HttpServlet {
         request.getSession().setAttribute(Utils.SUCCESS,true);
         request.getSession().setAttribute(Utils.INFO_MSG,"Station added.");
         this.processStations(request, response);
+        */
     }
 
     private void processStations(HttpServletRequest request, HttpServletResponse response) throws IOException {
