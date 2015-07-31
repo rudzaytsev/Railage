@@ -11,8 +11,8 @@
 <html>
 <head>
     <title>TimeTable</title>
-    <link rel="stylesheet" href="/railage/resources/css/bootstrap.css">
-    <link rel="stylesheet" href="/railage/resources/css/dashboard.css">
+    <link rel="stylesheet" href="<c:url value="/railage/resources/css/bootstrap.css"/>">
+    <link rel="stylesheet" href="<c:url value="/railage/resources/css/dashboard.css"/>">
 </head>
 <body>
 

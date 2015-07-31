@@ -57,7 +57,7 @@
                             <tr>
                                 <td>${station.id}</td>
                                 <td>${station.name}</td>
-                                <td><a href="/stations/${station.id}" class="btn btn-info">Watch</a></td>
+                                <td><a href="/railage/timetable/station/${station.id}" class="btn btn-info">Watch</a></td>
                             </tr>
                         </c:forEach>
                         </tbody>
