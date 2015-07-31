@@ -2,66 +2,20 @@ package com.tsystems.jschool.railage.datasource;
 
 import com.tsystems.jschool.railage.domain.TimeTableLine;
 
-import javax.persistence.EntityTransaction;
-import javax.persistence.NoResultException;
-import javax.persistence.TypedQuery;
 import java.util.List;
 
 /**
- * Created by rudolph on 01.07.15.
+ * Created by rudolph on 31.07.15.
  */
-public class TimeTableDao extends JpaDao<TimeTableLine> {
-
+public interface TimeTableDao extends Dao<TimeTableLine, Integer> {
+    @Override
+    TimeTableLine merge(TimeTableLine entity);
 
     @Override
-    public TimeTableLine merge(TimeTableLine entity) {
-        EntityTransaction transaction = entityManager.getTransaction();
-        TimeTableLine result = null;
-        try {
-            transaction.begin();
-            result = entityManager.merge(entity);
-            transaction.commit();
-        }
-        finally {
-            if(transaction.isActive()){
-                transaction.rollback();
-            }
-        }
-        return result;
-    }
-
+    TimeTableLine findById(Integer id);
 
     @Override
-    public TimeTableLine findById(Integer id) {
+    List<TimeTableLine> findAll();
 
-        String queryStr = "SELECT t FROM TimeTableLine t WHERE t.id = ?1";
-        TypedQuery<TimeTableLine> query = entityManager.createQuery(
-                queryStr, TimeTableLine.class);
-        query.setParameter(1,id);
-        TimeTableLine requiredTimeTableLine = null;
-        try {
-            requiredTimeTableLine = query.getSingleResult();
-        }
-        catch(NoResultException e){
-            return null;
-        }
-        return requiredTimeTableLine;
-    }
-
-    @Override
-    public List<TimeTableLine> findAll() {
-        String queryStr = "SELECT t FROM TimeTableLine t";
-        TypedQuery<TimeTableLine> query = entityManager.createQuery(
-                queryStr, TimeTableLine.class);
-        return query.getResultList();
-    }
-
-    public  List<TimeTableLine> findByStationId(Integer stationId){
-        String queryStr = "SELECT t FROM TimeTableLine t WHERE t.station.id = ?1" +
-                          " ORDER BY t.timeInfo.departureTime";
-        TypedQuery<TimeTableLine> query = entityManager.createQuery(
-                queryStr, TimeTableLine.class);
-        query.setParameter(1,stationId);
-        return query.getResultList();
-    }
+    List<TimeTableLine> findByStationId(Integer stationId);
 }

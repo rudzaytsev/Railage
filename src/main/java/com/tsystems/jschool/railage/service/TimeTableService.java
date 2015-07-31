@@ -2,6 +2,10 @@ package com.tsystems.jschool.railage.service;
 
 import com.tsystems.jschool.railage.datasource.TimeTableDao;
 import com.tsystems.jschool.railage.domain.TimeTableLine;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,35 +13,25 @@ import java.util.List;
 /**
  * Created by rudolph on 01.07.15.
  */
+@Service
+@Transactional(readOnly = true)
 public class TimeTableService {
 
-    private TimeTableDao timeTableDao = new TimeTableDao();
+    @Autowired
+    private TimeTableDao timeTableDao;
 
     public List<TimeTableLine> findByStationId(Integer stationId){
-
-        List<TimeTableLine> timeTableLines;
-        timeTableDao.open();
-        try {
-            timeTableLines = timeTableDao.findByStationId(stationId);
-        }
-        finally {
-            timeTableDao.close();
-        }
-        return timeTableLines;
+        return timeTableDao.findByStationId(stationId);
     }
 
+    @Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW,
+    rollbackFor = Exception.class)
     public List<TimeTableLine> merge(List<TimeTableLine> timeTableLines){
 
-        timeTableDao.open();
         List<TimeTableLine> result = new ArrayList<>();
-        try {
-            for (TimeTableLine line : timeTableLines) {
-                TimeTableLine resPart = timeTableDao.merge(line);
-                result.add(resPart);
-            }
-        }
-        finally {
-            timeTableDao.close();
+        for (TimeTableLine line : timeTableLines) {
+            TimeTableLine resPart = timeTableDao.merge(line);
+            result.add(resPart);
         }
         return result;
     }
