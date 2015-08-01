@@ -30,7 +30,7 @@
             </div>
             <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
                 <h1 class="page-header">Route building</h1>
-                <form class="form-horizontal" action="/add/route" method="post">
+                <form class="form-horizontal" action="/railage/add/route" method="post">
                     <h3>Choose Route Train</h3>
                     <div class="form-inline row">
                         <div class="form-group col-sm-5">
@@ -147,7 +147,7 @@
         function sendAjax(currentStationNumber){
 
             $.ajax({
-                url: "/ajax/stations",
+                url: "/railage/ajax/stations",
                 type: 'POST',
                 dataType: 'json',
                 data: "{ \"request\" : \"stations\" }",

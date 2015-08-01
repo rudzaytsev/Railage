@@ -66,6 +66,8 @@ public class Utils {
 
     public static final String RIDE_SEARCH_FORM_PARAMS = "findRidesFormParams";
 
+    public static final String ROUTE_ADDITION_FORM_PARAMS = "routeFormParams";
+
 
     public static boolean isEmployee(String role){
         return Role.EMPLOYEE.toString().equals(role);

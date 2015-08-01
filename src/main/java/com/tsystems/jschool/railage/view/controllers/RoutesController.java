@@ -5,9 +5,15 @@ import com.tsystems.jschool.railage.domain.Period;
 import com.tsystems.jschool.railage.domain.Route;
 import com.tsystems.jschool.railage.domain.RoutePart;
 import com.tsystems.jschool.railage.service.RouteService;
+import com.tsystems.jschool.railage.service.StationService;
+import com.tsystems.jschool.railage.service.exceptions.DuplicatedStationsInRouteException;
+import com.tsystems.jschool.railage.service.exceptions.IncorrectStationsDepartureTimesOrderException;
+import com.tsystems.jschool.railage.service.exceptions.IncorrectTimeFormatException;
 import com.tsystems.jschool.railage.view.Pages;
 import com.tsystems.jschool.railage.view.Utils;
+import com.tsystems.jschool.railage.view.controllers.helpers.RouteFormParams;
 import com.tsystems.jschool.railage.view.controllers.helpers.StationHelper;
+import com.tsystems.jschool.railage.view.servlets.AjaxRequestType;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -34,13 +40,15 @@ public class RoutesController {
     RouteService routeService;
 
     @Autowired
+    StationService stationService;
+
+    @Autowired
     ControllersUtils controllersUtils;
 
     @RequestMapping(value = "/routes/all", method = RequestMethod.GET)
     public String showAllRoutes(Model model){
 
-        List<Route> routes = routeService.findAllRoutes();
-        model.addAttribute(Utils.ROUTES, routes);
+        controllersUtils.addRoutes2Model(model);
         return Pages.ROUTES;
     }
 
@@ -80,6 +88,60 @@ public class RoutesController {
         controllersUtils.addStations2Model(model);
         controllersUtils.addTrains2Model(model);
         model.addAttribute(Utils.PERIODS, Period.getPeriodsAsList());
+        controllersUtils.addRoutesFormGroup(model);
+
         return Pages.ROUTE_BULDER;
     }
+
+    @RequestMapping(value = "/add/route", method = RequestMethod.POST)
+    public String addRoute(HttpServletRequest request,Model model){
+
+        RouteFormParams params = new RouteFormParams();
+        try {
+            params.fill(request);
+            params.validate();
+
+            routeService.addRoute(params);
+
+        } catch (IncorrectStationsDepartureTimesOrderException |
+                IncorrectTimeFormatException |
+                DuplicatedStationsInRouteException e) {
+
+           controllersUtils.addErrorMessage(model,e.getMessage());
+        }
+        controllersUtils.addRoutes2Model(model);
+
+        return Pages.ROUTES;
+    }
+
+    @RequestMapping(value = "/ajax/stations", method = RequestMethod.POST)
+    public void sendAjaxStations(HttpServletRequest req, HttpServletResponse resp)
+            throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(req.getInputStream()));
+        String json = "";
+        if(br != null){
+            json = br.readLine();
+        }
+
+        JSONParser jsonParser = new JSONParser();
+        try {
+            JSONObject jsonObj = (JSONObject) jsonParser.parse(json);
+            String requestName = (String) jsonObj.get("request");
+            if(AjaxRequestType.STATIONS.value().equals(requestName)) {
+                this.sendStationHelpers(resp);
+            }
+        }
+        catch (ParseException | NumberFormatException e) {
+            resp.sendError(HttpServletResponse.SC_BAD_REQUEST);
+        }
+    }
+
+    private void sendStationHelpers(HttpServletResponse response) throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        List<StationHelper> stationHelpers = StationHelper.map(
+                stationService.findAllStations());
+        response.setContentType("application/json");
+        mapper.writeValue(response.getOutputStream(), stationHelpers);
+    }
+
 }

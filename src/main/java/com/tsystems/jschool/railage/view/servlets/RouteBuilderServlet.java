@@ -1,13 +1,5 @@
 package com.tsystems.jschool.railage.view.servlets;
 
-import com.tsystems.jschool.railage.service.RouteService;
-import com.tsystems.jschool.railage.service.exceptions.DuplicatedStationsInRouteException;
-import com.tsystems.jschool.railage.service.exceptions.IncorrectStationsDepartureTimesOrderException;
-import com.tsystems.jschool.railage.service.exceptions.IncorrectTimeFormatException;
-import com.tsystems.jschool.railage.view.Pages;
-import com.tsystems.jschool.railage.view.Utils;
-import com.tsystems.jschool.railage.view.controllers.helpers.RouteFormParams;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -39,6 +31,8 @@ public class RouteBuilderServlet extends HttpServlet {
     }
 
     private void addRoute(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+        /*
         RouteFormParams params = new RouteFormParams();
         params.fill(request);
         RouteService routeService = new RouteService();
@@ -57,6 +51,6 @@ public class RouteBuilderServlet extends HttpServlet {
         }
         request.getSession().setAttribute(Utils.ROUTES, routeService.findAllRoutes());
         response.sendRedirect(Pages.ROUTES);
-
+        */
     }
 }
