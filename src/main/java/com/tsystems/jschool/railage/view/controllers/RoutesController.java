@@ -1,6 +1,7 @@
 package com.tsystems.jschool.railage.view.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.tsystems.jschool.railage.domain.Period;
 import com.tsystems.jschool.railage.domain.Route;
 import com.tsystems.jschool.railage.domain.RoutePart;
 import com.tsystems.jschool.railage.service.RouteService;
@@ -31,6 +32,9 @@ public class RoutesController {
 
     @Autowired
     RouteService routeService;
+
+    @Autowired
+    ControllersUtils controllersUtils;
 
     @RequestMapping(value = "/routes/all", method = RequestMethod.GET)
     public String showAllRoutes(Model model){
@@ -68,5 +72,14 @@ public class RoutesController {
         List<StationHelper> helpers = StationHelper.mapRouteParts(routeParts);
         response.setContentType("application/json");
         mapper.writeValue(response.getOutputStream(), helpers);
+    }
+
+    @RequestMapping(value = "/build/route", method = RequestMethod.GET)
+    public String showRouteBuilder(Model model){
+
+        controllersUtils.addStations2Model(model);
+        controllersUtils.addTrains2Model(model);
+        model.addAttribute(Utils.PERIODS, Period.getPeriodsAsList());
+        return Pages.ROUTE_BULDER;
     }
 }

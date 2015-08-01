@@ -34,7 +34,7 @@ public class StationsController {
     @RequestMapping(value="/stations/all", method = RequestMethod.GET)
     public String showAllStations(Model model){
 
-        model.addAttribute(Utils.STATIONS,stationService.findAllStations());
+        controllersUtils.addStations2Model(model);
         return Pages.STATIONS;
     }
 
@@ -49,12 +49,12 @@ public class StationsController {
 
             String errorMsg = "Can not add Station. " + e.getMessage();
             controllersUtils.addErrorMessage(model, errorMsg);
-            model.addAttribute(Utils.STATIONS, stationService.findAllStations());
             return Pages.STATIONS;
         }
-
+        finally {
+            controllersUtils.addStations2Model(model);
+        }
         controllersUtils.addSuccessMessage(model,"Station added.");
-        model.addAttribute(Utils.STATIONS, stationService.findAllStations());
         return Pages.STATIONS;
 
     }

@@ -26,7 +26,7 @@
             <div class="col-sm-3 col-md-2 sidebar">
                 <ul class="nav nav-sidebar">
                     <c:if test="${isEmployee}">
-                        <li><a href="/build/route">Add Route</a></li>
+                        <li><a href="/railage/build/route">Add Route</a></li>
                     </c:if>
                 </ul>
             </div>

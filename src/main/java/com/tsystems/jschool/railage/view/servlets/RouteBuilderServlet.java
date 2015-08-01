@@ -1,9 +1,6 @@
 package com.tsystems.jschool.railage.view.servlets;
 
-import com.tsystems.jschool.railage.domain.Period;
 import com.tsystems.jschool.railage.service.RouteService;
-import com.tsystems.jschool.railage.service.StationService;
-import com.tsystems.jschool.railage.service.TrainService;
 import com.tsystems.jschool.railage.service.exceptions.DuplicatedStationsInRouteException;
 import com.tsystems.jschool.railage.service.exceptions.IncorrectStationsDepartureTimesOrderException;
 import com.tsystems.jschool.railage.service.exceptions.IncorrectTimeFormatException;
@@ -15,7 +12,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 /**
@@ -29,6 +25,7 @@ public class RouteBuilderServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        /*
         TrainService trainService = new TrainService();
         StationService stationService = new StationService();
 
@@ -37,6 +34,7 @@ public class RouteBuilderServlet extends HttpServlet {
         session.setAttribute(Utils.TRAINS, trainService.findAllTrains());
         session.setAttribute(Utils.PERIODS, Period.getPeriodsAsList());
         response.sendRedirect(Pages.ROUTE_BULDER);
+        */
         return;
     }
 

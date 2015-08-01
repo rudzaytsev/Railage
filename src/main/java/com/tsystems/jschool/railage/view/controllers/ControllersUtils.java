@@ -1,5 +1,6 @@
 package com.tsystems.jschool.railage.view.controllers;
 
+import com.tsystems.jschool.railage.service.StationService;
 import com.tsystems.jschool.railage.service.TrainService;
 import com.tsystems.jschool.railage.view.Utils;
 import com.tsystems.jschool.railage.view.controllers.helpers.AddRideFormParams;
@@ -18,8 +19,15 @@ public class ControllersUtils {
     @Autowired
     TrainService trainService;
 
+    @Autowired
+    StationService stationService;
+
     public final void addTrains2Model(Model model){
         model.addAttribute(Utils.TRAINS,trainService.findAllTrains());
+    }
+
+    public final void addStations2Model(Model model){
+        model.addAttribute(Utils.STATIONS,stationService.findAllStations());
     }
 
     public final void addTrainAdditionFormParams(Model model){
