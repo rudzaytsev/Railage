@@ -13,7 +13,7 @@ function showBuyTicketForm(element){
     hiddenInput.value = rideId;
 
     $.ajax({
-        url: "/ajax/stationsbyride",
+        url: "/railage/ajax/stationsbyride",
         type: 'POST',
         dataType: 'json',
         data: "{ \"request\" :  \"stationsByRide\"," +

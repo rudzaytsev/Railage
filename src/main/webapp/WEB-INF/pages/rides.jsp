@@ -116,8 +116,7 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title" id="buy_ticket_modal_label">Buy Ticket</h4>
                 </div>
-                <form id="buy_ticket_form" action="/buy/ticket" method="post">
-                    <input type="hidden" name="cmd" value="/buy/ticket/">
+                <form id="buy_ticket_form" action="/railage/buy/ticket" method="post">
                     <input type="hidden" id="ride_id_for_ticket" name="ride_id_for_ticket" value="X">
                     <div class="modal-body">
 

@@ -1,9 +1,7 @@
 package com.tsystems.jschool.railage.view.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.tsystems.jschool.railage.domain.Passenger;
-import com.tsystems.jschool.railage.domain.Station;
-import com.tsystems.jschool.railage.domain.TrainRide;
+import com.tsystems.jschool.railage.domain.*;
 import com.tsystems.jschool.railage.service.PassengerService;
 import com.tsystems.jschool.railage.service.RouteService;
 import com.tsystems.jschool.railage.service.StationService;
@@ -13,9 +11,7 @@ import com.tsystems.jschool.railage.service.exceptions.IncorrectTimeIntervalExce
 import com.tsystems.jschool.railage.service.exceptions.TimeTableConflictException;
 import com.tsystems.jschool.railage.view.Pages;
 import com.tsystems.jschool.railage.view.Utils;
-import com.tsystems.jschool.railage.view.controllers.helpers.AddRideFormParams;
-import com.tsystems.jschool.railage.view.controllers.helpers.FindRidesFormParams;
-import com.tsystems.jschool.railage.view.controllers.helpers.RouteHelper;
+import com.tsystems.jschool.railage.view.controllers.helpers.*;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -203,5 +199,50 @@ public class RidesController {
         model.addAttribute(Utils.ROUTES, routeService.findAllRoutes());
         model.addAttribute(Utils.HAS_CURRENT_TRAIN, false);
     }
+
+
+    @RequestMapping(value = "", method = RequestMethod.POST)
+    public String buyTicket(Model model){
+
+        return Pages.PASSENGERS;
+    }
+
+    @RequestMapping(value = "/ajax/stationsbyride", method = RequestMethod.POST)
+    public void sendBoardingStationsForRideByAjax(
+            HttpServletRequest req, HttpServletResponse resp ) throws IOException {
+
+        BufferedReader br = new BufferedReader(new InputStreamReader(req.getInputStream()));
+        String json = "";
+        if(br != null){
+            json = br.readLine();
+        }
+
+        JSONParser jsonParser = new JSONParser();
+        try {
+            JSONObject jsonObj = (JSONObject) jsonParser.parse(json);
+            String requestName = (String) jsonObj.get("request");
+            if (AjaxRequestType.STATIONS_BY_RIDE.value().equals(requestName)) {
+                Integer rideId = Integer.parseInt(jsonObj.get("rideId").toString());
+                this.sendStationHelpersByRide(resp, rideId);
+            }
+        }
+        catch (ParseException | NumberFormatException e) {
+            resp.sendError(HttpServletResponse.SC_BAD_REQUEST);
+        }
+    }
+
+    private void sendStationHelpersByRide(HttpServletResponse response, Integer rideId) throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
+
+        TrainRide ride = trainService.findTrainRideById(rideId);
+        Route route = routeService.findRouteById(ride.getRoute().getId());
+
+        List<RoutePart> routeParts = route.getRouteParts();
+        List<StationHelper> helpers = StationHelper.mapRouteParts(routeParts);
+        response.setContentType("application/json");
+        mapper.writeValue(response.getOutputStream(), helpers);
+    }
+
+
 
 }
