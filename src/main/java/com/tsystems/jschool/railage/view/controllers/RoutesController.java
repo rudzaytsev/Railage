@@ -97,10 +97,9 @@ public class RoutesController {
     public String addRoute(HttpServletRequest request,Model model){
 
         RouteFormParams params = new RouteFormParams();
+        params.fill(request);
         try {
-            params.fill(request);
-            params.validate();
-
+            routeService.validate(params);
             routeService.addRoute(params);
 
         } catch (IncorrectStationsDepartureTimesOrderException |
@@ -113,6 +112,8 @@ public class RoutesController {
 
         return Pages.ROUTES;
     }
+
+
 
     @RequestMapping(value = "/ajax/stations", method = RequestMethod.POST)
     public void sendAjaxStations(HttpServletRequest req, HttpServletResponse resp)

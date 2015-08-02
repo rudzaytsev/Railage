@@ -1,14 +1,8 @@
 package com.tsystems.jschool.railage.view.controllers.helpers;
 
-import com.tsystems.jschool.railage.service.exceptions.DuplicatedStationsInRouteException;
-import com.tsystems.jschool.railage.service.exceptions.IncorrectStationsDepartureTimesOrderException;
-import com.tsystems.jschool.railage.service.exceptions.IncorrectTimeFormatException;
-
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Created by rudolph on 06.07.15.
@@ -17,15 +11,7 @@ public class RouteFormParams {
 
     public static final int MAX_ROUTE_PARTS_NUMBER = 21;
 
-    public static final int MINUTES_PER_HOUR = 60;
 
-    public static final int HOURS_UPPER_BOUND = 23;
-
-    public static final int HOURS_LOWER_BOUND = 0;
-
-    public static final int MINUTES_UPPER_BOUND = 59;
-
-    public static final int MINUTES_LOWER_BOUND = 0;
 
     private List<Integer> stationsIds = new ArrayList<>();
 
@@ -89,7 +75,7 @@ public class RouteFormParams {
         }
     }
 
-
+    /*
     public void validateStations() throws DuplicatedStationsInRouteException {
 
         Set<Integer> uniqueStationIds = new HashSet<>(stationsIds);
@@ -161,7 +147,7 @@ public class RouteFormParams {
         validateStations();
         validateTimes();
     }
-
+    */
 
 
 }

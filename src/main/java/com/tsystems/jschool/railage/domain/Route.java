@@ -22,7 +22,7 @@ public class Route extends DomainObject {
     @OneToMany(mappedBy = "route",fetch = FetchType.EAGER,cascade = {CascadeType.PERSIST,CascadeType.MERGE})
     private List<RoutePart> routeParts;
 
-    @OneToMany(mappedBy = "route",fetch = FetchType.EAGER,cascade = {CascadeType.PERSIST,CascadeType.MERGE})
+    @OneToMany(mappedBy = "route",fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST,CascadeType.MERGE})
     private List<TimeTableLine> timeTableLines;
 
     public Train getTrain() {

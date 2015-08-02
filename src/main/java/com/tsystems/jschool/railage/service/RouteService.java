@@ -1,8 +1,12 @@
 package com.tsystems.jschool.railage.service;
 
 import com.tsystems.jschool.railage.datasource.RouteDao;
+import com.tsystems.jschool.railage.datasource.StationDao;
 import com.tsystems.jschool.railage.datasource.TrainDao;
 import com.tsystems.jschool.railage.domain.*;
+import com.tsystems.jschool.railage.service.exceptions.DuplicatedStationsInRouteException;
+import com.tsystems.jschool.railage.service.exceptions.IncorrectStationsDepartureTimesOrderException;
+import com.tsystems.jschool.railage.service.exceptions.IncorrectTimeFormatException;
 import com.tsystems.jschool.railage.view.controllers.helpers.RouteFormParams;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,7 +15,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Time;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by rudolph on 02.07.15.
@@ -20,11 +26,25 @@ import java.util.List;
 @Transactional(readOnly = true)
 public class RouteService {
 
+
+    private static final int MINUTES_PER_HOUR = 60;
+
+    private static final int HOURS_UPPER_BOUND = 23;
+
+    private static final int HOURS_LOWER_BOUND = 0;
+
+    private static final int MINUTES_UPPER_BOUND = 59;
+
+    private static final int MINUTES_LOWER_BOUND = 0;
+
     @Autowired
     private RouteDao routeDao;
 
     @Autowired
     private TrainDao trainDao;
+
+    @Autowired
+    private StationDao stationDao;
 
 
     public Route findRouteById(Integer id){
@@ -35,7 +55,7 @@ public class RouteService {
         return routeDao.findAll();
     }
 
-    @Transactional(readOnly = true,propagation = Propagation.REQUIRES_NEW)
+    @Transactional(readOnly = false,propagation = Propagation.REQUIRES_NEW)
     public void addRoute(RouteFormParams params){
 
         Route route = new Route();
@@ -52,6 +72,10 @@ public class RouteService {
         route.setRouteParts(routeParts);
         route.setTimeTableLines(timeTableLines);
         route.setTrain(train);
+        //List routes = new ArrayList<Route>();
+        //routes.add(route);
+        //train.setRoutes(routes);
+        System.out.println("*******************************************************");
         routeDao.merge(route);
 
     }
@@ -77,18 +101,18 @@ public class RouteService {
         return timeTableLines;
     }
 
-    private static List<Station> createStations(RouteFormParams params){
-        StationService stationService = new StationService();
+    private List<Station> createStations(RouteFormParams params){
+
         List<Station> stations = new ArrayList<>();
         for (Integer stationId : params.getStationsIds()){
 
-            Station station = stationService.findStationById(stationId);
+            Station station = stationDao.findById(stationId);
             stations.add(station);
         }
         return stations;
     }
 
-    private static List<RoutePart> createRouteParts(Route route,List<Station> stations) {
+    private List<RoutePart> createRouteParts(Route route,List<Station> stations) {
 
         List<TimeTableLine> timeTableLines = route.getTimeTableLines();
         List<RoutePart> routeParts = new ArrayList<>();
@@ -116,4 +140,79 @@ public class RouteService {
 
         return routeParts;
     }
+
+    private void validateStations(RouteFormParams params) throws DuplicatedStationsInRouteException {
+
+        List<Integer> stationsIds = params.getStationsIds();
+        Set<Integer> uniqueStationIds = new HashSet<>(stationsIds);
+        boolean hasDuplicatedStationIds = uniqueStationIds.size() != stationsIds.size();
+        if(hasDuplicatedStationIds){
+            throw new DuplicatedStationsInRouteException(
+                    "Route must contains only unique stations");
+        }
+
+    }
+
+    private void validateTimes(RouteFormParams params) throws IncorrectTimeFormatException, IncorrectStationsDepartureTimesOrderException {
+
+        List<String> times = params.getTimes();
+        List<Integer> timesInMinutes = new ArrayList<>();
+        for (String time : times){
+            String[] hoursAndMinutes = time.split(":",2);
+            if (hoursAndMinutes.length < 2){
+                throw new IncorrectTimeFormatException(
+                        "Incorrect Format of departure time. Should be hh:mm .Example 18:30");
+            }
+            try {
+                int hours = Integer.parseInt(hoursAndMinutes[0]);
+                int minutes = Integer.parseInt(hoursAndMinutes[1]);
+
+                if (hours > HOURS_UPPER_BOUND || hours < HOURS_LOWER_BOUND){
+                    throw new IncorrectTimeFormatException(
+                            "Incorrect Format of departure time. Hours must be in range from 0 to 23");
+                }
+                if (minutes > MINUTES_UPPER_BOUND || minutes < MINUTES_LOWER_BOUND ){
+                    throw new IncorrectTimeFormatException(
+                            "Incorrect Format of departure time. Minutes must be in range from 0 to 59");
+                }
+                timesInMinutes.add(hours*MINUTES_PER_HOUR + minutes);
+
+
+            }
+            catch(NumberFormatException e){
+                throw new IncorrectTimeFormatException(
+                        "Incorrect Format of departure time. Hours and minutes should be integers. Example 18:30");
+            }
+        }
+        if(!isSorted(timesInMinutes)){
+            throw new IncorrectStationsDepartureTimesOrderException(
+                    "Incorrect Order of Departure Times. Departure time should increase from start to end station"
+            );
+        }
+
+    }
+
+    private boolean isSorted(List<Integer> timesInMinutes){
+        int i = 1;
+        boolean isSorted = true;
+        while( isSorted &&  i < timesInMinutes.size() ){
+            int previous = timesInMinutes.get(i - 1);
+            int current = timesInMinutes.get(i);
+            if(previous >= current){
+                isSorted = false;
+            }
+            ++i;
+        }
+        return isSorted;
+
+    }
+
+    public void validate(RouteFormParams params)
+            throws IncorrectStationsDepartureTimesOrderException,
+            IncorrectTimeFormatException, DuplicatedStationsInRouteException {
+
+        validateStations(params);
+        validateTimes(params);
+    }
+
 }
