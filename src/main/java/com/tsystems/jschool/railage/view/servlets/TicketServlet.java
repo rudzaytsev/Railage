@@ -1,24 +1,10 @@
 package com.tsystems.jschool.railage.view.servlets;
 
-import com.tsystems.jschool.railage.domain.Passenger;
-import com.tsystems.jschool.railage.service.PassengerService;
-import com.tsystems.jschool.railage.service.TicketService;
-import com.tsystems.jschool.railage.service.TrainService;
-import com.tsystems.jschool.railage.service.exceptions.BookingTimeLimitIsOverException;
-import com.tsystems.jschool.railage.service.exceptions.InvalidBoardingStationInRouteException;
-import com.tsystems.jschool.railage.service.exceptions.NoFreeSeatsForRideException;
-import com.tsystems.jschool.railage.service.exceptions.PassengerAlreadyBookedTicketOnRideException;
-import com.tsystems.jschool.railage.view.Pages;
-import com.tsystems.jschool.railage.view.Utils;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.text.ParseException;
-import java.util.List;
 
 /**
  * Created by rudolph on 12.07.15.
@@ -35,6 +21,7 @@ public class TicketServlet extends HttpServlet {
 
     private void buyTicket(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
+        /*
         String passengerName = request.getParameter("passengerName");
         String passengerLastName = request.getParameter("passengerLastName");
         String passengerBirthDateStr = request.getParameter("passengerBirthDate");
@@ -76,6 +63,7 @@ public class TicketServlet extends HttpServlet {
         session.setAttribute(Utils.PASSENGERS, passengers);
         response.sendRedirect(Pages.PASSENGERS);
         return;
+        */
 
     }
 }

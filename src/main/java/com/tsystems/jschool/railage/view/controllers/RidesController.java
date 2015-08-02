@@ -2,13 +2,8 @@ package com.tsystems.jschool.railage.view.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tsystems.jschool.railage.domain.*;
-import com.tsystems.jschool.railage.service.PassengerService;
-import com.tsystems.jschool.railage.service.RouteService;
-import com.tsystems.jschool.railage.service.StationService;
-import com.tsystems.jschool.railage.service.TrainService;
-import com.tsystems.jschool.railage.service.exceptions.IncorrectTimeFormatException;
-import com.tsystems.jschool.railage.service.exceptions.IncorrectTimeIntervalException;
-import com.tsystems.jschool.railage.service.exceptions.TimeTableConflictException;
+import com.tsystems.jschool.railage.service.*;
+import com.tsystems.jschool.railage.service.exceptions.*;
 import com.tsystems.jschool.railage.view.Pages;
 import com.tsystems.jschool.railage.view.Utils;
 import com.tsystems.jschool.railage.view.controllers.helpers.*;
@@ -49,7 +44,12 @@ public class RidesController {
     PassengerService passengerService;
 
     @Autowired
+    TicketService ticketService;
+
+
+    @Autowired
     ControllersUtils controllersUtils;
+
 
     @RequestMapping(value = "/rides/all", method = RequestMethod.GET)
     public String showAllRides(Model model){
@@ -201,8 +201,37 @@ public class RidesController {
     }
 
 
-    @RequestMapping(value = "", method = RequestMethod.POST)
-    public String buyTicket(Model model){
+    @RequestMapping(value = "/buy/ticket", method = RequestMethod.POST)
+    public String buyTicket(BuyTicketFormParams params,Model model){
+
+        Integer boardingStationId = Integer.parseInt(
+               params.getBoardingStationId());
+
+        Integer rideId = Integer.parseInt(params.getRideIdForTicket());
+
+        try {
+            Passenger passenger = passengerService.createPassenger(
+                    params.getPassengerName(),
+                    params.getPassengerLastName(),
+                    params.getPassengerBirthDate());
+
+            ticketService.buyTicket(rideId, boardingStationId, passenger);
+            controllersUtils.addSuccessMessage(model,"Ticket was bought!");
+
+        }
+        catch (java.text.ParseException | NoFreeSeatsForRideException |
+                PassengerAlreadyBookedTicketOnRideException |
+                BookingTimeLimitIsOverException |
+                InvalidBoardingStationInRouteException e) {
+
+            controllersUtils.addErrorMessage(model,e.getMessage());
+        }
+
+        List<Passenger> passengers = passengerService.findPassengersByRideId(rideId);
+        model.addAttribute(Utils.HAS_CURRENT_TRAIN, false);
+        model.addAttribute(Utils.HAS_CURRENT_RIDE, true);
+        model.addAttribute(Utils.CURRENT_TRAIN_RIDE, trainService.findTrainRideById(rideId));
+        model.addAttribute(Utils.PASSENGERS, passengers);
 
         return Pages.PASSENGERS;
     }

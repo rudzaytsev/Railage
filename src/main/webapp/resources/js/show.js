@@ -5,7 +5,7 @@
 
 function showBuyTicketForm(element){
 
-    hiddenInput = document.getElementById('ride_id_for_ticket');
+    hiddenInput = document.getElementById('rideIdForTicket');
 
     idStartIndex = 11;
     rideId = element.id.slice(idStartIndex);

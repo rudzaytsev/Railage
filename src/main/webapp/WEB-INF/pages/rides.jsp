@@ -116,8 +116,9 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title" id="buy_ticket_modal_label">Buy Ticket</h4>
                 </div>
-                <form id="buy_ticket_form" action="/railage/buy/ticket" method="post">
-                    <input type="hidden" id="ride_id_for_ticket" name="ride_id_for_ticket" value="X">
+                <form:form id="buy_ticket_form" action="/railage/buy/ticket" method="post"
+                        modelAttribute="buyTicketFormParams">
+                    <input type="hidden" id="rideIdForTicket" name="rideIdForTicket" value="X">
                     <div class="modal-body">
 
                         <div class="form-group">
@@ -164,7 +165,7 @@
                         <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
                         <button type="submit" class="btn btn-primary">Buy</button>
                     </div>
-                </form>
+                </form:form>
             </div>
         </div>
     </div>

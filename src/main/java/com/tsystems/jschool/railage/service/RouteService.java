@@ -72,10 +72,6 @@ public class RouteService {
         route.setRouteParts(routeParts);
         route.setTimeTableLines(timeTableLines);
         route.setTrain(train);
-        //List routes = new ArrayList<Route>();
-        //routes.add(route);
-        //train.setRoutes(routes);
-        System.out.println("*******************************************************");
         routeDao.merge(route);
 
     }

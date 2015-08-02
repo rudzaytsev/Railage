@@ -4,10 +4,7 @@ import com.tsystems.jschool.railage.service.RouteService;
 import com.tsystems.jschool.railage.service.StationService;
 import com.tsystems.jschool.railage.service.TrainService;
 import com.tsystems.jschool.railage.view.Utils;
-import com.tsystems.jschool.railage.view.controllers.helpers.AddRideFormParams;
-import com.tsystems.jschool.railage.view.controllers.helpers.AddTrainFormParams;
-import com.tsystems.jschool.railage.view.controllers.helpers.FindRidesFormParams;
-import com.tsystems.jschool.railage.view.controllers.helpers.RouteFormParams;
+import com.tsystems.jschool.railage.view.controllers.helpers.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
@@ -51,9 +48,14 @@ public class ControllersUtils {
        model.addAttribute(Utils.RIDE_SEARCH_FORM_PARAMS,new FindRidesFormParams());
     }
 
+    public final void addBuyTicketFormParams(Model model){
+        model.addAttribute(Utils.BUY_TICKET_FORM_PARAMS,new BuyTicketFormParams());
+    }
+
     public final void addRidesFormGroup(Model model){
         this.addRideAdditionFormParams(model);
         this.addRidesSearchFormParams(model);
+        this.addBuyTicketFormParams(model);
     }
 
     public final void addRoutesFormGroup(Model model){
