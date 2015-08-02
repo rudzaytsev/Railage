@@ -7,6 +7,7 @@ import com.tsystems.jschool.railage.domain.TrainRide;
 import com.tsystems.jschool.railage.service.RouteService;
 import com.tsystems.jschool.railage.service.StationService;
 import com.tsystems.jschool.railage.service.TrainService;
+import com.tsystems.jschool.railage.view.controllers.helpers.AjaxRequestType;
 import com.tsystems.jschool.railage.view.controllers.helpers.RouteHelper;
 import com.tsystems.jschool.railage.view.controllers.helpers.StationHelper;
 import org.json.simple.JSONObject;

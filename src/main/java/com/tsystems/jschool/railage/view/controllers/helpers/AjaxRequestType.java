@@ -1,4 +1,4 @@
-package com.tsystems.jschool.railage.view.servlets;
+package com.tsystems.jschool.railage.view.controllers.helpers;
 
 /**
  * Created by rudolph on 08.07.15.

@@ -11,9 +11,9 @@ import com.tsystems.jschool.railage.service.exceptions.IncorrectStationsDepartur
 import com.tsystems.jschool.railage.service.exceptions.IncorrectTimeFormatException;
 import com.tsystems.jschool.railage.view.Pages;
 import com.tsystems.jschool.railage.view.Utils;
+import com.tsystems.jschool.railage.view.controllers.helpers.AjaxRequestType;
 import com.tsystems.jschool.railage.view.controllers.helpers.RouteFormParams;
 import com.tsystems.jschool.railage.view.controllers.helpers.StationHelper;
-import com.tsystems.jschool.railage.view.servlets.AjaxRequestType;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
