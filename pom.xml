@@ -36,6 +36,7 @@
 
         <!-- Spring framework version -->
         <version.spring.framework>4.1.7.RELEASE</version.spring.framework>
+        <version.spring.security>4.0.2.RELEASE</version.spring.security>
 
         <!-- maven-compiler-plugin -->
         <maven.compiler.target>1.7</maven.compiler.target>
@@ -183,8 +184,31 @@
           <artifactId>spring-orm</artifactId>
           <version>${version.spring.framework}</version>
       </dependency>
+      <dependency>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-jdbc</artifactId>
+          <version>${version.spring.framework}</version>
+      </dependency>
 
+      <!-- Spring Security -->
+      <dependency>
+          <groupId>org.springframework.security</groupId>
+          <artifactId>spring-security-web</artifactId>
+          <version>${version.spring.security}</version>
+      </dependency>
 
+      <dependency>
+          <groupId>org.springframework.security</groupId>
+          <artifactId>spring-security-config</artifactId>
+          <version>${version.spring.security}</version>
+      </dependency>
+
+      <!-- Spring Security JSP Taglib -->
+      <dependency>
+          <groupId>org.springframework.security</groupId>
+          <artifactId>spring-security-taglibs</artifactId>
+          <version>${version.spring.security}</version>
+      </dependency>
 
   </dependencies>
 

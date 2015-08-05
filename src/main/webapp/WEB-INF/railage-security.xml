@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:security="http://www.springframework.org/schema/security"
+
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/security
+       http://www.springframework.org/schema/security/spring-security.xsd">
+
+
+    <bean id="adminDataSource"
+          class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+
+        <property name="driverClassName" value="com.mysql.jdbc.Driver" />
+        <property name="url" value="jdbc:mysql://localhost:3306/railage" />
+        <property name="username" value="root" />
+        <property name="password" value="root" />
+    </bean>
+
+
+    <!-- enable use-expressions -->
+    <security:http auto-config="false" use-expressions="true">
+
+        <!--<security:intercept-url pattern="/add/route" access="hasRole('EMPLOYEE')" /> -->
+
+        <!-- access denied page -->
+        <security:access-denied-handler error-page="/error403" />
+
+        <security:form-login
+                login-page="/"
+                username-parameter="j_username"
+                password-parameter="j_password"
+                default-target-url="/login"
+                login-processing-url="/j_spring_security_check"
+                authentication-failure-url="/login?login_error=true"/>
+        <security:logout logout-success-url="/logout"  />
+
+    </security:http>
+
+    <!-- Select users and user_roles from database -->
+    <security:authentication-manager>
+        <security:authentication-provider>
+            <!--
+            <security:jdbc-user-service data-source-ref="adminDataSource"
+                               users-by-username-query=
+                                       "select login,password, true from Users where login=?"
+                               authorities-by-username-query=
+                                       "select login, role from Users where login=?"/>
+                                       -->
+            <security:user-service>
+                <security:user name="admin" password="admin" authorities="EMPLOYEE"/>
+                <security:user name="client" password="client" authorities="CLIENT"/>
+            </security:user-service>
+        </security:authentication-provider>
+    </security:authentication-manager>
+
+</beans>

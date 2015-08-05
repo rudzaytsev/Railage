@@ -26,4 +26,7 @@ public class Pages {
     public static final String ROUTES = "routes";
 
     public static final String ROUTE_BULDER = "route_builder";
+
+    public static final String ERROR_403 = "error_403";
+
 }

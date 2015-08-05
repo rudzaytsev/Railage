@@ -42,7 +42,20 @@ public class UsersController {
         return Pages.REGISTRATION;
     }
 
-    @RequestMapping(value = "/login",method = RequestMethod.POST)
+    @RequestMapping(value = "/login",method = RequestMethod.GET)
+    public String loginStub(HttpSession session, Model model){
+        session.setAttribute(Utils.LOGGED_SESSION_ATTRIB, true);
+        session.setAttribute(Utils.USER_LOGIN_SESSION_ATTRIB,"admin");
+        session.setAttribute(Utils.USER_ID_SESSION_ATTRIB,10);
+        session.setAttribute(Utils.IS_EMPLOYEE_SESSION_ATTRIB,true);
+
+        controllersUtils.addTrains2Model(model);
+        controllersUtils.addTrainAdditionFormParams(model);
+
+        return Pages.TRAINS;
+    }
+
+    @RequestMapping(value = "/login1",method = RequestMethod.POST)
     public String login(HttpSession session, User user, Model model){
         User registeredUser = userService.findUser(
                                 user.getLogin(), user.getPassword());
@@ -96,6 +109,11 @@ public class UsersController {
 
         session.invalidate();
         return Pages.INDEX;
+    }
+
+    @RequestMapping(value="/error403", method = RequestMethod.GET)
+    public String error403(){
+        return Pages.ERROR_403;
     }
 
 
