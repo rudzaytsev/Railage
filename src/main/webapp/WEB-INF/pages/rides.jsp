@@ -9,6 +9,7 @@
 <%@ page isELIgnored="false" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <html>
 <head>
     <title>Train Rides</title>
@@ -26,16 +27,20 @@
     <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
             <ul class="nav nav-sidebar">
-                <c:if test="${isEmployee}">
+               <!--c:if test="$ {isEmployee}"-->
+                <sec:authorize access="hasRole('ROLE_EMPLOYEE')">
                     <li><a id="addride" href="#">Add Ride</a></li>
-                </c:if>
+                <!--/c:if-->
+                </sec:authorize>
                     <li><a id="findrides" href="#">Find Rides</a></li>
 
-                <c:if test="${isEmployee}">
+                <!--c:if test="$ {isEmployee}"-->
+                <sec:authorize access="hasRole('ROLE_EMPLOYEE')">
                     <c:if test="${hasCurrentTrain}">
                         <li><a href="/railage/passengers/on/train/${currentTrain.id}">All Passengers for train</a>
                     </c:if>
-                </c:if>
+                </sec:authorize>
+                <!--/c:if-->
             </ul>
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
@@ -73,12 +78,16 @@
                             <td>"${destStation.name}" time</td>
                         </c:if>
                         <td> RideDate </td>
-                        <c:if test="${ not isEmployee}">
+                        <!--c:if test="$ { not isEmployee}"-->
+                        <sec:authorize access="!hasRole('ROLE_EMPLOYEE')">
                             <td> Ticket </td>
-                        </c:if>
-                        <c:if test="${isEmployee}">
+                        </sec:authorize>
+                        <!--/c:if-->
+                        <!--c:if test="$ {isEmployee}"-->
+                        <sec:authorize access="hasRole('ROLE_EMPLOYEE')">
                             <td> Passengers</td>
-                        </c:if>
+                        </sec:authorize>
+                        <!--/c:if-->
                     </tr>
                     </thead>
                     <tbody>
@@ -92,12 +101,16 @@
                                 <td> ${ride.route.getTimeInfoByStationId(requestScope.get("destStation").id).departureTime} </td>
                             </c:if>
                             <td>${ride.date}</td>
-                            <c:if test="${ not isEmployee}">
+                            <!--c:if test="$ { not isEmployee}"-->
+                            <sec:authorize access="!hasRole('ROLE_EMPLOYEE')">
                                 <td><button id="buy_button_${ride.id}" onclick="showBuyTicketForm(this)" class="btn btn-success">Buy</button></td>
-                            </c:if>
-                            <c:if test="${isEmployee}">
+                            </sec:authorize>
+                            <!--/c:if-->
+                            <!--c:if test="$ {isEmployee}"-->
+                            <sec:authorize access="hasRole('ROLE_EMPLOYEE')">
                                 <td><a href="/railage/passengers/ride/${ride.id}" class="btn btn-info">View</a></td>
-                            </c:if>
+                            </sec:authorize>
+                            <!--/c:if-->
                         </tr>
                     </c:forEach>
                     </tbody>

@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page session="true" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <html>
 <head>
     <title></title>
@@ -22,8 +23,14 @@
                 <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand" href="#">Railage</a>
+
         </div>
+
         <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <sec:authentication property="principal.username" var="login" scope="session"/>
+                <li><a href="#">Signed as ${login}</a></li>
+            </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="/railage/trains/all">Trains</a></li>
                 <li><a href="/railage/stations/all">Stations</a></li>
