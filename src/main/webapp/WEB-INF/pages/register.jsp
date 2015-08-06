@@ -38,8 +38,8 @@
 
             <label for="inputRoles" >Roles:</label>
             <select id="inputRoles" class="form-control" name="role">
-                <option selected value="CLIENT">Client</option>
-                <option value="EMPLOYEE">Employee</option>
+                <option selected value="ROLE_CLIENT">Client</option>
+                <option value="ROLE_EMPLOYEE">Employee</option>
             </select>
             <input type="submit" class="btn btn-lg btn-primary btn-block" value="Register">
         </form:form>

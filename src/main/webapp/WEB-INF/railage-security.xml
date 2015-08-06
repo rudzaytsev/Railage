@@ -19,12 +19,18 @@
         <property name="password" value="root" />
     </bean>
 
-
     <!-- enable use-expressions -->
-    <security:http auto-config="false" use-expressions="true">
+    <security:http auto-config="true" use-expressions="true">
 
-        <!--<security:intercept-url pattern="/add/route" access="hasRole('EMPLOYEE')" /> -->
+        <security:intercept-url pattern="/build/route" access="hasRole('ROLE_EMPLOYEE')"/>
 
+        <security:intercept-url pattern="/login/**" access="hasAnyRole('ROLE_EMPLOYEE','ROLE_CLIENT')"/>
+        <security:intercept-url pattern="/routes/**" access="hasAnyRole('ROLE_EMPLOYEE','ROLE_CLIENT')"/>
+        <security:intercept-url pattern="/trains/**" access="hasAnyRole('ROLE_EMPLOYEE','ROLE_CLIENT')"/>
+        <security:intercept-url pattern="/rides/**" access="hasAnyRole('ROLE_EMPLOYEE','ROLE_CLIENT')"/>
+        <security:intercept-url pattern="/stations/**" access="hasAnyRole('ROLE_EMPLOYEE','ROLE_CLIENT')"/>
+        <security:intercept-url pattern="/passengers/**" access="hasAnyRole('ROLE_EMPLOYEE','ROLE_CLIENT')"/>
+        <security:intercept-url pattern="/add/**" access="hasRole('ROLE_EMPLOYEE')"/>
         <!-- access denied page -->
         <security:access-denied-handler error-page="/error403" />
 
@@ -35,24 +41,20 @@
                 default-target-url="/login"
                 login-processing-url="/j_spring_security_check"
                 authentication-failure-url="/login?login_error=true"/>
-        <security:logout logout-success-url="/logout"  />
+        <security:logout logout-url="/j_spring_security_logout" logout-success-url="/"/>
 
     </security:http>
 
     <!-- Select users and user_roles from database -->
     <security:authentication-manager>
         <security:authentication-provider>
-            <!--
+
             <security:jdbc-user-service data-source-ref="adminDataSource"
                                users-by-username-query=
-                                       "select login,password, true from Users where login=?"
+                                       "select username, password, true from Users where username = ?"
                                authorities-by-username-query=
-                                       "select login, role from Users where login=?"/>
-                                       -->
-            <security:user-service>
-                <security:user name="admin" password="admin" authorities="EMPLOYEE"/>
-                <security:user name="client" password="client" authorities="CLIENT"/>
-            </security:user-service>
+                                       "select username, authority from Users where username = ?"/>
+
         </security:authentication-provider>
     </security:authentication-manager>
 

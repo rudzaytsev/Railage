@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page session="true" %>
 <html>
 <head>
     <title></title>
@@ -28,10 +29,19 @@
                 <li><a href="/railage/stations/all">Stations</a></li>
                 <li><a href="/railage/rides/all">Rides</a></li>
                 <li><a href="/railage/routes/all">Routes</a></li>
-                <li><a href="/railage/logout">Log Out</a></li>
+                <li><a href="javascript:formSubmit()">Log Out</a></li>
             </ul>
         </div>
     </div>
 </nav>
+    <c:url value="/j_spring_security_logout" var="logOutUrl" />
+    <form id="log_out_form" action="${logOutUrl}" method="post" >
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+    </form>
+    <script>
+        function formSubmit() {
+            document.getElementById("log_out_form").submit();
+        }
+    </script>
 </body>
 </html>

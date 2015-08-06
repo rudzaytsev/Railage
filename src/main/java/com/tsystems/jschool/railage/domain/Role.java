@@ -5,5 +5,5 @@ package com.tsystems.jschool.railage.domain;
  */
 public enum Role {
 
-    EMPLOYEE, CLIENT;
+    ROLE_EMPLOYEE, ROLE_CLIENT;
 }

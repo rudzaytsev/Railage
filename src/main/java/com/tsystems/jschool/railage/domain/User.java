@@ -1,8 +1,7 @@
 package com.tsystems.jschool.railage.domain;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 
 /**
@@ -14,12 +13,14 @@ import javax.persistence.Table;
 public class User extends DomainObject {
 
     /** user login */
+    @Column(name = "username")
     private String login;
 
     /** user password */
     private String password;
 
     /** user role */
+    @Column(name = "authority")
     private String role;
 
     public User(){

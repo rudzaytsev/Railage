@@ -72,7 +72,7 @@ public class Utils {
 
 
     public static boolean isEmployee(String role){
-        return Role.EMPLOYEE.toString().equals(role);
+        return Role.ROLE_EMPLOYEE.toString().equals(role);
     }
 
     public static Integer extractId(String uri){

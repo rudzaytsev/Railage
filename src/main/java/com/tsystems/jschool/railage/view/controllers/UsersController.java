@@ -104,12 +104,15 @@ public class UsersController {
     }
 
 
+    /*
     @RequestMapping(value="/logout", method = RequestMethod.GET)
     public String logOut(HttpSession session, Model model){
 
         session.invalidate();
-        return Pages.INDEX;
+        //return Pages.INDEX;
+        return "redirect:/";
     }
+    */
 
     @RequestMapping(value="/error403", method = RequestMethod.GET)
     public String error403(){
