@@ -30,8 +30,15 @@ public class UsersController {
     @Autowired
     ControllersUtils controllersUtils;
 
-    @RequestMapping(value = "/",method = RequestMethod.GET)
+    @RequestMapping(value = {"/"},method = RequestMethod.GET)
     public String welcome(){
+
+        return Pages.INDEX;
+    }
+
+    @RequestMapping(value = "/auth/error", method = RequestMethod.GET)
+    public String showError(Model model){
+        controllersUtils.addErrorMessage(model,"Invalid user login or password");
 
         return Pages.INDEX;
     }
@@ -103,16 +110,6 @@ public class UsersController {
         return Pages.TRAINS;
     }
 
-
-    /*
-    @RequestMapping(value="/logout", method = RequestMethod.GET)
-    public String logOut(HttpSession session, Model model){
-
-        session.invalidate();
-        //return Pages.INDEX;
-        return "redirect:/";
-    }
-    */
 
     @RequestMapping(value="/error403", method = RequestMethod.GET)
     public String error403(){

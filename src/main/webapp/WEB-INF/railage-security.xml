@@ -40,7 +40,7 @@
                 password-parameter="j_password"
                 default-target-url="/login"
                 login-processing-url="/j_spring_security_check"
-                authentication-failure-url="/login?login_error=true"/>
+                authentication-failure-url="/auth/error"/>
         <security:logout logout-url="/j_spring_security_logout" logout-success-url="/"/>
 
     </security:http>
