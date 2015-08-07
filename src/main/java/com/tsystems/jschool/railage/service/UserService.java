@@ -6,6 +6,12 @@ import com.tsystems.jschool.railage.domain.User;
 import com.tsystems.jschool.railage.service.exceptions.DomainObjectAlreadyExistsException;
 import com.tsystems.jschool.railage.service.exceptions.InvalidUserDataException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,11 +26,28 @@ public class UserService {
     @Autowired
     private UserDao userDao;
 
+    @Autowired
+    @Qualifier("authManager")
+    AuthenticationManager authManager;
+
 
     public User findUser(String login, String password){
         User user;
         user = userDao.findUserByParams(login,password);
         return user;
+    }
+
+    public boolean authRegisteredUser(User user){
+        try {
+            Authentication request = new UsernamePasswordAuthenticationToken(
+                    user.getLogin(), user.getPassword());
+            Authentication result = authManager.authenticate(request);
+            SecurityContextHolder.getContext().setAuthentication(result);
+
+        } catch(AuthenticationException e) {
+            return false;
+        }
+        return true;
     }
 
 

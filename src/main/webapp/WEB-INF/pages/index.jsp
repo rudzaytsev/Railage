@@ -2,6 +2,7 @@
 <%@ page isELIgnored="false" session="true" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -38,11 +39,13 @@
                 <input class="btn btn-lg btn-primary btn-block" type="submit" value="Login" >
             </form>
             </div>
-            <div id="registerformdiv">
-            <form:form id="registerform" class="form-signin" action="/railage/registration" method="get">
-                    <input type="submit" class="btn btn-lg btn-primary btn-block" value="Register" >
-            </form:form>
-            </div>
+            <sec:authorize access="isAnonymous()">
+                <div id="registerformdiv">
+                <form:form id="registerform" class="form-signin" action="/railage/registration" method="get">
+                        <input type="submit" class="btn btn-lg btn-primary btn-block" value="Register" >
+                </form:form>
+                </div>
+            </sec:authorize>
         </div>
     </body>
 </html>
