@@ -31,6 +31,9 @@
         <security:intercept-url pattern="/stations/**" access="hasAnyRole('ROLE_EMPLOYEE','ROLE_CLIENT')"/>
         <security:intercept-url pattern="/passengers/**" access="hasAnyRole('ROLE_EMPLOYEE','ROLE_CLIENT')"/>
         <security:intercept-url pattern="/add/**" access="hasRole('ROLE_EMPLOYEE')"/>
+
+        <security:csrf disabled="true"/>
+        <security:intercept-url pattern="/ajax/**" access="hasAnyRole('ROLE_EMPLOYEE','ROLE_CLIENT')"/>
         <!-- access denied page -->
         <security:access-denied-handler error-page="/error403" />
 
@@ -41,7 +44,8 @@
                 default-target-url="/login"
                 login-processing-url="/j_spring_security_check"
                 authentication-failure-url="/auth/error"/>
-        <security:logout logout-url="/j_spring_security_logout" logout-success-url="/"/>
+        <security:logout invalidate-session="true" logout-url="/j_spring_security_logout"
+                         logout-success-url="/"/>
 
     </security:http>
 
