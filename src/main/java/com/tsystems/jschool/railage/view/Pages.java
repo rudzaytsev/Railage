@@ -29,4 +29,6 @@ public class Pages {
 
     public static final String ERROR_403 = "error_403";
 
+    public static final String ERROR_404 = "error_404";
+
 }
