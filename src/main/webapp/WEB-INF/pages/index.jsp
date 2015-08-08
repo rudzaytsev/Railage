@@ -25,15 +25,15 @@
             </c:if>
             <div id="login_form_div">
             <form id="loginform" class="form-signin"
-                  action="<c:url value="/j_spring_security_check"/>" method="post">
+                  action="<c:url value="/"/>" method="post">
 
                 <h2 class="form-signin-heading">Please log in</h2>
                 <label for="inputLogin" class="sr-only">Login</label>
                 <input type="text" id="inputLogin" class="form-control"
-                       name="j_username" placeholder="Login" required autofocus  />
+                       name="login" placeholder="Login" required autofocus  />
                 <label for="inputPassword" class="sr-only">Password</label>
                 <input type="password" id="inputPassword" class="form-control"
-                       name="j_password" placeholder="Password" required autofocus  />
+                       name="password" placeholder="Password" required autofocus  />
                 <input type="hidden" name="${_csrf.parameterName}"
                        value="${_csrf.token}" />
                 <input class="btn btn-lg btn-primary btn-block" type="submit" value="Login" >

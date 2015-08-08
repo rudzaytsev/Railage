@@ -3,6 +3,8 @@ package com.tsystems.jschool.railage.domain;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
 
 /**
  * Represents user of information system
@@ -18,6 +20,9 @@ public class User extends DomainObject {
 
     /** user password */
     private String password;
+
+    @Transient
+    private String plainPassword;
 
     /** user role */
     @Column(name = "authority")
@@ -59,5 +64,13 @@ public class User extends DomainObject {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public String getPlainPassword() {
+        return plainPassword;
+    }
+
+    public void setPlainPassword(String plainPassword) {
+        this.plainPassword = plainPassword;
     }
 }

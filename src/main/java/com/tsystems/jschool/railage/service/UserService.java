@@ -12,6 +12,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,6 +31,10 @@ public class UserService {
     @Qualifier("authManager")
     AuthenticationManager authManager;
 
+    @Autowired
+    //@Qualifier("encoder")
+    PasswordEncoder passwordEncoder;
+
 
     public User findUser(String login, String password){
         User user;
@@ -40,7 +45,8 @@ public class UserService {
     public boolean authRegisteredUser(User user){
         try {
             Authentication request = new UsernamePasswordAuthenticationToken(
-                    user.getLogin(), user.getPassword());
+                    user.getLogin(), user.getPlainPassword());
+
             Authentication result = authManager.authenticate(request);
             SecurityContextHolder.getContext().setAuthentication(result);
 
@@ -87,23 +93,31 @@ public class UserService {
 
     @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
     public void addUser(User user){
+        hashUserPassword(user);
         userDao.persist(user);
     }
 
     @Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
-    public Integer createUser(User user) throws DomainObjectAlreadyExistsException {
+    public void createUser(User user) throws DomainObjectAlreadyExistsException {
         User existedUser = userDao.findUserByLogin(user.getLogin());
         if (existedUser != null){
             throw new DomainObjectAlreadyExistsException(
                     "User with each login already exists"
             );
         }
-        Integer id = null;
+
         addUser(user);
-        User createdUser = userDao.findUserByParams(
-                                user.getLogin(),user.getPassword());
-        id = createdUser.getId();
-        return id;
+
+    }
+
+    public void hashUserPassword(User user){
+        user.setPlainPassword(user.getPassword());
+        String hashedPassword = passwordEncoder.encode(user.getPassword());
+        user.setPassword(hashedPassword);
+    }
+
+    public User findUserByLogin(String login){
+        return userDao.findUserByLogin(login);
     }
 
 }
