@@ -73,6 +73,7 @@
                             <td>"${destStation.name}" time</td>
                         </c:if>
                         <td> RideDate </td>
+                        <td> Price $ </td>
                         <sec:authorize access="!hasRole('ROLE_EMPLOYEE')">
                             <td> Ticket </td>
                         </sec:authorize>
@@ -92,6 +93,7 @@
                                 <td> ${ride.route.getTimeInfoByStationId(requestScope.get("destStation").id).departureTime} </td>
                             </c:if>
                             <td>${ride.date}</td>
+                            <td>${ride.price}</td>
                             <sec:authorize access="!hasRole('ROLE_EMPLOYEE')">
                                 <td><button id="buy_button_${ride.id}" onclick="showBuyTicketForm(this)" class="btn btn-success">Buy</button></td>
                             </sec:authorize>
