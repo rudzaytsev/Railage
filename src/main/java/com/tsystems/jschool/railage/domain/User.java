@@ -28,6 +28,9 @@ public class User extends DomainObject {
     @Column(name = "authority")
     private String role;
 
+    /** user money balance in $ **/
+    private Integer balance;
+
     public User(){
         // does nothing
     }
@@ -72,5 +75,13 @@ public class User extends DomainObject {
 
     public void setPlainPassword(String plainPassword) {
         this.plainPassword = plainPassword;
+    }
+
+    public Integer getBalance() {
+        return balance;
+    }
+
+    public void setBalance(Integer balance) {
+        this.balance = balance;
     }
 }

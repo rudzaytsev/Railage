@@ -31,6 +31,9 @@ public class TrainRide extends DomainObject {
     @Column(name = "rideDate")
     private Date date;
 
+    /** ride's price in $ **/
+    private Integer price;
+
     public TrainRide(){
         //does nothing
     }
@@ -73,6 +76,14 @@ public class TrainRide extends DomainObject {
         this.date = date;
     }
 
+    public Integer getPrice() {
+        return price;
+    }
+
+    public void setPrice(Integer price) {
+        this.price = price;
+    }
+
     @Override
     public String toString() {
         return "TrainRide{" +
@@ -80,6 +91,7 @@ public class TrainRide extends DomainObject {
                 ", tickets=" + tickets +
                 ", route=" + route +
                 ", date=" + date +
+                ", price=" + price +
                 '}';
     }
 }

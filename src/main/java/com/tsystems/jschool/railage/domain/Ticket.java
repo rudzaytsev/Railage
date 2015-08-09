@@ -31,6 +31,11 @@ public class Ticket extends DomainObject {
     @JoinColumn(name = "boardingStationId")
     private Station boardingStation;
 
+    /**
+     * payment for ticket in $
+     */
+    private Integer payment;
+
     public Ticket() {
         //does nothing
     }
@@ -63,5 +68,13 @@ public class Ticket extends DomainObject {
 
     public void setBoardingStation(Station boardingStation) {
         this.boardingStation = boardingStation;
+    }
+
+    public Integer getPayment() {
+        return payment;
+    }
+
+    public void setPayment(Integer payment) {
+        this.payment = payment;
     }
 }
