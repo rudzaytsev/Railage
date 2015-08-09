@@ -1,5 +1,6 @@
 package com.tsystems.jschool.railage.view.controllers;
 
+import com.tsystems.jschool.railage.domain.Station;
 import com.tsystems.jschool.railage.service.RouteService;
 import com.tsystems.jschool.railage.service.StationService;
 import com.tsystems.jschool.railage.service.TrainService;
@@ -8,6 +9,8 @@ import com.tsystems.jschool.railage.view.controllers.helpers.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
+
+import java.util.List;
 
 /**
  * Created by rudolph on 28.07.15.
@@ -23,6 +26,20 @@ public class ControllersUtils {
 
     @Autowired
     RouteService routeService;
+
+    public final void addRidesFormsData2Model(Model model){
+
+        List<Station> stations = stationService.findAllStations();
+
+        model.addAttribute(Utils.IS_SEARCH_RESULT, false);
+        model.addAttribute(Utils.STATIONS, stations);
+        model.addAttribute(Utils.ROUTES, routeService.findAllRoutes());
+        model.addAttribute(Utils.HAS_CURRENT_TRAIN, false);
+    }
+
+    public final void addRides2Model(Model model){
+        model.addAttribute(Utils.TRAIN_RIDES,trainService.findAllTrainRides());
+    }
 
     public final void addTrains2Model(Model model){
         model.addAttribute(Utils.TRAINS,trainService.findAllTrains());

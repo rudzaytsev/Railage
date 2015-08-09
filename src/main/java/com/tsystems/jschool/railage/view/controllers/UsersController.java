@@ -1,11 +1,14 @@
 package com.tsystems.jschool.railage.view.controllers;
 
+import com.tsystems.jschool.railage.domain.Period;
 import com.tsystems.jschool.railage.domain.User;
 import com.tsystems.jschool.railage.service.TrainService;
 import com.tsystems.jschool.railage.service.UserService;
 import com.tsystems.jschool.railage.service.exceptions.DomainObjectAlreadyExistsException;
 import com.tsystems.jschool.railage.service.exceptions.InvalidUserDataException;
 import com.tsystems.jschool.railage.view.Pages;
+import com.tsystems.jschool.railage.view.Utils;
+import com.tsystems.jschool.railage.view.controllers.helpers.DepositMoneyFormParams;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpSession;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Created by rudolph on 25.07.15.
@@ -83,6 +88,46 @@ public class UsersController {
 
     private boolean authRegisteredUser(User user){
         return userService.authRegisteredUser(user);
+    }
+
+    @RequestMapping(value = "/deposit/money", method = RequestMethod.POST)
+    public String depositMoney(DepositMoneyFormParams params,Model model){
+
+        String lastViewName = params.getLastViewName();
+        return this.selectView(lastViewName,model);
+    }
+
+    private String selectView(String lastViewName,Model model){
+        List<String> contextDependPages = Arrays.asList(
+                Pages.RIDES,Pages.PASSENGERS,Pages.TIMETABLE);
+
+        if(lastViewName == null || contextDependPages.contains(lastViewName)){
+            controllersUtils.addRides2Model(model);
+            controllersUtils.addRidesFormsData2Model(model);
+            controllersUtils.addRidesFormGroup(model);
+            return Pages.RIDES;
+        }
+        else if(lastViewName.equals(Pages.STATIONS)){
+            controllersUtils.addStations2Model(model);
+            return Pages.STATIONS;
+        }
+        else if(lastViewName.equals(Pages.ROUTE_BULDER)){
+            controllersUtils.addStations2Model(model);
+            controllersUtils.addTrains2Model(model);
+            model.addAttribute(Utils.PERIODS, Period.getPeriodsAsList());
+            controllersUtils.addRoutesFormGroup(model);
+            return Pages.ROUTE_BULDER;
+        }
+        else if(lastViewName.equals(Pages.TRAINS)){
+            controllersUtils.addTrains2Model(model);
+            controllersUtils.addTrainAdditionFormParams(model);
+            return Pages.TRAINS;
+        }
+        else if(lastViewName.equals(Pages.ROUTES)){
+            controllersUtils.addRoutes2Model(model);
+            return Pages.ROUTES;
+        }
+        return lastViewName;
     }
 
 

@@ -12,6 +12,9 @@
 
     <context:component-scan base-package="com.tsystems.jschool.railage.view.controllers"/>
 
+    <mvc:interceptors>
+        <bean class="com.tsystems.jschool.railage.view.controllers.interceptors.ViewInfoAddingHandlerInterceptor" />
+    </mvc:interceptors>
 
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>

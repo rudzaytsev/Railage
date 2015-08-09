@@ -70,6 +70,10 @@ public class Utils {
 
     public static final String BUY_TICKET_FORM_PARAMS = "buyTicketFormParams";
 
+    public static final String DEPOSIT_MONEY_FORM_PARAMS = "depositMoneyFormParams";
+
+    public static final String SPRING_VIEW_NAME = "springViewName";
+
 
     public static boolean isEmployee(String role){
         return Role.ROLE_EMPLOYEE.toString().equals(role);
