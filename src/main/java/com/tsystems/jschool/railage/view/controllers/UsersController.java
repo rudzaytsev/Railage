@@ -2,10 +2,10 @@ package com.tsystems.jschool.railage.view.controllers;
 
 import com.tsystems.jschool.railage.domain.Period;
 import com.tsystems.jschool.railage.domain.User;
+import com.tsystems.jschool.railage.security.UserAdapter;
 import com.tsystems.jschool.railage.service.TrainService;
 import com.tsystems.jschool.railage.service.UserService;
-import com.tsystems.jschool.railage.service.exceptions.DomainObjectAlreadyExistsException;
-import com.tsystems.jschool.railage.service.exceptions.InvalidUserDataException;
+import com.tsystems.jschool.railage.service.exceptions.*;
 import com.tsystems.jschool.railage.view.Pages;
 import com.tsystems.jschool.railage.view.Utils;
 import com.tsystems.jschool.railage.view.controllers.helpers.DepositMoneyFormParams;
@@ -94,8 +94,22 @@ public class UsersController {
     public String depositMoney(DepositMoneyFormParams params,Model model){
 
         String lastViewName = params.getLastViewName();
+        Integer moneyAmount = Integer.parseInt(params.getSelectedAmount());
+        UserAdapter userAdapter = userService.getPrincipal();
+        try {
+            userService.depositMoney(userAdapter.getLogin(), moneyAmount);
+            controllersUtils.addSuccessMessage(model, "Balance increased!");
+        }
+        catch (UserNotFoundException | InvalidUserRoleException |
+               OverflowWhileAdditionException e ) {
+            controllersUtils.addErrorMessage(model,e.getMessage());
+        }
+
+
         return this.selectView(lastViewName,model);
     }
+
+
 
     private String selectView(String lastViewName,Model model){
         List<String> contextDependPages = Arrays.asList(

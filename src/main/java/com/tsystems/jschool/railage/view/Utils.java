@@ -1,6 +1,7 @@
 package com.tsystems.jschool.railage.view;
 
 import com.tsystems.jschool.railage.domain.Role;
+import com.tsystems.jschool.railage.service.exceptions.OverflowWhileAdditionException;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -132,6 +133,21 @@ public class Utils {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         dateFormat.setLenient(false);
         return  dateFormat.parse(dateStr);
+    }
+
+    public static int addWithOverflowCheck(int a, int b) throws OverflowWhileAdditionException {
+        // the cast of a is required, to make the + work with long precision,
+        // if we just added (a + b) the addition would use int precision and
+        // the result would be cast to long afterwards!
+        long result = ((long) a) + b;
+        if (result > Integer.MAX_VALUE) {
+            throw new OverflowWhileAdditionException("Overflow occured");
+        } else if (result < Integer.MIN_VALUE) {
+            throw new OverflowWhileAdditionException("Underflow occured");
+        }
+        // at this point we can safely cast back to int, we checked before
+        // that the value will be withing int's limits
+        return (int) result;
     }
 
 

@@ -3,8 +3,9 @@ package com.tsystems.jschool.railage.service;
 import com.tsystems.jschool.railage.datasource.UserDao;
 import com.tsystems.jschool.railage.domain.Role;
 import com.tsystems.jschool.railage.domain.User;
-import com.tsystems.jschool.railage.service.exceptions.DomainObjectAlreadyExistsException;
-import com.tsystems.jschool.railage.service.exceptions.InvalidUserDataException;
+import com.tsystems.jschool.railage.security.UserAdapter;
+import com.tsystems.jschool.railage.service.exceptions.*;
+import com.tsystems.jschool.railage.view.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -118,6 +119,28 @@ public class UserService {
 
     public User findUserByLogin(String login){
         return userDao.findUserByLogin(login);
+    }
+
+    @Transactional(readOnly = false,propagation = Propagation.REQUIRES_NEW, rollbackFor = RuntimeException.class)
+    public void depositMoney(String login, Integer moneyAmount) throws UserNotFoundException, InvalidUserRoleException, OverflowWhileAdditionException {
+        User user = this.findUserByLogin(login);
+        if(user == null){
+            throw new UserNotFoundException("User with login" + login + " doesnt exist");
+        }
+        else if(!user.getRole().equals(Role.ROLE_CLIENT.toString())){
+            throw new InvalidUserRoleException("Only Clients may deposit money");
+        }
+        Utils.addWithOverflowCheck(user.getBalance().intValue(),
+                                   moneyAmount.intValue());
+
+        user.setBalance(user.getBalance() + moneyAmount);
+        userDao.merge(user);
+        UserAdapter springSecurityUserAdapter = this.getPrincipal();
+        springSecurityUserAdapter.setBalance(user.getBalance());
+    }
+
+    public UserAdapter getPrincipal(){
+        return (UserAdapter) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     }
 
 }

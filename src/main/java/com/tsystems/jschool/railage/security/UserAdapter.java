@@ -25,4 +25,8 @@ public class UserAdapter extends User {
     public void setBalance(Integer balance) {
         this.balance = balance;
     }
+
+    public String getLogin(){
+        return this.getUsername();
+    }
 }
