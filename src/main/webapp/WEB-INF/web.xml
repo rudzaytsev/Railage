@@ -25,55 +25,6 @@
 
     </error-page>
 
-    <!--
-    <filter>
-          <filter-name>AccessFilter</filter-name>
-          <filter-class>com.tsystems.jschool.railage.view.filters.AccessFilter</filter-class>
-    </filter>
-      <filter>
-          <filter-name>CleaningSessionAttributesFilter</filter-name>
-          <filter-class>com.tsystems.jschool.railage.view.filters.CleaningSessionAttributesFilter</filter-class>
-      </filter>
-
-    <servlet>
-          <servlet-name>AjaxServlet</servlet-name>
-          <servlet-class>com.tsystems.jschool.railage.view.servlets.AjaxServlet</servlet-class>
-    </servlet>
-    <servlet>
-          <servlet-name>TicketServlet</servlet-name>
-          <servlet-class>com.tsystems.jschool.railage.view.servlets.TicketServlet</servlet-class>
-    </servlet>
-
-
-    <servlet-mapping>
-        <servlet-name>TicketServlet</servlet-name>
-        <url-pattern>/railage/buy/ticket</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>AjaxServlet</servlet-name>
-        <url-pattern>/railage/ajax/*</url-pattern>
-    </servlet-mapping>
-    <filter-mapping>
-        <filter-name>AccessFilter</filter-name>
-        <url-pattern>/railage/trains.jsp</url-pattern>
-        <url-pattern>/railage/passengers.jsp</url-pattern>
-        <url-pattern>/railage/rides.jsp</url-pattern>
-        <url-pattern>/railage/stations.jsp</url-pattern>
-        <url-pattern>/railage/routes.jsp</url-pattern>
-        <url-pattern>/railage/route_builder.jsp</url-pattern>
-        <url-pattern>/railage/timetable.jsp</url-pattern>
-    </filter-mapping>
-    <filter-mapping>
-      <filter-name>CleaningSessionAttributesFilter</filter-name>
-      <url-pattern>/railage/add/*</url-pattern>
-      <url-pattern>/railage/trains/*</url-pattern>
-      <url-pattern>/railage/rides/*</url-pattern>
-      <url-pattern>/railage/routes/*</url-pattern>
-      <url-pattern>/railage/stations/*</url-pattern>
-      <url-pattern>/railage/index.jsp</url-pattern>
-      <url-pattern>/railage/register.jsp</url-pattern>
-    </filter-mapping>
-    -->
 
     <servlet>
         <servlet-name>railage</servlet-name>
