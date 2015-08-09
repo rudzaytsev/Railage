@@ -30,6 +30,10 @@
             <ul class="nav navbar-nav">
                 <sec:authentication property="principal.username" var="login" scope="session"/>
                 <li><a href="#">Signed as ${login}</a></li>
+                <sec:authorize access="hasRole('ROLE_CLIENT')">
+                    <sec:authentication property="principal.balance" var="balance" scope="request"/>
+                    <li><a href="#">Balance : ${balance}</a> </li>
+                </sec:authorize>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="/railage/trains/all">Trains</a></li>

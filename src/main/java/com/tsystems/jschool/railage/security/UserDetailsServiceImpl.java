@@ -40,8 +40,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             throw new UsernameNotFoundException(
                     "Username " + login + " has no authorities");
         }
-        return new org.springframework.security.core.userdetails.User(
-                appUser.getLogin(),appUser.getPassword(),getGrantedAuthorities(appUser));
+        return new UserAdapter(appUser.getLogin(),appUser.getPassword(),
+                            getGrantedAuthorities(appUser),appUser.getBalance());
     }
 
     private List<GrantedAuthority> getGrantedAuthorities(User user){
