@@ -1,16 +1,12 @@
 package com.tsystems.jschool.railage.service;
 
-import com.tsystems.jschool.railage.datasource.PassengerDao;
-import com.tsystems.jschool.railage.datasource.StationDao;
-import com.tsystems.jschool.railage.datasource.TicketDao;
-import com.tsystems.jschool.railage.datasource.TrainRideDao;
+import com.tsystems.jschool.railage.datasource.*;
 import com.tsystems.jschool.railage.domain.*;
-import com.tsystems.jschool.railage.service.exceptions.BookingTimeLimitIsOverException;
-import com.tsystems.jschool.railage.service.exceptions.InvalidBoardingStationInRouteException;
-import com.tsystems.jschool.railage.service.exceptions.NoFreeSeatsForRideException;
-import com.tsystems.jschool.railage.service.exceptions.PassengerAlreadyBookedTicketOnRideException;
+import com.tsystems.jschool.railage.security.UserAdapter;
+import com.tsystems.jschool.railage.service.exceptions.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.text.ParseException;
@@ -37,8 +33,13 @@ public class TicketService {
     @Autowired
     private StationDao stationDao;
 
-    public void buyTicket(Integer trainRideId, Integer boardingStationId, Passenger passenger)
-            throws NoFreeSeatsForRideException, PassengerAlreadyBookedTicketOnRideException, BookingTimeLimitIsOverException, ParseException, InvalidBoardingStationInRouteException {
+    @Autowired
+    private UserDao userDao;
+
+    @Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW,
+            rollbackFor = {RuntimeException.class, Exception.class, })
+    public void buyTicket(Integer trainRideId, Integer boardingStationId, Passenger passenger, UserAdapter userAdapter)
+            throws NoFreeSeatsForRideException, PassengerAlreadyBookedTicketOnRideException, BookingTimeLimitIsOverException, ParseException, InvalidBoardingStationInRouteException, InvalidWithdrawException {
 
         TrainRide ride = trainRideDao.findById(trainRideId);
         long freeSeats = ride.getTrain().getSeats().longValue();
@@ -64,11 +65,24 @@ public class TicketService {
                             " Time before train departure is less than 10 minutes"
             );
         }
+        Integer payment = this.withdraw(userAdapter,ride.getPrice());
 
         Station boardingStation = stationDao.findById(boardingStationId);
 
-        Ticket ticket = new Ticket(passenger,ride,boardingStation);
+        Ticket ticket = new Ticket(passenger,ride,boardingStation,payment);
         ticketDao.merge(ticket);
+    }
+
+    private Integer withdraw(UserAdapter adapter,Integer price) throws InvalidWithdrawException {
+       User user = userDao.findUserByLogin( adapter.getLogin());
+       Integer balance = user.getBalance();
+       if(balance < price){
+           throw new InvalidWithdrawException(
+                   " User balance should be greater or equal than ride price! ");
+       }
+       user.setBalance(user.getBalance() - price);
+       adapter.setBalance(user.getBalance());
+       return price;
     }
 
     private long getRideTimeOnBoardingStation(TrainRide ride, Integer boardingStationId) throws ParseException, InvalidBoardingStationInRouteException {

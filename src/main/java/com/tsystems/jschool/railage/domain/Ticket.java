@@ -36,8 +36,13 @@ public class Ticket extends DomainObject {
      */
     private Integer payment;
 
-    public Ticket() {
+    public Ticket(){
         //does nothing
+    }
+
+    public Ticket(Passenger passenger, TrainRide ride, Station boardingStation, Integer payment) {
+       this(passenger,ride,boardingStation);
+       this.payment = payment;
     }
 
     public Ticket(Passenger passenger, TrainRide trainRide, Station boardingStation) {

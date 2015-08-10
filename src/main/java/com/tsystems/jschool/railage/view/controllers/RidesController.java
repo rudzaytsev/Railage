@@ -2,6 +2,7 @@ package com.tsystems.jschool.railage.view.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tsystems.jschool.railage.domain.*;
+import com.tsystems.jschool.railage.security.UserAdapter;
 import com.tsystems.jschool.railage.service.*;
 import com.tsystems.jschool.railage.service.exceptions.*;
 import com.tsystems.jschool.railage.view.Pages;
@@ -46,6 +47,8 @@ public class RidesController {
     @Autowired
     TicketService ticketService;
 
+    @Autowired
+    UserService userService;
 
     @Autowired
     ControllersUtils controllersUtils;
@@ -217,16 +220,19 @@ public class RidesController {
                     params.getPassengerLastName(),
                     params.getPassengerBirthDate());
 
-            ticketService.buyTicket(rideId, boardingStationId, passenger);
+            UserAdapter userAdapter = userService.getPrincipal();
+
+            ticketService.buyTicket(rideId, boardingStationId, passenger,userAdapter);
             controllersUtils.addSuccessMessage(model,"Ticket was bought!");
 
         }
         catch (java.text.ParseException | NoFreeSeatsForRideException |
                 PassengerAlreadyBookedTicketOnRideException |
                 BookingTimeLimitIsOverException |
+                InvalidWithdrawException |
                 InvalidBoardingStationInRouteException e) {
 
-            controllersUtils.addErrorMessage(model,e.getMessage());
+            controllersUtils.addErrorMessage(model, e.getMessage());
         }
 
         List<Passenger> passengers = passengerService.findPassengersByRideId(rideId);
