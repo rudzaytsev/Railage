@@ -44,6 +44,11 @@ public class TrainRide extends DomainObject {
         this.train = train;
     }
 
+    public TrainRide(Route route, Date date, Train train, Integer price) {
+        this(route,date,train);
+        this.price = price;
+    }
+
     public Train getTrain() {
         return train;
     }

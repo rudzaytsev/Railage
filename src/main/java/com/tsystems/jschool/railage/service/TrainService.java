@@ -95,13 +95,22 @@ public class TrainService {
     }
 
     @Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
-    public void addTrainRide(Integer routeId, String dateStr) throws ParseException, TimeTableConflictException {
+    public void addTrainRide(Integer routeId, String dateStr, String priceStr) throws ParseException, TimeTableConflictException, InvalidPriceException {
 
         Route route = routeDao.findById(routeId);
         Train train = route.getTrain();
         java.sql.Date date = this.validateDate(dateStr,route.getPeriod());
-        TrainRide ride = new TrainRide(route,date,train);
+        Integer price = this.validatePrice(priceStr);
+        TrainRide ride = new TrainRide(route,date,train,price);
         trainRideDao.merge(ride);
+    }
+
+    private Integer validatePrice(String priceStr) throws NumberFormatException, InvalidPriceException {
+        int price = Integer.parseInt(priceStr);
+        if(price <= 0 ){
+            throw new InvalidPriceException("Ride's price should be possitive");
+        }
+        return price;
     }
 
     private java.sql.Date validateDate(String dateStr, String period) throws ParseException, TimeTableConflictException {

@@ -8,6 +8,8 @@ public class AddRideFormParams {
     private String routeId;
     private String rideDate;
 
+    private String ridePrice;
+
     public String getRouteId() {
         return routeId;
     }
@@ -22,5 +24,13 @@ public class AddRideFormParams {
 
     public void setRideDate(String rideDate) {
         this.rideDate = rideDate;
+    }
+
+    public String getRidePrice() {
+        return ridePrice;
+    }
+
+    public void setRidePrice(String ridePrice) {
+        this.ridePrice = ridePrice;
     }
 }

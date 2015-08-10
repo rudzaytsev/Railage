@@ -171,15 +171,17 @@ public class RidesController {
 
         Integer routeId =  Integer.parseInt(params.getRouteId());
         String dateStr = params.getRideDate();
+        String priceStr = params.getRidePrice();
 
         try {
-            trainService.addTrainRide(routeId, dateStr);
+            trainService.addTrainRide(routeId, dateStr, priceStr);
         }
-        catch (java.text.ParseException | TimeTableConflictException e) {
-            controllersUtils.addErrorMessage(model,e.getMessage());
+        catch (java.text.ParseException | TimeTableConflictException |
+                InvalidPriceException | NumberFormatException e) {
+
+            controllersUtils.addErrorMessage(model, e.getMessage());
             return Pages.RIDES;
-        }
-        finally {
+        } finally {
             this.addAllRides(model);
             controllersUtils.addRidesFormGroup(model);
         }

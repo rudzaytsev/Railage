@@ -289,6 +289,8 @@
                         <label for="rideDate">Ride Date:</label>
                         <input id="rideDate" name="rideDate" type="date" class="form-control"/>
                         <span id="helpBlock" class="help-block"> Input date in format YYYY-MM-DD, where Y - year, M - Mounth, D - day  </span>
+                        <label for="ridePrice">Ride Price:</label>
+                        <input id="ridePrice" name="ridePrice" type="date" class="form-control"/>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
