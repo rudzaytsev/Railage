@@ -47,7 +47,7 @@ public class ReportsController {
 
     private ResponseMessage<Report> constructOkMessageForReportGetting(Report report){
         ResponseMessage<Report> message = new OkResponseMessage<>();
-        message.setCommand(GET_REPORT_COMMAND);
+        message.setResponseForCommand(GET_REPORT_COMMAND);
         message.setMessage("found report");
         message.setData(report);
         return message;
@@ -91,7 +91,7 @@ public class ReportsController {
     private ResponseMessage<String> constructErrorMessage(String msgText,String command){
 
         ResponseMessage<String> message = new OkResponseMessage<>();
-        message.setCommand(command);
+        message.setResponseForCommand(command);
         message.setMessage(msgText);
         message.setData(null);
         return message;
@@ -100,7 +100,7 @@ public class ReportsController {
     private ResponseMessage<String> constructOkMessageForReportCreation(Report report){
 
         ResponseMessage<String> message = new OkResponseMessage<>();
-        message.setCommand(CREATE_REPORT_COMMAND);
+        message.setResponseForCommand(CREATE_REPORT_COMMAND);
         message.setMessage("created");
         message.setData(constructUrl(report));
         return message;

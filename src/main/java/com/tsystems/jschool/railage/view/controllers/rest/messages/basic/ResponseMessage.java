@@ -5,9 +5,9 @@ package com.tsystems.jschool.railage.view.controllers.rest.messages.basic;
  */
 public interface ResponseMessage<T> {
 
-    public String getCommand();
+    public String getResponseForCommand();
 
-    public void setCommand(String command);
+    public void setResponseForCommand(String command);
 
     public String getMessage();
 

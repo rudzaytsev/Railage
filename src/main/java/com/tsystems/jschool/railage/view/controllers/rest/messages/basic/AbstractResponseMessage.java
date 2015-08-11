@@ -5,7 +5,7 @@ package com.tsystems.jschool.railage.view.controllers.rest.messages.basic;
  */
 public abstract class AbstractResponseMessage<T> implements ResponseMessage<T> {
 
-    protected String command;
+    protected String responseForCommand;
 
     protected String message;
 
@@ -14,13 +14,13 @@ public abstract class AbstractResponseMessage<T> implements ResponseMessage<T> {
     protected T data;
 
     @Override
-    public String getCommand() {
-        return command;
+    public String getResponseForCommand() {
+        return responseForCommand;
     }
 
     @Override
-    public void setCommand(String command) {
-        this.command = command;
+    public void setResponseForCommand(String command) {
+        this.responseForCommand = command;
     }
 
     @Override
