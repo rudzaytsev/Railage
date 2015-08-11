@@ -1,6 +1,6 @@
 package com.tsystems.jschool.railage.service;
 
-import com.tsystems.jschool.railage.datasource.TimeTableDao;
+import com.tsystems.jschool.railage.datasource.interfaces.TimeTableDao;
 import com.tsystems.jschool.railage.domain.TimeTableLine;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

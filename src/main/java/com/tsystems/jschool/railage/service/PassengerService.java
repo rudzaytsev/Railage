@@ -1,6 +1,6 @@
 package com.tsystems.jschool.railage.service;
 
-import com.tsystems.jschool.railage.datasource.PassengerDao;
+import com.tsystems.jschool.railage.datasource.interfaces.PassengerDao;
 import com.tsystems.jschool.railage.domain.Passenger;
 import com.tsystems.jschool.railage.view.Utils;
 import org.springframework.beans.factory.annotation.Autowired;

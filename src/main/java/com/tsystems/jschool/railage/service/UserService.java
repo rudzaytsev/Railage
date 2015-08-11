@@ -1,8 +1,8 @@
 package com.tsystems.jschool.railage.service;
 
-import com.tsystems.jschool.railage.datasource.UserDao;
-import com.tsystems.jschool.railage.domain.Role;
+import com.tsystems.jschool.railage.datasource.interfaces.UserDao;
 import com.tsystems.jschool.railage.domain.User;
+import com.tsystems.jschool.railage.domain.enums.Role;
 import com.tsystems.jschool.railage.security.UserAdapter;
 import com.tsystems.jschool.railage.service.exceptions.*;
 import com.tsystems.jschool.railage.view.Utils;

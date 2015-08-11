@@ -1,4 +1,4 @@
-package com.tsystems.jschool.railage.datasource;
+package com.tsystems.jschool.railage.datasource.interfaces;
 
 import com.tsystems.jschool.railage.domain.TrainRide;
 import com.tsystems.jschool.railage.view.controllers.helpers.TimeInterval;

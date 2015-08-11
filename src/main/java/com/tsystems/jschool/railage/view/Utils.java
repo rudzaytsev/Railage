@@ -1,6 +1,6 @@
 package com.tsystems.jschool.railage.view;
 
-import com.tsystems.jschool.railage.domain.Role;
+import com.tsystems.jschool.railage.domain.enums.Role;
 import com.tsystems.jschool.railage.service.exceptions.OverflowWhileAdditionException;
 
 import java.text.ParseException;

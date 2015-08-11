@@ -19,6 +19,8 @@
         <dispatcher>REQUEST</dispatcher>
         <dispatcher>FORWARD</dispatcher>
     </filter-mapping>
+
+
     <error-page>
         <error-code>404</error-code>
         <location>/error404</location>
@@ -46,6 +48,7 @@
             /WEB-INF/railage-servlet.xml
             /WEB-INF/spring-business-context.xml
             /WEB-INF/railage-security.xml
+            /WEB-INF/rest-servlet.xml
         </param-value>
     </context-param>
 

@@ -20,6 +20,7 @@
         <class>com.tsystems.jschool.railage.domain.TimeTableLine</class>
         <class>com.tsystems.jschool.railage.domain.TrainRide</class>
         <class>com.tsystems.jschool.railage.domain.Train</class>
+        <class>com.tsystems.jschool.railage.domain.Report</class>
         <exclude-unlisted-classes>true</exclude-unlisted-classes>
 
         <properties>

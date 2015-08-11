@@ -1,5 +1,7 @@
 package com.tsystems.jschool.railage.domain;
 
+import com.tsystems.jschool.railage.domain.enums.RoutePartStatuses;
+
 import javax.persistence.*;
 import java.util.List;
 

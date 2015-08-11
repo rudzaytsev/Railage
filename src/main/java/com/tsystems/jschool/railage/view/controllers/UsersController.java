@@ -1,7 +1,7 @@
 package com.tsystems.jschool.railage.view.controllers;
 
-import com.tsystems.jschool.railage.domain.Period;
 import com.tsystems.jschool.railage.domain.User;
+import com.tsystems.jschool.railage.domain.enums.Period;
 import com.tsystems.jschool.railage.security.UserAdapter;
 import com.tsystems.jschool.railage.service.TrainService;
 import com.tsystems.jschool.railage.service.UserService;

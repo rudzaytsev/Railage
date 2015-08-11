@@ -1,5 +1,6 @@
-package com.tsystems.jschool.railage.datasource;
+package com.tsystems.jschool.railage.datasource.impls;
 
+import com.tsystems.jschool.railage.datasource.interfaces.TrainRideDao;
 import com.tsystems.jschool.railage.domain.TrainRide;
 import com.tsystems.jschool.railage.view.controllers.helpers.TimeInterval;
 import org.springframework.stereotype.Repository;

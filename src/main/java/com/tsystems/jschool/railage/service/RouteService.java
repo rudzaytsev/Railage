@@ -1,9 +1,10 @@
 package com.tsystems.jschool.railage.service;
 
-import com.tsystems.jschool.railage.datasource.RouteDao;
-import com.tsystems.jschool.railage.datasource.StationDao;
-import com.tsystems.jschool.railage.datasource.TrainDao;
+import com.tsystems.jschool.railage.datasource.interfaces.RouteDao;
+import com.tsystems.jschool.railage.datasource.interfaces.StationDao;
+import com.tsystems.jschool.railage.datasource.interfaces.TrainDao;
 import com.tsystems.jschool.railage.domain.*;
+import com.tsystems.jschool.railage.domain.enums.RoutePartStatuses;
 import com.tsystems.jschool.railage.service.exceptions.DuplicatedStationsInRouteException;
 import com.tsystems.jschool.railage.service.exceptions.IncorrectStationsDepartureTimesOrderException;
 import com.tsystems.jschool.railage.service.exceptions.IncorrectTimeFormatException;
@@ -117,7 +118,7 @@ public class RouteService {
             RoutePart routePart;
             if (i == 0){
                 routePart = new RoutePart(
-                        stations.get(i),RoutePartStatuses.START.value(),i + 1);
+                        stations.get(i), RoutePartStatuses.START.value(),i + 1);
             }
             else if (i == last){
                 routePart = new RoutePart(

@@ -1,6 +1,6 @@
 package com.tsystems.jschool.railage.service;
 
-import com.tsystems.jschool.railage.datasource.StationDao;
+import com.tsystems.jschool.railage.datasource.interfaces.StationDao;
 import com.tsystems.jschool.railage.domain.Station;
 import com.tsystems.jschool.railage.service.exceptions.DomainObjectAlreadyExistsException;
 import com.tsystems.jschool.railage.service.exceptions.IncorrectParameterException;

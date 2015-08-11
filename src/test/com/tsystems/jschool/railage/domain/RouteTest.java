@@ -1,5 +1,6 @@
 package com.tsystems.jschool.railage.domain;
 
+import com.tsystems.jschool.railage.domain.enums.RoutePartStatuses;
 import org.junit.Before;
 import org.junit.Test;
 

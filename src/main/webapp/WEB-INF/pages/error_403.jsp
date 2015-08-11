@@ -58,7 +58,7 @@
 
 <div class="container">
 
-    <!-- Main component for a primary marketing message or call to action -->
+    <!-- Main component for a primary marketing messages or call to action -->
     <div class="jumbotron">
         <h1>Error 403</h1>
         <p>Access denied.</p>

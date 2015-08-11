@@ -1,4 +1,4 @@
-package com.tsystems.jschool.railage.domain;
+package com.tsystems.jschool.railage.domain.enums;
 
 import java.util.ArrayList;
 import java.util.List;

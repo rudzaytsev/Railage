@@ -1,9 +1,9 @@
 package com.tsystems.jschool.railage.view.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.tsystems.jschool.railage.domain.Period;
 import com.tsystems.jschool.railage.domain.Route;
 import com.tsystems.jschool.railage.domain.RoutePart;
+import com.tsystems.jschool.railage.domain.enums.Period;
 import com.tsystems.jschool.railage.service.RouteService;
 import com.tsystems.jschool.railage.service.StationService;
 import com.tsystems.jschool.railage.service.exceptions.DuplicatedStationsInRouteException;

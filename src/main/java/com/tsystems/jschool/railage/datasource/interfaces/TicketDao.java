@@ -1,7 +1,8 @@
-package com.tsystems.jschool.railage.datasource;
+package com.tsystems.jschool.railage.datasource.interfaces;
 
 import com.tsystems.jschool.railage.domain.Ticket;
 
+import java.sql.Date;
 import java.util.List;
 
 /**
@@ -18,4 +19,8 @@ public interface TicketDao extends Dao<Ticket, Integer> {
     List<Ticket> findAll();
 
     Long countTicketsByRide(Integer rideId);
+
+    Long countTotalTickets(Date fromDate, Date toDate);
+
+    Long calcTotalProfit(Date fromDate, Date toDate);
 }

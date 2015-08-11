@@ -1,5 +1,6 @@
-package com.tsystems.jschool.railage.datasource;
+package com.tsystems.jschool.railage.datasource.impls;
 
+import com.tsystems.jschool.railage.datasource.interfaces.PassengerDao;
 import com.tsystems.jschool.railage.domain.Passenger;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;

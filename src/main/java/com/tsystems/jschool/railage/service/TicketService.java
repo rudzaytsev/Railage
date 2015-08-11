@@ -1,6 +1,6 @@
 package com.tsystems.jschool.railage.service;
 
-import com.tsystems.jschool.railage.datasource.*;
+import com.tsystems.jschool.railage.datasource.interfaces.*;
 import com.tsystems.jschool.railage.domain.*;
 import com.tsystems.jschool.railage.security.UserAdapter;
 import com.tsystems.jschool.railage.service.exceptions.*;

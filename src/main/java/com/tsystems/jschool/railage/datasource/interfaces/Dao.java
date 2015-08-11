@@ -1,4 +1,4 @@
-package com.tsystems.jschool.railage.datasource;
+package com.tsystems.jschool.railage.datasource.interfaces;
 
 import java.io.Serializable;
 import java.util.List;

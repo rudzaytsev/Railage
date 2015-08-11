@@ -1,5 +1,6 @@
-package com.tsystems.jschool.railage.datasource;
+package com.tsystems.jschool.railage.datasource.impls;
 
+import com.tsystems.jschool.railage.datasource.interfaces.Dao;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -9,7 +10,7 @@ import javax.persistence.PersistenceContext;
  * Created by rudolph on 23.06.15.
  */
 @Repository
-public abstract class JpaDao<T> implements Dao<T, Integer>  {
+public abstract class JpaDao<T> implements Dao<T, Integer> {
 
 
     @PersistenceContext

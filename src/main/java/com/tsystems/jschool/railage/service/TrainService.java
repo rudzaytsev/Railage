@@ -1,12 +1,12 @@
 package com.tsystems.jschool.railage.service;
 
-import com.tsystems.jschool.railage.datasource.RouteDao;
-import com.tsystems.jschool.railage.datasource.TrainDao;
-import com.tsystems.jschool.railage.datasource.TrainRideDao;
-import com.tsystems.jschool.railage.domain.Period;
+import com.tsystems.jschool.railage.datasource.interfaces.RouteDao;
+import com.tsystems.jschool.railage.datasource.interfaces.TrainDao;
+import com.tsystems.jschool.railage.datasource.interfaces.TrainRideDao;
 import com.tsystems.jschool.railage.domain.Route;
 import com.tsystems.jschool.railage.domain.Train;
 import com.tsystems.jschool.railage.domain.TrainRide;
+import com.tsystems.jschool.railage.domain.enums.Period;
 import com.tsystems.jschool.railage.service.exceptions.*;
 import com.tsystems.jschool.railage.view.controllers.helpers.FindRidesFormParams;
 import com.tsystems.jschool.railage.view.controllers.helpers.TimeInterval;
