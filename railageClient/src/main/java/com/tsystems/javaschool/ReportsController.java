@@ -50,8 +50,11 @@ public class ReportsController implements Serializable {
         if(status == 200 || status == 201){
             Object res = response.getEntity();
             System.out.println("************[200]*************************");
-            System.out.println(res);
-            System.out.println("*************************************");
+
+            PostResponseData servRespData = response.readEntity(PostResponseData.class);
+            String url = servRespData.getData();
+            System.out.println("url = " + url);
+            ReportDTO rep = this.sendGetRequest(url);
         }
         else {
             Object res2 = response.getEntity();
@@ -62,5 +65,22 @@ public class ReportsController implements Serializable {
             System.out.println("*************************************");
         }
         return "show";
+    }
+
+    private ReportDTO sendGetRequest(String requestUrl){
+
+        Response response = ClientBuilder.newClient().
+                target(requestUrl).request().buildGet().invoke();
+
+        int status = response.getStatus();
+        if(status == 200){
+            GetResponseData responseData = response.readEntity(GetResponseData.class);
+            ReportDTO reportDTO = responseData.getData();
+            System.out.println("************[RESP ANSWER]***********************");
+            System.out.println(reportDTO);
+            System.out.println("***********************************");
+            return reportDTO;
+        }
+        return null;
     }
 }
