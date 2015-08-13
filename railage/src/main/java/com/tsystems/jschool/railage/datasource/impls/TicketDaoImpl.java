@@ -85,6 +85,6 @@ public class TicketDaoImpl extends JpaDao<Ticket> implements TicketDao {
         catch(NoResultException e){
             return 0l;
         }
-        return totalProfit;
+        return totalProfit == null ? 0l : totalProfit;
     }
 }

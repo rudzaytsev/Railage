@@ -7,6 +7,7 @@ import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 
 /**
  * Created by rudolph on 12.08.15.
@@ -31,8 +32,10 @@ public class ReportsController implements Serializable {
     public String createAndRetrieveReport(){
 
         PostRequestData postRequestData = new PostRequestData();
-        postRequestData.setFromDate(reportPeriod.getStartDate().toString());
-        postRequestData.setToDate(reportPeriod.getEndDate().toString());
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+        postRequestData.setFromDate(dateFormat.format(reportPeriod.getStartDate()));
+        postRequestData.setToDate(dateFormat.format(reportPeriod.getEndDate()));
         Entity<PostRequestData> jsonReqEntity = Entity.json(postRequestData);
 
 
