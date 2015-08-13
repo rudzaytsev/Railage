@@ -83,7 +83,7 @@ public class ReportsController {
                 .append(SITE_NAME)
                 .append(":")
                 .append(PORT)
-                .append("/railage/report/")
+                .append("/railage/reports/")
                 .append(report.getId())
                 .toString();
     }

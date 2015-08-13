@@ -1,7 +1,8 @@
 package com.tsystems.javaschool;
 
 import javax.inject.Named;
-import java.sql.Date;
+import java.util.Date;
+
 
 /**
  * Created by rudolph on 12.08.15.

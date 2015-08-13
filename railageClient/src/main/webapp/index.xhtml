@@ -28,18 +28,18 @@
 
             <h:panelGrid columns="3" columnClasses="titleCell">
                 <h:outputLabel for="startDate" value="Start Date:" />
-                <p:calendar id="startDate" value="#{reportsController.reportPeriod.startDate}" />
+                <p:calendar id="startDate" pattern="yyyy-MM-dd" value="#{reportsController.reportPeriod.startDate}" />
                 <h:message for="startDate" errorClass="invalid" />
 
                 <h:outputLabel for="endDate" value="End Date:" />
-                <p:calendar id="endDate" value="#{reportsController.reportPeriod.endDate}" />
+                <p:calendar id="endDate" pattern="yyyy-MM-dd" value="#{reportsController.reportPeriod.endDate}" />
                 <p:message for="endDate" errorClass="invalid" />
             </h:panelGrid>
 
             <p>
                 <h:panelGrid columns="2">
                     <p:commandButton id="register"
-                        action="show"
+                        action="#{reportsController.createAndRetrieveReport}"
                         value="Show Report" styleClass="register" icon="ui-icon-check" />
                     <p:messages styleClass="messages"
                         errorClass="invalid" infoClass="valid"
