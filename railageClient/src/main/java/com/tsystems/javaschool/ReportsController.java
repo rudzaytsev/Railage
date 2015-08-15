@@ -4,13 +4,10 @@ import com.itextpdf.text.DocumentException;
 import com.tsystems.javaschool.exceptions.ErrorResponseException;
 import com.tsystems.javaschool.utils.FacesUtils;
 
-import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
-import javax.faces.validator.BeanValidator;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
-import javax.validation.Validation;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.MediaType;
@@ -40,16 +37,6 @@ public class ReportsController implements Serializable {
     public void setReportPeriod(ReportPeriod reportPeriod) {
         this.reportPeriod = reportPeriod;
     }
-
-    public static final String BEANS_VALIDATION_AVAILABILITY_CACHE_KEY = "javax.faces.BEANS_VALIDATION_AVAILABLE";
-
-    @PostConstruct
-    private void init() {
-        FacesContext.getCurrentInstance().getExternalContext().getApplicationMap().remove(BEANS_VALIDATION_AVAILABILITY_CACHE_KEY);
-        FacesContext.getCurrentInstance().getExternalContext().getApplicationMap()
-                .put(BeanValidator.VALIDATOR_FACTORY_KEY, Validation.buildDefaultValidatorFactory());
-    }
-
 
     public String createAndRetrieveReport(){
 

@@ -9,6 +9,14 @@
     <ui:define name="content">
         <h1>View report for tickets</h1>
 
+        <h:panelGrid columns="1">
+        <p:commandButton id="gotoIndex"
+                         action="index"
+                         value="Main Page" styleClass="register" />
+
+
+        </h:panelGrid>
+
         <h:form id="reg">
             <c:choose>
               <c:when test="#{!isError}">
