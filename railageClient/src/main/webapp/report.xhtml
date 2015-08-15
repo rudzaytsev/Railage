@@ -12,7 +12,7 @@
         <h:form id="reg">
             <c:choose>
               <c:when test="#{!isError}">
-                  <p:media value="#{mediaController.mediaPdfReport}" width="700" height="500px"
+                  <p:media value="#{mediaController.mediaPdfReport}" cache="false" width="700" height="500px"
                            player="pdf"/>
               </c:when>
               <c:otherwise>

@@ -6,7 +6,7 @@ import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.inject.Named;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
@@ -16,7 +16,7 @@ import java.io.Serializable;
  * Created by rudolph on 14.08.15.
  */
 @Named
-@SessionScoped
+@ViewScoped
 public class MediaController implements Serializable {
 
     private StreamedContent mediaPdfReport;
@@ -37,6 +37,7 @@ public class MediaController implements Serializable {
        InputStream stream = new ByteArrayInputStream(reportAsBytes);
        mediaPdfReport = new DefaultStreamedContent(stream,"application/pdf");
     }
+
 
 
     public boolean isError() {
