@@ -7,7 +7,7 @@ public class GetResponseData {
 
     String responseForCommand;
     String message;
-    ReportDTO data;
+    ReportData data;
 
     public String getResponseForCommand() {
         return responseForCommand;
@@ -25,11 +25,11 @@ public class GetResponseData {
         this.message = message;
     }
 
-    public ReportDTO getData() {
+    public ReportData getData() {
         return data;
     }
 
-    public void setData(ReportDTO data) {
+    public void setData(ReportData data) {
         this.data = data;
     }
 }

@@ -3,7 +3,7 @@ package com.tsystems.javaschool;
 /**
  * Created by rudolph on 13.08.15.
  */
-public class ReportDTO {
+public class ReportData {
 
     private Integer id;
 
