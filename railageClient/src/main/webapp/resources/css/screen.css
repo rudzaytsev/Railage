@@ -126,6 +126,16 @@ input {
   margin-left: 250px;
 }
 
+.ui-messages-error {
+
+}
+
+.my-err-msg {
+    text-align: left;
+    font-size: 1.2em;
+    margin-left: 110px;
+}
+
 /*  -----  table style  -------  */
 
 

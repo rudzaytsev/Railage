@@ -4,8 +4,13 @@ import com.itextpdf.text.DocumentException;
 import com.tsystems.javaschool.exceptions.ErrorResponseException;
 import com.tsystems.javaschool.utils.FacesUtils;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.context.FacesContext;
+import javax.faces.validator.BeanValidator;
 import javax.inject.Named;
+import javax.servlet.http.HttpSession;
+import javax.validation.Validation;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.MediaType;
@@ -13,6 +18,7 @@ import javax.ws.rs.core.Response;
 import java.io.IOException;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * Created by rudolph on 12.08.15.
@@ -25,6 +31,8 @@ public class ReportsController implements Serializable {
 
     private ReportPeriod reportPeriod = new ReportPeriod();
 
+
+
     public ReportPeriod getReportPeriod() {
         return reportPeriod;
     }
@@ -33,10 +41,40 @@ public class ReportsController implements Serializable {
         this.reportPeriod = reportPeriod;
     }
 
+    public static final String BEANS_VALIDATION_AVAILABILITY_CACHE_KEY = "javax.faces.BEANS_VALIDATION_AVAILABLE";
+
+    @PostConstruct
+    private void init() {
+        FacesContext.getCurrentInstance().getExternalContext().getApplicationMap().remove(BEANS_VALIDATION_AVAILABILITY_CACHE_KEY);
+        FacesContext.getCurrentInstance().getExternalContext().getApplicationMap()
+                .put(BeanValidator.VALIDATOR_FACTORY_KEY, Validation.buildDefaultValidatorFactory());
+    }
+
+
     public String createAndRetrieveReport(){
 
         PostRequestData postRequestData = new PostRequestData();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date startDate = reportPeriod.getStartDate();
+        Date endDate = reportPeriod.getEndDate();
+        FacesContext context = FacesContext.getCurrentInstance();
+        if(startDate == null || endDate == null){
+            HttpSession session = (HttpSession) context.getExternalContext().getSession(true);
+            session.setAttribute("isError",true);
+            session.setAttribute("errorMsg","Please select Start and End Date!");
+            return "index";
+        }
+        if(startDate.after(endDate)){
+            HttpSession session = (HttpSession) context.getExternalContext().getSession(true);
+            session.setAttribute("isError",true);
+            session.setAttribute("errorMsg","Start Date should happens before End Date!");
+            return "index";
+        }
+        else {
+            HttpSession session = (HttpSession) context.getExternalContext().getSession(true);
+            session.setAttribute("isError",false);
+            session.setAttribute("errorMsg","");
+        }
 
         postRequestData.setFromDate(dateFormat.format(reportPeriod.getStartDate()));
         postRequestData.setToDate(dateFormat.format(reportPeriod.getEndDate()));
@@ -60,6 +98,9 @@ public class ReportsController implements Serializable {
             FacesUtils.setSessionMapValue(FacesUtils.REPORT_DATA,null);
             FacesUtils.setSessionMapValue(FacesUtils.IS_ERROR,true);
             FacesUtils.setSessionMapValue(FacesUtils.ERROR_MSG,e.getMessage());
+            HttpSession session = (HttpSession) context.getExternalContext().getSession(true);
+            session.setAttribute("isError",true);
+            session.setAttribute("errorMsg",e.getMessage());
             return "index";
         }
     }

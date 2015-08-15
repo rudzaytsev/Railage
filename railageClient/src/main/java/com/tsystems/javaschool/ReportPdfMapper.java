@@ -56,7 +56,7 @@ public class ReportPdfMapper {
 
         cells.add(new PdfPCell(new Paragraph("Start date",tableBodyFont)));
         cells.add(new PdfPCell(new Paragraph(report.getFromDate(),tableBodyFont)));
-        cells.add(new PdfPCell(new Paragraph("Finish date",tableBodyFont)));
+        cells.add(new PdfPCell(new Paragraph("End date",tableBodyFont)));
         cells.add(new PdfPCell(new Paragraph(report.getToDate(),tableBodyFont)));
         cells.add(new PdfPCell(new Paragraph("Sold Tickets",tableBodyFont)));
         cells.add(new PdfPCell(new Paragraph(report.getSoldTickets() + "",tableBodyFont)));
