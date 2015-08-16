@@ -97,13 +97,8 @@ public class ReportsController implements Serializable {
         int status = response.getStatus();
         boolean okStatus = (status == 200 || status == 201);
         if(!okStatus){
-            System.out.println("************[ERR]*************************");
-            System.out.println(status);
-            System.out.println(response.readEntity(String.class));
-            System.out.println("*************************************");
             throw new ErrorResponseException("Error response occurred for POST. Error code = " + status);
         }
-        System.out.println("************[200]*************************");
 
         PostResponseData servRespData = response.readEntity(PostResponseData.class);
         String url = servRespData.getData();
@@ -126,9 +121,6 @@ public class ReportsController implements Serializable {
         }
         GetResponseData responseData = response.readEntity(GetResponseData.class);
         ReportData reportData = responseData.getData();
-        System.out.println("************[RESP ANSWER]***********************");
-        System.out.println(reportData);
-        System.out.println("***********************************");
         return reportData;
 
     }
