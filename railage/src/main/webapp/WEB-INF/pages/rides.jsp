@@ -15,9 +15,12 @@
     <title>Train Rides</title>
     <link rel="stylesheet" href="<c:url value="/railage/resources/css/bootstrap.css"/>">
     <link rel="stylesheet" href="<c:url value="/railage/resources/css/dashboard.css"/>">
+    <link href="<c:url value="/railage/resources/css/bootstrap-datetimepicker.min.css"/>" rel="stylesheet">
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js" type="text/javascript"></script>
     <script src="<c:url value="/railage/resources/js/bootstrap.js"/>" type="text/javascript"></script>
     <script src="<c:url value="/railage/resources/js/show.js"/>" type="text/javascript"></script>
+    <script src="<c:url value="/railage/resources/js/moment.js"/>" type="text/javascript"></script>
+    <script src="<c:url value="/railage/resources/js/bootstrap-datetimepicker.min.js"/>" type="text/javascript"></script>
 </head>
 <body>
 
@@ -287,10 +290,20 @@
                         <div class="modal-body help-block" id="route_info">
                         </div>
                         <label for="rideDate">Ride Date:</label>
-                        <input id="rideDate" name="rideDate" type="date" class="form-control"/>
+                        <div class="form-group">
+                            <div class='input-group date' id='rideDatePicker'>
+                                <input type='text' name="rideDate" id="rideDate" class="form-control" />
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                            </div>
+                        </div>
+                        <!--
+                        <input id="rideDate" name="rideDate" type="date" placeholder="YYYY-MM-DD" class="form-control"/>
                         <span id="helpBlock" class="help-block"> Input date in format YYYY-MM-DD, where Y - year, M - Mounth, D - day  </span>
+                        -->
                         <label for="ridePrice">Ride Price:</label>
-                        <input id="ridePrice" name="ridePrice" type="date" class="form-control"/>
+                        <input id="ridePrice" name="ridePrice" class="form-control"/>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
@@ -300,6 +313,14 @@
             </div>
         </div>
     </div>
+
+    <script type="text/javascript">
+        $(function () {
+            $('#rideDatePicker').datetimepicker({
+                format : "YYYY-MM-DD"
+            });
+        });
+    </script>
 
     <script>
         $(document).on('click',"#addride", function(){
