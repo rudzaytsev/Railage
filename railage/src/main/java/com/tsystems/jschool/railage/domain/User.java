@@ -32,7 +32,7 @@ public class User extends DomainObject {
     private Integer balance;
 
     public User(){
-        // does nothing
+        balance = 0;
     }
 
     public User(String login, String password, String role) {
