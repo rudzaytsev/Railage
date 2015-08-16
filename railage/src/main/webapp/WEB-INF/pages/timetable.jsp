@@ -32,10 +32,10 @@
                     <table class="table table-striped">
                         <thead>
                         <tr>
-                            <td> Id </td>
-                            <td> Train </td>
-                            <td> Departure Time </td>
-                            <td> Time Period </td>
+                            <th> Id </th>
+                            <th> Train </th>
+                            <th> Departure Time </th>
+                            <th> Time Period </th>
                         </tr>
                         </thead>
                         <tbody>

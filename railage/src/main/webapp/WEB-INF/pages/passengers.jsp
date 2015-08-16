@@ -56,10 +56,10 @@
                     <table class="table table-striped">
                         <thead>
                         <tr>
-                            <td> Id </td>
-                            <td> Name </td>
-                            <td> Lastname </td>
-                            <td> Birth date </td>
+                            <th> Id </th>
+                            <th> Name </th>
+                            <th> Lastname </th>
+                            <th> Birth date </th>
                         </tr>
                         </thead>
                         <tbody>

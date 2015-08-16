@@ -49,11 +49,11 @@
                     <table class="table table-striped">
                         <thead>
                         <tr>
-                            <td> Id </td>
-                            <td> Start Station </td>
-                            <td> End Station </td>
-                            <td> Plying train </td>
-                            <td> Station list </td>
+                            <th> Id </th>
+                            <th> Start Station </th>
+                            <th> End Station </th>
+                            <th> Plying train </th>
+                            <th> Station list </th>
                         </tr>
                         </thead>
                         <tbody>

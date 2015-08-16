@@ -65,20 +65,20 @@
                 <table class="table table-striped">
                     <thead>
                     <tr>
-                        <td> Id </td>
-                        <td> Train Number </td>
-                        <td> Route </td>
+                        <th> Id </th>
+                        <th> Train Number </td>
+                        <th> Route </th>
                         <c:if test="${isSearchResult}">
-                            <td>"${sourceStation.name}" time</td>
-                            <td>"${destStation.name}" time</td>
+                            <th>"${sourceStation.name}" time</th>
+                            <th>"${destStation.name}" time</th>
                         </c:if>
-                        <td> RideDate </td>
-                        <td> Price $ </td>
+                        <th> RideDate </th>
+                        <th> Price $ </th>
                         <sec:authorize access="!hasRole('ROLE_EMPLOYEE')">
-                            <td> Ticket </td>
+                            <th> Ticket </th>
                         </sec:authorize>
                         <sec:authorize access="hasRole('ROLE_EMPLOYEE')">
-                            <td> Passengers</td>
+                            <th> Passengers</th>
                         </sec:authorize>
                     </tr>
                     </thead>

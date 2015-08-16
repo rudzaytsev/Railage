@@ -49,9 +49,9 @@
                     <table class="table table-striped">
                         <thead>
                         <tr>
-                            <td> Id </td>
-                            <td> Station Name </td>
-                            <td> Timetable </td>
+                            <th> Id </th>
+                            <th> Station Name </th>
+                            <th> Timetable </th>
                         </tr>
                         </thead>
                         <tbody>
