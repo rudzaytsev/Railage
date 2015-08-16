@@ -101,6 +101,7 @@ public class RoutesController {
         try {
             routeService.validate(params);
             routeService.addRoute(params);
+            controllersUtils.addSuccessMessage(model,"Route Added!");
 
         } catch (IncorrectStationsDepartureTimesOrderException |
                 IncorrectTimeFormatException |
