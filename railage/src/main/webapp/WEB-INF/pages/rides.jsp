@@ -145,9 +145,19 @@
                         <div class="form-group">
                             <div class="form-group">
                                 <label for="passengerBirthDate">Passenger Birth Date</label>
+                                <div class="form-group">
+                                    <div class='input-group date' id='birthDatePicker'>
+                                        <input type='text' name="passengerBirthDate" id="passengerBirthDate" class="form-control" />
+                                            <span class="input-group-addon">
+                                                <span class="glyphicon glyphicon-calendar"></span>
+                                            </span>
+                                    </div>
+                                </div>
+                                <!--
                                 <input type="date" class="form-control"
                                        id="passengerBirthDate" name="passengerBirthDate" placeholder="YYYY-MM-DD">
                                 <span id="helpBlock" class="help-block"> Input date in format YYYY-MM-DD, where Y - year, M - Mounth, D - day  </span>
+                                -->
                             </div>
                         </div>
                         <div class="form-group">
@@ -176,6 +186,14 @@
             </div>
         </div>
     </div>
+
+    <script type="text/javascript">
+        $(function () {
+            $('#birthDatePicker').datetimepicker({
+                format : "YYYY-MM-DD"
+            });
+        });
+    </script>
 
     <!-- Modal Find Rides -->
     <div class="modal fade" id="find_rides_modal_div" tabindex="-1" role="dialog" aria-labelledby="find_rides_modal_label">

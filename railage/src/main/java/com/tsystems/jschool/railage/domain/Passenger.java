@@ -60,7 +60,7 @@ public class Passenger extends DomainObject {
     }
 
     public String getFormattedBirthDate(){
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         return dateFormat.format(birthDate);
     }
 }
