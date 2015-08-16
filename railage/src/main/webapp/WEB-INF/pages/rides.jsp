@@ -15,7 +15,7 @@
     <title>Train Rides</title>
     <link rel="stylesheet" href="<c:url value="/railage/resources/css/bootstrap.css"/>">
     <link rel="stylesheet" href="<c:url value="/railage/resources/css/dashboard.css"/>">
-    <link href="<c:url value="/railage/resources/css/bootstrap-datetimepicker.min.css"/>" rel="stylesheet">
+    <link rel="stylesheet" href="<c:url value="/railage/resources/css/bootstrap-datetimepicker.min.css"/>" >
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js" type="text/javascript"></script>
     <script src="<c:url value="/railage/resources/js/bootstrap.js"/>" type="text/javascript"></script>
     <script src="<c:url value="/railage/resources/js/show.js"/>" type="text/javascript"></script>
@@ -252,13 +252,35 @@
                         <div class="form-group form-inline">
                             <div class="form-group col-sm-6">
                                 <label for="lowerBoundTime">Lower bound</label>
+                                <div class="form-group">
+                                    <div class='input-group date' id='lowerBoundTimePicker'>
+                                        <input type='text' name="lowerBoundTime" id="lowerBoundTime"
+                                               class="form-control" />
+                                        <span class="input-group-addon">
+                                            <span class="glyphicon glyphicon-time"></span>
+                                        </span>
+                                    </div>
+                                </div>
+                                <!--
                                 <input type="text" pattern="[0-9]{1,2}:[0-9]{1,2}" class="form-control"
                                        id="lowerBoundTime" name="lowerBoundTime" placeholder="10:00">
+                                -->
                             </div>
                             <div class="form-group col-sm-6">
                                 <label for="upperBoundTime">Upper bound</label>
+                                <div class="form-group">
+                                    <div class='input-group date' id='upperBoundTimePicker'>
+                                        <input type='text' name="upperBoundTime" id="upperBoundTime"
+                                               class="form-control" />
+                                        <span class="input-group-addon">
+                                            <span class="glyphicon glyphicon-time"></span>
+                                        </span>
+                                    </div>
+                                </div>
+                                <!--
                                 <input type="text" pattern="[0-9]{1,2}:[0-9]{1,2}" class="form-control"
                                        id="upperBoundTime" name="upperBoundTime" placeholder="12:00">
+                                -->
                             </div>
 
                         </div>
@@ -273,6 +295,22 @@
             </div>
         </div>
     </div>
+
+    <script type="text/javascript">
+        $(function () {
+            $('#lowerBoundTimePicker').datetimepicker({
+                format : "HH:mm"
+            });
+        });
+    </script>
+
+    <script type="text/javascript">
+        $(function () {
+            $('#upperBoundTimePicker').datetimepicker({
+                format : "HH:mm"
+            });
+        });
+    </script>
 
     <script>
         $(document).on('click',"#findrides", function(){
