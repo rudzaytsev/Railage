@@ -13,6 +13,7 @@
     <title>Route builder</title>
     <link rel="stylesheet" href="<c:url value="/railage/resources/css/bootstrap.css"/>">
     <link rel="stylesheet" href="<c:url value="/railage/resources/css/dashboard.css"/>">
+    <link rel="stylesheet" href="<c:url value="/railage/resources/css/route_builder.css"/>">
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js" type="text/javascript"></script>
     <script src="<c:url value="/railage/resources/js/bootstrap.js"/>" type="text/javascript"></script>
 </head>
@@ -69,8 +70,8 @@
                         </div>
                     </div>
                     <h3>Choose Route Stations</h3>
-                    <div class="form-inline row">
-                        <div class="form-group col-sm-5">
+                    <div class="form-inline row routepart">
+                        <div class="form-group col-sm-5" >
                             <label for="stationId1" class="col-sm-3 control-label">#1</label>
                             <div class="col-sm-6">
                                 <select class="form-control" id="stationId1" name="stationId1">
@@ -95,7 +96,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form-inline row">
+                    <div class="form-inline row routepart">
                         <div class="form-group col-sm-5">
                             <label for="stationId2" class="col-sm-3 control-label">#2</label>
                             <div class="col-sm-6">
@@ -121,21 +122,21 @@
                             </div>
                         </div>
                     </div>
-                    <div id="place_to_insert" >
+                    <div id="place_to_insert" class="routepart-sep" >
                     </div>
-                    <div class="form-inline row col-sm-offset-2">
+                    <div class="form-inline row col-sm-offset-3 routepart-control-panel">
                         <div class="form-group row">
-                            <div class="col-sm-offset-2 col-sm-3">
-                                <button type="button" id="button_add_route_part" class="btn btn-success">Add Station</button>
+                            <div class="col-sm-offset-0 col-sm-6">
+                                <button type="button" id="button_add_route_part" class="btn btn-success col-sm-12">Add Station</button>
                             </div>
-                            <div class="col-sm-offset-1 col-sm-3">
+                            <div class="col-sm-offset-1 col-sm-4">
                                 <button type="button" id="button_remove_route_part" class="btn btn-danger">Remove Station</button>
                             </div>
                         </div>
                     </div>
-                    <div class="form-inline row">
-                        <div class="col-sm-offset-8 col-sm-4">
-                            <button type="submit" class="btn btn-info">Add Route</button>
+                    <div class="form-inline row routepart-control-panel">
+                        <div class="col-sm-offset-1 col-sm-8">
+                            <button type="submit" class="btn btn-info col-sm-11">Add Route</button>
                         </div>
                     </div>
                 </form>
@@ -186,7 +187,7 @@
 
                     iCnt = iCnt + 1;
 
-                    divStr = ''.concat('<div id="routepartX" class="form-inline row">',
+                    divStr = ''.concat('<div id="routepartX" class="form-inline row routepart">',
                                 '<div  class="form-group col-sm-5">',
                                 '<label for="stationIdX" class="col-sm-3 control-label">#X</label>',
                                 '<div class="col-sm-6">',
