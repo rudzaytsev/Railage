@@ -15,6 +15,9 @@ import java.util.Collection;
  */
 public class ReportPdfMapper {
 
+    private static org.apache.log4j.Logger logger =
+            org.apache.log4j.Logger.getLogger(ReportPdfMapper.class);
+
     private ReportData report;
 
     public ReportPdfMapper(ReportData report) {
@@ -23,6 +26,8 @@ public class ReportPdfMapper {
 
     public byte[] createPdfFile() throws DocumentException, IOException {
 
+        logger.info("Invoke createPdfFile()");
+
         Document document = new Document();
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         PdfWriter.getInstance(document, baos);
@@ -30,11 +35,14 @@ public class ReportPdfMapper {
         this.createPdfContent(document);
         document.close();
 
+        logger.info("Created report as pdf file in memory!");
+
         return baos.toByteArray();
     }
 
     private void createPdfContent(Document document) throws DocumentException {
 
+        logger.debug("Invoke createPdfContent");
         //create header
         Font headerFont = new Font(Font.FontFamily.TIMES_ROMAN, 32,
                                    Font.BOLD | Font.UNDERLINE);

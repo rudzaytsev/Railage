@@ -24,6 +24,9 @@ import java.util.Date;
 @SessionScoped
 public class ReportsController implements Serializable {
 
+    private static org.apache.log4j.Logger logger =
+            org.apache.log4j.Logger.getLogger(ReportsController.class);
+
     public static final String CREATE_REPORT_URL = "http://railagesite:8080/railage/reports";
 
     private ReportPeriod reportPeriod = new ReportPeriod();
@@ -46,18 +49,21 @@ public class ReportsController implements Serializable {
         Date endDate = reportPeriod.getEndDate();
         FacesContext context = FacesContext.getCurrentInstance();
         if(startDate == null || endDate == null){
+            logger.error("Start or End Date is not selected");
             HttpSession session = (HttpSession) context.getExternalContext().getSession(true);
             session.setAttribute("isError",true);
             session.setAttribute("errorMsg","Please select Start and End Date!");
             return "index";
         }
         if(startDate.after(endDate)){
+            logger.error("Start Date happens after endDate, but should happens before!");
             HttpSession session = (HttpSession) context.getExternalContext().getSession(true);
             session.setAttribute("isError",true);
             session.setAttribute("errorMsg","Start Date should happens before End Date!");
             return "index";
         }
         else {
+            logger.info("Validation of dates well done!");
             HttpSession session = (HttpSession) context.getExternalContext().getSession(true);
             session.setAttribute("isError",false);
             session.setAttribute("errorMsg","");
@@ -66,7 +72,6 @@ public class ReportsController implements Serializable {
         postRequestData.setFromDate(dateFormat.format(reportPeriod.getStartDate()));
         postRequestData.setToDate(dateFormat.format(reportPeriod.getEndDate()));
         Entity<PostRequestData> jsonReqEntity = Entity.json(postRequestData);
-
 
         Response response = ClientBuilder.newClient().target(CREATE_REPORT_URL).
                             request(MediaType.APPLICATION_JSON_TYPE).
@@ -82,6 +87,8 @@ public class ReportsController implements Serializable {
             return "report";
         }
         catch(DocumentException | IOException | ErrorResponseException e){
+
+            logger.error(e.getMessage());
             FacesUtils.setSessionMapValue(FacesUtils.REPORT_DATA,null);
             FacesUtils.setSessionMapValue(FacesUtils.IS_ERROR,true);
             FacesUtils.setSessionMapValue(FacesUtils.ERROR_MSG,e.getMessage());
@@ -94,6 +101,7 @@ public class ReportsController implements Serializable {
 
     private byte[] sendGetRequestForReportData(Response response) throws DocumentException, IOException, ErrorResponseException {
 
+        logger.info("Invoke sendGetRequestForReportData");
         int status = response.getStatus();
         boolean okStatus = (status == 200 || status == 201);
         if(!okStatus){
@@ -112,6 +120,7 @@ public class ReportsController implements Serializable {
 
     private ReportData sendGetRequest(String requestUrl) throws ErrorResponseException {
 
+        logger.info("Invoke sendGetRequest with url = " + requestUrl);
         Response response = ClientBuilder.newClient().
                 target(requestUrl).request().buildGet().invoke();
 

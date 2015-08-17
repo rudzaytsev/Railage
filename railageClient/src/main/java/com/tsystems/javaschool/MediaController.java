@@ -25,9 +25,13 @@ public class MediaController implements Serializable {
 
     private String errorMsg;
 
+    private static org.apache.log4j.Logger logger =
+            org.apache.log4j.Logger.getLogger(MediaController.class);
+
     @PostConstruct
     public void postConstruct() throws DocumentException {
 
+       logger.debug("Invoked postConstruct()");
        byte[] reportAsBytes = (byte[]) FacesUtils.getSessionMapValue(FacesUtils.REPORT_DATA);
        this.isError = (Boolean) FacesUtils.getSessionMapValue(FacesUtils.IS_ERROR);
        this.errorMsg =  (String) FacesUtils.getSessionMapValue(FacesUtils.ERROR_MSG);
