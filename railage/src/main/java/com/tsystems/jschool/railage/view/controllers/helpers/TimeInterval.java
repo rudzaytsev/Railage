@@ -23,4 +23,12 @@ public class TimeInterval {
     public Time getUpperBound() {
         return upperBound;
     }
+
+    @Override
+    public String toString() {
+        return "TimeInterval{" +
+                "lowerBound=" + lowerBound +
+                ", upperBound=" + upperBound +
+                '}';
+    }
 }

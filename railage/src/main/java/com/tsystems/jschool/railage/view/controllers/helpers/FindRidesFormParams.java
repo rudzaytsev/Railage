@@ -127,4 +127,14 @@ public class FindRidesFormParams {
         return interval;
     }
     */
+
+    @Override
+    public String toString() {
+        return "FindRidesFormParams{" +
+                "sourceStationId='" + sourceStationId + '\'' +
+                ", destStationId='" + destStationId + '\'' +
+                ", lowerBoundTime='" + lowerBoundTime + '\'' +
+                ", upperBoundTime='" + upperBoundTime + '\'' +
+                '}';
+    }
 }

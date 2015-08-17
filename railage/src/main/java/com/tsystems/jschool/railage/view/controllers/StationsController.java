@@ -31,10 +31,14 @@ public class StationsController {
     @Autowired
     ControllersUtils controllersUtils;
 
+    private static org.apache.log4j.Logger logger =
+            org.apache.log4j.Logger.getLogger(StationsController.class);
+
     @RequestMapping(value="/stations/all", method = RequestMethod.GET)
     public String showAllStations(Model model){
 
         controllersUtils.addStations2Model(model);
+        logger.info("Show all stations");
         return Pages.STATIONS;
     }
 
@@ -49,12 +53,15 @@ public class StationsController {
 
             String errorMsg = "Can not add Station. " + e.getMessage();
             controllersUtils.addErrorMessage(model, errorMsg);
+            logger.error(errorMsg);
             return Pages.STATIONS;
         }
         finally {
             controllersUtils.addStations2Model(model);
         }
-        controllersUtils.addSuccessMessage(model,"Station added.");
+        String infoMsg = "Station added.";
+        controllersUtils.addSuccessMessage(model,infoMsg);
+        logger.info(infoMsg);
         return Pages.STATIONS;
 
     }
@@ -65,6 +72,7 @@ public class StationsController {
         List<TimeTableLine> timeTableLines = timeTableService.findByStationId(stationId);
         model.addAttribute(Utils.TIMETABLE, timeTableLines);
         model.addAttribute(Utils.CURRENT_STATION, stationService.findStationById(stationId));
+        logger.info("Show timetable for station with stationId = " + stationId);
         return Pages.TIMETABLE;
     }
 }

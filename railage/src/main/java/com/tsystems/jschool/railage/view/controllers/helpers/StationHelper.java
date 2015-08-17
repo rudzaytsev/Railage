@@ -53,4 +53,14 @@ public class StationHelper {
         }
         return result;
     }
+
+    @Override
+    public String toString() {
+        return "StationHelper{" +
+                "stationId=" + stationId +
+                ", stationName='" + stationName + '\'' +
+                '}';
+    }
+
+
 }

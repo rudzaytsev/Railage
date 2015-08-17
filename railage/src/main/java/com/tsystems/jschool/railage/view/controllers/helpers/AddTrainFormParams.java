@@ -23,4 +23,12 @@ public class AddTrainFormParams {
     public void setSeatsNumber(String seatsNumber) {
         this.seatsNumber = seatsNumber;
     }
+
+    @Override
+    public String toString() {
+        return "AddTrainFormParams{" +
+                "trainNumber='" + trainNumber + '\'' +
+                ", seatsNumber='" + seatsNumber + '\'' +
+                '}';
+    }
 }

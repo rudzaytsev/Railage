@@ -149,5 +149,13 @@ public class RouteFormParams {
     }
     */
 
-
+    @Override
+    public String toString() {
+        return "RouteFormParams{" +
+                "stationsIds=" + stationsIds +
+                ", times=" + times +
+                ", trainId=" + trainId +
+                ", period='" + period + '\'' +
+                '}';
+    }
 }

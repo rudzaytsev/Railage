@@ -54,4 +54,15 @@ public class BuyTicketFormParams {
     public void setRideIdForTicket(String rideIdForTicket) {
         this.rideIdForTicket = rideIdForTicket;
     }
+
+    @Override
+    public String toString() {
+        return "BuyTicketFormParams{" +
+                "passengerName='" + passengerName + '\'' +
+                ", passengerLastName='" + passengerLastName + '\'' +
+                ", passengerBirthDate='" + passengerBirthDate + '\'' +
+                ", boardingStationId='" + boardingStationId + '\'' +
+                ", rideIdForTicket='" + rideIdForTicket + '\'' +
+                '}';
+    }
 }

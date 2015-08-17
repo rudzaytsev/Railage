@@ -45,10 +45,14 @@ public class RoutesController {
     @Autowired
     ControllersUtils controllersUtils;
 
+    private static org.apache.log4j.Logger logger =
+            org.apache.log4j.Logger.getLogger(RoutesController.class);
+
     @RequestMapping(value = "/routes/all", method = RequestMethod.GET)
     public String showAllRoutes(Model model){
 
         controllersUtils.addRoutes2Model(model);
+        logger.info("Show all routes");
         return Pages.ROUTES;
     }
 
@@ -64,14 +68,17 @@ public class RoutesController {
             JSONObject jsonObj = (JSONObject) jsonParser.parse(json);
             Integer routeId = Integer.parseInt(jsonObj.get("routeId").toString());
             this.sendStationHelpersByRoute(resp,routeId);
+            logger.info("Handled sendStationsInRoute Ajax request with body = " + json);
         }
         catch (ParseException | NumberFormatException e) {
+            logger.error(e.getMessage());
             resp.sendError(HttpServletResponse.SC_BAD_REQUEST);
         }
     }
 
     private void sendStationHelpersByRoute(HttpServletResponse response, Integer routeId) throws IOException {
 
+        logger.info("Invoked sendStationHelpersByRoute()");
         ObjectMapper mapper = new ObjectMapper();
 
         Route route = routeService.findRouteById(routeId);
@@ -89,6 +96,7 @@ public class RoutesController {
         controllersUtils.addTrains2Model(model);
         model.addAttribute(Utils.PERIODS, Period.getPeriodsAsList());
         controllersUtils.addRoutesFormGroup(model);
+        logger.info("Show routeBuilder page");
 
         return Pages.ROUTE_BULDER;
     }
@@ -102,11 +110,13 @@ public class RoutesController {
             routeService.validate(params);
             routeService.addRoute(params);
             controllersUtils.addSuccessMessage(model,"Route Added!");
+            logger.info("Added route with params = " + params);
 
         } catch (IncorrectStationsDepartureTimesOrderException |
                 IncorrectTimeFormatException |
                 DuplicatedStationsInRouteException e) {
 
+           logger.error(e.getMessage());
            controllersUtils.addErrorMessage(model,e.getMessage());
         }
         controllersUtils.addRoutes2Model(model);
@@ -131,14 +141,17 @@ public class RoutesController {
             String requestName = (String) jsonObj.get("request");
             if(AjaxRequestType.STATIONS.value().equals(requestName)) {
                 this.sendStationHelpers(resp);
+                logger.info("Send Ajax StationHelpers for ajax request with body = " + json);
             }
         }
         catch (ParseException | NumberFormatException e) {
+            logger.error(e.getMessage());
             resp.sendError(HttpServletResponse.SC_BAD_REQUEST);
         }
     }
 
     private void sendStationHelpers(HttpServletResponse response) throws IOException {
+        logger.info("Invoked sendStationHelpers()");
         ObjectMapper mapper = new ObjectMapper();
         List<StationHelper> stationHelpers = StationHelper.map(
                 stationService.findAllStations());

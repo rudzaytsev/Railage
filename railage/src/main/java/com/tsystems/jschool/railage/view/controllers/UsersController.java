@@ -34,6 +34,9 @@ public class UsersController {
     @Autowired
     ControllersUtils controllersUtils;
 
+    private static org.apache.log4j.Logger logger =
+            org.apache.log4j.Logger.getLogger(UsersController.class);
+
 
     @RequestMapping(value = {"/"},method = RequestMethod.GET)
     public String welcome(){
@@ -43,7 +46,10 @@ public class UsersController {
 
     @RequestMapping(value = "/auth/error", method = RequestMethod.GET)
     public String showError(Model model){
-        controllersUtils.addErrorMessage(model,"Invalid user login or password");
+
+        String errorMsg = "Invalid user login or password";
+        controllersUtils.addErrorMessage(model,errorMsg);
+        logger.error(errorMsg);
 
         return Pages.INDEX;
     }
@@ -59,6 +65,7 @@ public class UsersController {
 
         controllersUtils.addTrains2Model(model);
         controllersUtils.addTrainAdditionFormParams(model);
+        logger.info("User logged in!");
 
         return Pages.TRAINS;
     }
@@ -73,12 +80,15 @@ public class UsersController {
         catch (InvalidUserDataException |
               DomainObjectAlreadyExistsException e){
 
+            logger.error(e.getMessage());
             controllersUtils.addErrorMessage(model, e.getMessage());
             return Pages.REGISTRATION;
         }
         boolean authenticated = this.authRegisteredUser(user);
         if(!authenticated){
-            controllersUtils.addErrorMessage(model, "User not authenticated!");
+            String errorMsg = "User not authenticated!";
+            logger.error(errorMsg);
+            controllersUtils.addErrorMessage(model, errorMsg);
             return Pages.REGISTRATION;
         }
         controllersUtils.addTrains2Model(model);
@@ -102,10 +112,9 @@ public class UsersController {
         }
         catch (UserNotFoundException | InvalidUserRoleException |
                OverflowWhileAdditionException e ) {
+            logger.error(e.getMessage());
             controllersUtils.addErrorMessage(model,e.getMessage());
         }
-
-
         return this.selectView(lastViewName,model);
     }
 

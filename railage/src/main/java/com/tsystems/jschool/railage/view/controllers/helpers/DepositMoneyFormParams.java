@@ -47,4 +47,13 @@ public class DepositMoneyFormParams {
     public void setLastViewName(String lastViewName) {
         this.lastViewName = lastViewName;
     }
+
+    @Override
+    public String toString() {
+        return "DepositMoneyFormParams{" +
+                "selectedAmount='" + selectedAmount + '\'' +
+                ", lastViewName='" + lastViewName + '\'' +
+                ", amounts=" + amounts +
+                '}';
+    }
 }

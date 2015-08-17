@@ -33,4 +33,14 @@ public class AddRideFormParams {
     public void setRidePrice(String ridePrice) {
         this.ridePrice = ridePrice;
     }
+
+
+    @Override
+    public String toString() {
+        return "AddRideFormParams{" +
+                "routeId='" + routeId + '\'' +
+                ", rideDate='" + rideDate + '\'' +
+                ", ridePrice='" + ridePrice + '\'' +
+                '}';
+    }
 }

@@ -53,11 +53,15 @@ public class RidesController {
     @Autowired
     ControllersUtils controllersUtils;
 
+    private static org.apache.log4j.Logger logger =
+            org.apache.log4j.Logger.getLogger(RidesController.class);
+
 
     @RequestMapping(value = "/rides/all", method = RequestMethod.GET)
     public String showAllRides(Model model){
         this.addAllRides(model);
         controllersUtils.addRidesFormGroup(model);
+        logger.info("Show all rides");
         return Pages.RIDES;
     }
 
@@ -69,6 +73,7 @@ public class RidesController {
         model.addAttribute(Utils.HAS_CURRENT_RIDE, true);
         model.addAttribute(Utils.CURRENT_TRAIN_RIDE, trainService.findTrainRideById(rideId));
         model.addAttribute(Utils.PASSENGERS, passengers);
+        logger.info("Show all passengers for ride with rideId = " + rideId);
 
         return Pages.PASSENGERS;
     }
@@ -82,6 +87,7 @@ public class RidesController {
         model.addAttribute(Utils.HAS_CURRENT_TRAIN, true);
         model.addAttribute(Utils.HAS_CURRENT_RIDE, false);
         model.addAttribute(Utils.PASSENGERS, passengers);
+        logger.info("Show passengers for train with trainId = " + trainId);
 
         return Pages.PASSENGERS;
     }
@@ -105,8 +111,10 @@ public class RidesController {
             RouteHelper routeHelper = RouteHelper.map(routeService.findRouteById(routeId));
             resp.setContentType("application/json");
             mapper.writeValue(resp.getOutputStream(), routeHelper);
+            logger.info("send Route Info By Ajax request with body = " + json );
         }
         catch(NumberFormatException | ParseException e ){
+            logger.error(e.getMessage());
             resp.sendError(HttpServletResponse.SC_BAD_REQUEST);
         }
     }
@@ -114,22 +122,26 @@ public class RidesController {
     @RequestMapping(value = "/find/rides", method = RequestMethod.POST)
     public String findRides(FindRidesFormParams params,Model model){
 
+        logger.info("Invoked findRides with params = " + params);
         try {
 
             List<TrainRide> rides = this.addFoundedRideList(params,model);
 
             if(!rides.isEmpty()){
-                controllersUtils.addSuccessMessage(model,"Train Rides found");
+                String infoMsg = "Train Rides found";
+                logger.info(infoMsg);
+                controllersUtils.addSuccessMessage(model,infoMsg);
             }
             else {
-                controllersUtils.addSuccessMessage(model,
-                        "No one Train Ride matches required criterias");
+                String warningMessage = "No one Train Ride matches required criterias";
+                logger.warn(warningMessage);
+                controllersUtils.addSuccessMessage(model,warningMessage);
             }
             return Pages.RIDES;
 
         } catch (IncorrectTimeFormatException | IncorrectTimeIntervalException e) {
-
-            controllersUtils.addErrorMessage(model,e.getMessage());
+            logger.error(e.getMessage());
+            controllersUtils.addErrorMessage(model, e.getMessage());
             this.addEmptyRideList(model);
         }
 
@@ -137,6 +149,9 @@ public class RidesController {
     }
 
     private List<TrainRide> addFoundedRideList(FindRidesFormParams params,Model model) throws IncorrectTimeIntervalException, IncorrectTimeFormatException {
+
+        logger.info("Invoked addFoundedRideList with params = " + params);
+
         List<TrainRide> rides = trainService.findRidesBy(
                 params.getSourceStationIdAsInt(), params.getDestStationIdAsInt(),
                 trainService.validate(params));
@@ -162,6 +177,8 @@ public class RidesController {
 
     private void addEmptyRideList(Model model){
 
+        logger.debug("Invoked addEmptyRideList(...)");
+
         model.addAttribute(Utils.IS_SEARCH_RESULT, false);
         model.addAttribute(Utils.ROUTES, routeService.findAllRoutes());
         model.addAttribute(Utils.TRAIN_RIDES, new ArrayList<TrainRide>());
@@ -172,29 +189,36 @@ public class RidesController {
     @RequestMapping(value = "/add/ride", method = RequestMethod.POST)
     public String addRide(AddRideFormParams params, Model model){
 
+        logger.info("Invoked addRide with params = " + params);
+
         Integer routeId =  Integer.parseInt(params.getRouteId());
         String dateStr = params.getRideDate();
         String priceStr = params.getRidePrice();
 
         try {
             trainService.addTrainRide(routeId, dateStr, priceStr);
+
         }
         catch (java.text.ParseException | TimeTableConflictException |
                 InvalidPriceException | NumberFormatException e) {
 
+            logger.error(e.getMessage());
             controllersUtils.addErrorMessage(model, e.getMessage());
             return Pages.RIDES;
         } finally {
             this.addAllRides(model);
             controllersUtils.addRidesFormGroup(model);
         }
-        controllersUtils.addSuccessMessage(model,"Train ride added!");
+        String infoMsg = "Train ride added!";
+        logger.info(infoMsg);
+        controllersUtils.addSuccessMessage(model,infoMsg);
 
         return Pages.RIDES;
     }
 
     private void addAllRides(Model model){
 
+        logger.debug("Invoked addAllRides");
         List<TrainRide> rides = trainService.findAllTrainRides();
         List<Station> stations = stationService.findAllStations();
 
@@ -209,12 +233,14 @@ public class RidesController {
     @RequestMapping(value = "/buy/ticket", method = RequestMethod.POST)
     public String buyTicket(BuyTicketFormParams params,Model model){
 
+        logger.info("Invoked buyTicket with params = " + params);
         Integer boardingStationId = Integer.parseInt(
                params.getBoardingStationId());
 
         Integer rideId = Integer.parseInt(params.getRideIdForTicket());
 
         try {
+
             Passenger passenger = passengerService.createPassenger(
                     params.getPassengerName(),
                     params.getPassengerLastName(),
@@ -223,7 +249,9 @@ public class RidesController {
             UserAdapter userAdapter = userService.getPrincipal();
 
             ticketService.buyTicket(rideId, boardingStationId, passenger,userAdapter);
-            controllersUtils.addSuccessMessage(model,"Ticket was bought!");
+            String infoMsg = "Ticket was bought!";
+            logger.info(infoMsg);
+            controllersUtils.addSuccessMessage(model,infoMsg);
 
         }
         catch (java.text.ParseException | NoFreeSeatsForRideException |
@@ -232,6 +260,7 @@ public class RidesController {
                 InvalidWithdrawException |
                 InvalidBoardingStationInRouteException e) {
 
+            logger.error(e.getMessage());
             controllersUtils.addErrorMessage(model, e.getMessage());
         }
 
@@ -248,6 +277,7 @@ public class RidesController {
     public void sendBoardingStationsForRideByAjax(
             HttpServletRequest req, HttpServletResponse resp ) throws IOException {
 
+        logger.info("Invoked sendBoardingStationsForRideByAjax(...)");
         BufferedReader br = new BufferedReader(new InputStreamReader(req.getInputStream()));
         String json = "";
         if(br != null){
@@ -264,11 +294,14 @@ public class RidesController {
             }
         }
         catch (ParseException | NumberFormatException e) {
+            logger.error(e.getMessage());
             resp.sendError(HttpServletResponse.SC_BAD_REQUEST);
         }
     }
 
     private void sendStationHelpersByRide(HttpServletResponse response, Integer rideId) throws IOException {
+
+        logger.info("Invoked sendStationHelpersByRide with rideId = " + rideId);
         ObjectMapper mapper = new ObjectMapper();
 
         TrainRide ride = trainService.findTrainRideById(rideId);

@@ -55,4 +55,14 @@ public class RouteHelper {
         helper.setStationsNumber(route.getRouteParts().size());
         return helper;
     }
+
+    @Override
+    public String toString() {
+        return "RouteHelper{" +
+                "trainNumber='" + trainNumber + '\'' +
+                ", seats=" + seats +
+                ", stationsNumber=" + stationsNumber +
+                ", period='" + period + '\'' +
+                '}';
+    }
 }

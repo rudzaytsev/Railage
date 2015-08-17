@@ -39,11 +39,16 @@ public class TrainsController {
     @Autowired
     ControllersUtils controllersUtils;
 
+    private static org.apache.log4j.Logger logger =
+            org.apache.log4j.Logger.getLogger(TrainsController.class);
+
     @RequestMapping(value = "/trains/all", method = RequestMethod.GET)
     public String showAllTrains(Model model){
 
         controllersUtils.addTrains2Model(model);
         controllersUtils.addTrainAdditionFormParams(model);
+        logger.info("Show all trains.");
+
         return Pages.TRAINS;
     }
 
@@ -60,6 +65,7 @@ public class TrainsController {
         model.addAttribute(Utils.HAS_CURRENT_TRAIN, true);
         model.addAttribute(Utils.CURRENT_TRAIN, trainService.findTrainById(trainId));
         controllersUtils.addRidesFormGroup(model);
+        logger.info("Show rides for train with trainId = " + trainId);
 
         return Pages.RIDES;
     }
@@ -74,9 +80,10 @@ public class TrainsController {
             trainService.addTrain(trainNumber,seats);
         }
         catch(NumberFormatException e){
-
-            controllersUtils.addErrorMessage(model,
-                    "Can Add Train. Seats is not a number!");
+            logger.error(e.getMessage());
+            String errMsg =  "Can not add Train. Seats is not a number!";
+            controllersUtils.addErrorMessage(model,errMsg);
+            logger.error(errMsg);
             return Pages.TRAINS;
         }
         catch (NotPositiveNumberOfSeatsException |
@@ -85,13 +92,16 @@ public class TrainsController {
 
             String errorMsg = "Can not add train. " + e.getMessage();
             controllersUtils.addErrorMessage(model,errorMsg);
+            logger.error(e.getMessage());
             return Pages.TRAINS;
         }
         finally {
             controllersUtils.addTrains2Model(model);
             controllersUtils.addTrainAdditionFormParams(model);
         }
-        controllersUtils.addSuccessMessage(model,"Train added");
+        String infoMsg = "Train added!";
+        controllersUtils.addSuccessMessage(model,infoMsg);
+        logger.info(infoMsg);
 
         return Pages.TRAINS;
     }
