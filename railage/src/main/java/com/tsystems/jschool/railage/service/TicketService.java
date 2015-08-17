@@ -22,24 +22,26 @@ import java.util.List;
 public class TicketService {
 
     @Autowired
-    private TicketDao ticketDao;
+    TicketDao ticketDao;
 
     @Autowired
-    private TrainRideDao trainRideDao;
+    TrainRideDao trainRideDao;
 
     @Autowired
-    private PassengerDao passengerDao;
+    PassengerDao passengerDao;
 
     @Autowired
-    private StationDao stationDao;
+    StationDao stationDao;
 
     @Autowired
-    private UserDao userDao;
+    UserDao userDao;
 
     @Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW,
             rollbackFor = {RuntimeException.class, Exception.class, })
     public void buyTicket(Integer trainRideId, Integer boardingStationId, Passenger passenger, UserAdapter userAdapter)
-            throws NoFreeSeatsForRideException, PassengerAlreadyBookedTicketOnRideException, BookingTimeLimitIsOverException, ParseException, InvalidBoardingStationInRouteException, InvalidWithdrawException {
+            throws NoFreeSeatsForRideException, PassengerAlreadyBookedTicketOnRideException,
+            BookingTimeLimitIsOverException, ParseException, InvalidBoardingStationInRouteException,
+            InvalidWithdrawException {
 
         TrainRide ride = trainRideDao.findById(trainRideId);
         long freeSeats = ride.getTrain().getSeats().longValue();
@@ -73,7 +75,7 @@ public class TicketService {
         ticketDao.merge(ticket);
     }
 
-    private Integer withdraw(UserAdapter adapter,Integer price) throws InvalidWithdrawException {
+    public Integer withdraw(UserAdapter adapter,Integer price) throws InvalidWithdrawException {
        User user = userDao.findUserByLogin( adapter.getLogin());
        Integer balance = user.getBalance();
        if(balance < price){

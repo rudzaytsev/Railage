@@ -31,13 +31,13 @@ import java.util.List;
 public class TrainService {
 
     @Autowired
-    private TrainDao trainDao;
+    TrainDao trainDao;
 
     @Autowired
-    private TrainRideDao trainRideDao;
+    TrainRideDao trainRideDao;
 
     @Autowired
-    private RouteDao routeDao;
+    RouteDao routeDao;
 
 
     private static final String TRAIN_NUMBER_PATTERN = "^[0-9a-zA-Z]+";
